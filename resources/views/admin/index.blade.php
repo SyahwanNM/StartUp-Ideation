@@ -485,7 +485,7 @@
                             <i class="fas fa-edit"></i>
                             Edit BMC
                         </a>
-                        <form method="POST" action="{{ route('bmc.destroy', $business->id) }}" class="d-inline" 
+                        <form method="POST" action="{{ route('admin.destroy', $business->id) }}" class="d-inline" 
                               onsubmit="return confirm('Apakah Anda yakin ingin menghapus BMC ini?')">
                             @csrf
                             @method('DELETE')

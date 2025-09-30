@@ -75,4 +75,32 @@ class AdminController extends Controller
         
         return Excel::download(new BusinessExport($businesses), 'business-model-canvas-data.xlsx');
     }
+
+    public function destroy($id)
+    {
+        try {
+            // Validate ID format
+            if (!is_numeric($id) || $id <= 0) {
+                return redirect()->route('admin.index')
+                    ->with('error', 'ID BMC tidak valid.');
+            }
+
+            $business = Business::find($id);
+            
+            if (!$business) {
+                return redirect()->route('admin.index')
+                    ->with('error', 'Business Model Canvas tidak ditemukan.');
+            }
+
+            $business->delete();
+
+            return redirect()->route('admin.index')
+                ->with('success', 'Business Model Canvas berhasil dihapus!');
+                
+        } catch (\Exception $e) {
+            \Log::error('Error in AdminController@destroy: ' . $e->getMessage());
+            return redirect()->route('admin.index')
+                ->with('error', 'Terjadi kesalahan saat menghapus data BMC.');
+        }
+    }
 }

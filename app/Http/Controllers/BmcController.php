@@ -204,25 +204,34 @@ class BmcController extends Controller
         try {
             // Validate ID format
             if (!is_numeric($id) || $id <= 0) {
-                return redirect()->route('bmc.landing')
+                return redirect()->back()
                     ->with('error', 'ID BMC tidak valid.');
             }
 
             $business = Business::find($id);
             
             if (!$business) {
-                return redirect()->route('bmc.landing')
+                return redirect()->back()
                     ->with('error', 'Business Model Canvas tidak ditemukan.');
             }
 
             $business->delete();
+
+            // Check if request came from admin dashboard
+            $referer = request()->header('referer');
+            $isFromAdmin = $referer && str_contains($referer, '/admin');
+            
+            if ($isFromAdmin) {
+                return redirect()->route('admin.index')
+                    ->with('success', 'Business Model Canvas berhasil dihapus!');
+            }
 
             return redirect()->route('bmc.landing')
                 ->with('success', 'Business Model Canvas berhasil dihapus!');
                 
         } catch (\Exception $e) {
             \Log::error('Error in BmcController@destroy: ' . $e->getMessage());
-            return redirect()->route('bmc.landing')
+            return redirect()->back()
                 ->with('error', 'Terjadi kesalahan saat menghapus data BMC.');
         }
     }

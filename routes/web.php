@@ -37,5 +37,6 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/show/{id}', [AdminController::class, 'show'])->name('admin.show')->where('id', '[0-9]+');
     Route::get('/export', [AdminController::class, 'export'])->name('admin.export');
+    Route::delete('/delete/{id}', [AdminController::class, 'destroy'])->name('admin.destroy')->where('id', '[0-9]+');
     Route::post('/logout', [AuthController::class, 'logout'])->name('admin.logout');
 });
