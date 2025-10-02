@@ -454,6 +454,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('bmc.create') }}">Buat BMC</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('tam-sam-som.create') }}">TAM SAM SOM</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('financial-projection.create') }}">Financial Projection</a>
+                    </li>
                 </ul>
             </div>
         </div>
