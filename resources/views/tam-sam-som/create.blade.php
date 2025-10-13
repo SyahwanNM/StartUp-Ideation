@@ -1405,6 +1405,14 @@
             });
             document.getElementById('samPercentage').addEventListener('input', calculateSAM);
             document.getElementById('somPercentage').addEventListener('input', calculateSOM);
+            
+            // Add form submit event listener
+            document.getElementById('tamSamSomForm').addEventListener('submit', function(e) {
+                // Ensure all calculations are done before submit
+                calculateTAM();
+                calculateSAM();
+                calculateSOM();
+            });
         });
 
         function changeStep(direction) {
@@ -1482,13 +1490,8 @@
             const currentStepElement = document.querySelector(`.step-content[data-step="${currentStep}"]`);
             const requiredFields = currentStepElement.querySelectorAll('input[required], textarea[required]');
             
-            console.log('Validating step:', currentStep);
-            console.log('Required fields found:', requiredFields.length);
-            
             for (let field of requiredFields) {
-                console.log('Field:', field.name, 'Value:', field.value);
                 if (!field.value.trim()) {
-                    console.log('Field is empty:', field.name);
                     field.focus();
                     field.style.borderColor = '#dc3545';
                     setTimeout(() => {
@@ -1497,7 +1500,6 @@
                     return false;
                 }
             }
-            console.log('Step validation passed');
             return true;
         }
 
