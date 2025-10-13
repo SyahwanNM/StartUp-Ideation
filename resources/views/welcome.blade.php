@@ -65,7 +65,7 @@
                             <span>
                                 Mulai dengan
                                 <a href="{{ route('bmc.landing') }}" class="inline-flex items-center space-x-1 font-medium underline underline-offset-4 text-[#f53003] dark:text-[#FF4433] ml-1">
-                                    <span>Buat BMC</span>
+                                    <span>BMC</span>
                                     <svg
                                         width="10"
                                         height="11"

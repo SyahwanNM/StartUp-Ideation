@@ -100,12 +100,26 @@
                 font-size: 8px !important;
                 border: 1px solid #333 !important;
                 background: white !important;
+                position: relative !important;
             }
+            
+            .bmc-box::before {
+                content: '' !important;
+                position: absolute !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                height: 2px !important;
+                background: #333 !important;
+            }
+            
             .bmc-box h6 {
                 font-size: 10px !important;
                 margin-bottom: 3mm !important;
                 padding-bottom: 2mm !important;
                 border-bottom: 1px solid #ddd !important;
+                color: #2c3e50 !important;
+                font-weight: bold !important;
             }
             .bmc-box li {
                 padding: 1.5mm 2mm !important;
@@ -116,6 +130,7 @@
                 background: #f8f9fa !important;
                 border-radius: 0 !important;
                 color: #495057 !important;
+                border-left: 2px solid #ddd !important;
             }
             .bmc-box li:last-child {
                 border-bottom: none !important;
@@ -214,10 +229,11 @@
         /* Responsive Design */
         @media (max-width: 1200px) {
             .bmc-grid {
-                gap: 1px;
+                gap: 10px;
+                margin: 1.5rem;
             }
             .bmc-box {
-                padding: 15px;
+                padding: 1.25rem;
                 min-height: 180px;
             }
         }
@@ -225,19 +241,31 @@
         @media (max-width: 992px) {
             .bmc-grid {
                 grid-template-columns: 1fr 1fr;
-                grid-template-rows: auto;
+                grid-template-rows: repeat(5, 1fr);
+                gap: 10px;
             }
+            
+            .bmc-box:nth-child(1) { grid-column: 1; grid-row: 1; }
+            .bmc-box:nth-child(2) { grid-column: 2; grid-row: 1; }
+            .bmc-box:nth-child(3) { grid-column: 1; grid-row: 2; }
+            .bmc-box:nth-child(4) { grid-column: 2; grid-row: 2; }
+            .bmc-box:nth-child(5) { grid-column: 1; grid-row: 3; }
+            .bmc-box:nth-child(6) { grid-column: 2; grid-row: 3; }
+            .bmc-box:nth-child(7) { grid-column: 1; grid-row: 4; }
+            .bmc-box:nth-child(8) { grid-column: 2; grid-row: 4; }
+            .bmc-box:nth-child(9) { grid-column: 1; grid-row: 5; }
+            
             .bmc-box {
                 min-height: 160px;
-                padding: 12px;
+                padding: 1rem;
             }
             .bmc-box h6 {
-                font-size: 0.9rem;
-                margin-bottom: 10px;
+                font-size: 1rem;
+                margin-bottom: 0.75rem;
             }
             .bmc-box li {
-                font-size: 0.8rem;
-                padding: 6px 10px;
+                font-size: 0.85rem;
+                padding: 0.4rem 0.6rem;
             }
         }
         
@@ -273,23 +301,35 @@
             
             .bmc-grid {
                 grid-template-columns: 1fr;
-                gap: 2px;
+                grid-template-rows: repeat(9, 1fr);
+                gap: 10px;
+                margin: 1rem;
             }
+            
+            .bmc-box:nth-child(1) { grid-column: 1; grid-row: 1; }
+            .bmc-box:nth-child(2) { grid-column: 1; grid-row: 2; }
+            .bmc-box:nth-child(3) { grid-column: 1; grid-row: 3; }
+            .bmc-box:nth-child(4) { grid-column: 1; grid-row: 4; }
+            .bmc-box:nth-child(5) { grid-column: 1; grid-row: 5; }
+            .bmc-box:nth-child(6) { grid-column: 1; grid-row: 6; }
+            .bmc-box:nth-child(7) { grid-column: 1; grid-row: 7; }
+            .bmc-box:nth-child(8) { grid-column: 1; grid-row: 8; }
+            .bmc-box:nth-child(9) { grid-column: 1; grid-row: 9; }
             
             .bmc-box {
                 min-height: 140px;
-                padding: 15px;
+                padding: 1rem;
             }
             
             .bmc-box h6 {
-                font-size: 0.85rem;
-                margin-bottom: 8px;
+                font-size: 0.9rem;
+                margin-bottom: 0.5rem;
             }
             
             .bmc-box li {
-                font-size: 0.75rem;
-                padding: 5px 8px;
-                margin: 3px 0;
+                font-size: 0.8rem;
+                padding: 0.4rem 0.6rem;
+                margin: 0.25rem 0;
             }
             
             .download-buttons {
@@ -328,20 +368,25 @@
                 font-size: 0.85rem;
             }
             
+            .bmc-grid {
+                margin: 0.5rem;
+                gap: 8px;
+            }
+            
             .bmc-box {
                 min-height: 120px;
-                padding: 12px;
+                padding: 0.75rem;
             }
             
             .bmc-box h6 {
-                font-size: 0.8rem;
-                margin-bottom: 6px;
+                font-size: 0.85rem;
+                margin-bottom: 0.4rem;
             }
             
             .bmc-box li {
-                font-size: 0.7rem;
-                padding: 4px 6px;
-                margin: 2px 0;
+                font-size: 0.75rem;
+                padding: 0.3rem 0.5rem;
+                margin: 0.2rem 0;
             }
             
             .btn {
@@ -352,9 +397,11 @@
         
         .bmc-container {
             background: white;
-            border-radius: 15px;
+            border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
         }
         .bmc-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -362,40 +409,152 @@
             padding: 30px;
             text-align: center;
         }
+        
+        /* BMC Grid Layout */
         .bmc-grid {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             grid-template-rows: 1fr 1fr 1fr;
-            gap: 2px;
-            background: #e9ecef;
-            padding: 2px;
+            gap: 15px;
+            margin: 2rem;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
         }
+
         .bmc-box {
             background: white;
-            padding: 20px;
+            border: 3px solid #e9ecef;
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
             min-height: 200px;
             display: flex;
             flex-direction: column;
         }
-        .bmc-box h6 {
-            color: #495057;
-            font-weight: bold;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #e9ecef;
-            padding-bottom: 10px;
+
+        .bmc-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
         }
+
+        .bmc-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        /* Specific component colors */
+        .bmc-box:nth-child(1) {
+            border-color: #e74c3c;
+            background: linear-gradient(135deg, #fff5f5 0%, #ffeaea 100%);
+        }
+        .bmc-box:nth-child(1)::before {
+            background: linear-gradient(90deg, #e74c3c, #c0392b);
+        }
+
+        .bmc-box:nth-child(2) {
+            border-color: #f39c12;
+            background: linear-gradient(135deg, #fffbf0 0%, #fff2e0 100%);
+        }
+        .bmc-box:nth-child(2)::before {
+            background: linear-gradient(90deg, #f39c12, #e67e22);
+        }
+
+        .bmc-box:nth-child(3) {
+            border-color: #27ae60;
+            background: linear-gradient(135deg, #f0fff4 0%, #e8f5e8 100%);
+        }
+        .bmc-box:nth-child(3)::before {
+            background: linear-gradient(90deg, #27ae60, #2ecc71);
+        }
+
+        .bmc-box:nth-child(4) {
+            border-color: #9b59b6;
+            background: linear-gradient(135deg, #faf5ff 0%, #f0e6ff 100%);
+        }
+        .bmc-box:nth-child(4)::before {
+            background: linear-gradient(90deg, #9b59b6, #8e44ad);
+        }
+
+        .bmc-box:nth-child(5) {
+            border-color: #3498db;
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+        }
+        .bmc-box:nth-child(5)::before {
+            background: linear-gradient(90deg, #3498db, #2980b9);
+        }
+
+        .bmc-box:nth-child(6) {
+            border-color: #e67e22;
+            background: linear-gradient(135deg, #fff8f0 0%, #fff0e6 100%);
+        }
+        .bmc-box:nth-child(6)::before {
+            background: linear-gradient(90deg, #e67e22, #d35400);
+        }
+
+        .bmc-box:nth-child(7) {
+            border-color: #1abc9c;
+            background: linear-gradient(135deg, #f0fffe 0%, #e6fffc 100%);
+        }
+        .bmc-box:nth-child(7)::before {
+            background: linear-gradient(90deg, #1abc9c, #16a085);
+        }
+
+        .bmc-box:nth-child(8) {
+            border-color: #34495e;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+        .bmc-box:nth-child(8)::before {
+            background: linear-gradient(90deg, #34495e, #2c3e50);
+        }
+
+        .bmc-box:nth-child(9) {
+            border-color: #e91e63;
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe6f0 100%);
+        }
+        .bmc-box:nth-child(9)::before {
+            background: linear-gradient(90deg, #e91e63, #c2185b);
+        }
+
+        .bmc-box h6 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
         .bmc-box ul {
             list-style: none;
             padding: 0;
             margin: 0;
+            flex: 1;
         }
+
         .bmc-box li {
-            background: #f8f9fa;
-            margin: 5px 0;
-            padding: 8px 12px;
-            border-radius: 20px;
+            background: rgba(255,255,255,0.8);
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 0.5rem 0.75rem;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
             font-size: 0.9rem;
             color: #495057;
+        }
+
+        .bmc-box li:hover {
+            border-color: #667eea;
+            background: white;
+            transform: translateX(5px);
         }
         .business-info {
             background: #f8f9fa;
@@ -434,6 +593,251 @@
         }
         .download-btn.print {
             background: linear-gradient(45deg, #6c757d, #495057);
+        }
+        
+        /* Footer Styles */
+        .footer {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-top: 3px solid #3498db;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .footer-brand {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-brand h4 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .footer-brand p {
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .footer-links a:hover {
+            color: #3498db;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid #34495e;
+            color: #95a5a6;
+            font-size: 0.85rem;
+        }
+        
+        /* Professional Elements */
+        .professional-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .professional-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .professional-header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .professional-logo {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .professional-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .professional-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+        
+        .professional-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .professional-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .watermark {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            color: rgba(0,0,0,0.1);
+            font-size: 0.8rem;
+            font-weight: 600;
+            transform: rotate(-45deg);
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .bmc-container {
+            position: relative;
+        }
+        
+        .bmc-container::after {
+            content: 'Generated by Ideation - Professional Business Model Canvas';
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.7rem;
+            color: rgba(0,0,0,0.3);
+            font-weight: 500;
+            pointer-events: none;
+        }
+        
+        /* Download Enhancement */
+        .download-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            border: 1px solid #dee2e6;
+        }
+        
+        .download-section h4 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .download-section p {
+            color: #6c757d;
+            margin-bottom: 1.5rem;
+        }
+        
+        .download-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .download-btn {
+            min-width: 150px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .download-btn:hover::before {
+            left: 100%;
+        }
+        
+        /* Print Professional Styles */
+        @media print {
+            .footer {
+                display: none !important;
+            }
+            
+            .professional-header {
+                background: #2c3e50 !important;
+                color: white !important;
+                padding: 15mm !important;
+                margin: -15mm -15mm 10mm -15mm !important;
+            }
+            
+            .professional-logo {
+                font-size: 24px !important;
+            }
+            
+            .professional-title {
+                font-size: 20px !important;
+            }
+            
+            .professional-subtitle {
+                font-size: 12px !important;
+            }
+            
+            .professional-meta {
+                font-size: 10px !important;
+            }
+            
+            .watermark {
+                position: fixed !important;
+                bottom: 10mm !important;
+                right: 10mm !important;
+                font-size: 8px !important;
+                color: rgba(0,0,0,0.2) !important;
+            }
+            
+            .bmc-container::after {
+                content: 'Generated by Ideation - Professional Business Model Canvas' !important;
+                position: fixed !important;
+                bottom: 5mm !important;
+                right: 5mm !important;
+                font-size: 6px !important;
+                color: rgba(0,0,0,0.3) !important;
+            }
         }
         .notification {
             position: fixed;
@@ -480,9 +884,18 @@
 
         <!-- BMC Canvas -->
         <div class="bmc-container">
-            <div class="bmc-header">
-                <h2 class="mb-0">Business Model Canvas</h2>
-                <p class="mb-0">{{ $business->business_name }}</p>
+            <div class="professional-header">
+                <div class="professional-header-content">
+                    <div class="professional-logo">💡</div>
+                    <h2 class="professional-title">Business Model Canvas</h2>
+                    <p class="professional-subtitle">{{ $business->business_name }}</p>
+                    <div class="professional-meta">
+                        <span><i class="fas fa-calendar"></i> {{ now()->format('d M Y') }}</span>
+                        <span><i class="fas fa-user"></i> {{ $business->owner_name }}</span>
+                        <span><i class="fas fa-map-marker-alt"></i> {{ $business->location }}</span>
+                    </div>
+                </div>
+                <div class="watermark">IDEATION</div>
             </div>
             
             <div class="bmc-grid">
@@ -572,20 +985,24 @@
             </div>
         </div>
 
-        <!-- Download Buttons -->
-        <div class="download-buttons">
-            <button onclick="downloadAsImage('jpg')" class="download-btn jpg">
-                <i class="fas fa-camera me-2"></i>Download JPG
-            </button>
-            <button onclick="downloadAsImage('png')" class="download-btn png">
-                <i class="fas fa-image me-2"></i>Download PNG
-            </button>
-            <button onclick="downloadAsPDF()" class="download-btn pdf">
-                <i class="fas fa-file-pdf me-2"></i>Download PDF
-            </button>
-            <button onclick="printBMC(); return false;" class="download-btn print">
-                <i class="fas fa-print me-2"></i>Print BMC
-            </button>
+        <!-- Download Section -->
+        <div class="download-section">
+            <h4><i class="fas fa-download me-2"></i>Download Business Model Canvas</h4>
+            <p>Download BMC Anda dalam berbagai format untuk presentasi, dokumentasi, atau berbagi dengan tim</p>
+            <div class="download-buttons">
+                <button onclick="downloadAsImage('jpg')" class="download-btn jpg">
+                    <i class="fas fa-camera me-2"></i>Download JPG
+                </button>
+                <button onclick="downloadAsImage('png')" class="download-btn png">
+                    <i class="fas fa-image me-2"></i>Download PNG
+                </button>
+                <button onclick="downloadAsPDF()" class="download-btn pdf">
+                    <i class="fas fa-file-pdf me-2"></i>Download PDF
+                </button>
+                <button onclick="printBMC(); return false;" class="download-btn print">
+                    <i class="fas fa-print me-2"></i>Print BMC
+                </button>
+            </div>
         </div>
 
         <!-- Action Buttons -->
@@ -601,6 +1018,25 @@
             </a>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h4><i class="fas fa-lightbulb me-2"></i>Ideation</h4>
+                <p>Platform profesional untuk mengembangkan ide bisnis Anda dengan Business Model Canvas</p>
+            </div>
+            <div class="footer-links">
+                <a href="{{ route('bmc.landing') }}">Beranda</a>
+                <a href="{{ route('bmc.create') }}">Buat BMC</a>
+                <a href="{{ route('tam-sam-som.create') }}">Market Validation</a>
+                <a href="{{ route('projection.create') }}">Financial Projection</a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; {{ date('Y') }} Ideation. Dibuat dengan ❤️ untuk pengusaha Indonesia</p>
+            </div>
+        </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
@@ -619,7 +1055,33 @@
                 padding: 20px;
                 max-width: 1200px;
                 margin: 0 auto;
+                position: relative;
             `;
+            
+            // Add professional header
+            const professionalHeader = document.createElement('div');
+            professionalHeader.style.cssText = `
+                background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+                color: white;
+                padding: 20px;
+                text-align: center;
+                margin-bottom: 20px;
+                border-radius: 10px;
+                position: relative;
+                overflow: hidden;
+            `;
+            professionalHeader.innerHTML = `
+                <div style="font-size: 24px; margin-bottom: 10px;">💡</div>
+                <h2 style="font-size: 20px; font-weight: bold; margin-bottom: 5px;">Business Model Canvas</h2>
+                <p style="font-size: 14px; margin-bottom: 15px; opacity: 0.9;">${businessName}</p>
+                <div style="display: flex; justify-content: center; gap: 20px; font-size: 12px; opacity: 0.8;">
+                    <span>📅 ${new Date().toLocaleDateString('id-ID')}</span>
+                    <span>👤 {{ $business->owner_name }}</span>
+                    <span>📍 {{ $business->location }}</span>
+                </div>
+                <div style="position: absolute; bottom: 10px; right: 10px; font-size: 10px; opacity: 0.3; transform: rotate(-45deg);">IDEATION</div>
+            `;
+            wrapper.appendChild(professionalHeader);
             
             // Clone and append business info
             const businessInfoCloneImg = businessInfo.cloneNode(true);
@@ -628,6 +1090,24 @@
             // Clone and append BMC container
             const bmcContainerCloneImg = bmcContainer.cloneNode(true);
             wrapper.appendChild(bmcContainerCloneImg);
+            
+            // Add professional footer
+            const professionalFooter = document.createElement('div');
+            professionalFooter.style.cssText = `
+                text-align: center;
+                margin-top: 20px;
+                padding: 15px;
+                background: #f8f9fa;
+                border-radius: 10px;
+                font-size: 12px;
+                color: #6c757d;
+                border-top: 2px solid #3498db;
+            `;
+            professionalFooter.innerHTML = `
+                <p style="margin: 0; font-weight: 600;">Generated by Ideation - Professional Business Model Canvas</p>
+                <p style="margin: 5px 0 0 0; font-size: 10px;">Platform profesional untuk mengembangkan ide bisnis Anda</p>
+            `;
+            wrapper.appendChild(professionalFooter);
             
             // Temporarily add to body for rendering
             wrapper.style.position = 'absolute';
@@ -794,7 +1274,33 @@
                 padding: 20px;
                 max-width: 1200px;
                 margin: 0 auto;
+                position: relative;
             `;
+            
+            // Add professional header
+            const professionalHeader = document.createElement('div');
+            professionalHeader.style.cssText = `
+                background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+                color: white;
+                padding: 20px;
+                text-align: center;
+                margin-bottom: 20px;
+                border-radius: 10px;
+                position: relative;
+                overflow: hidden;
+            `;
+            professionalHeader.innerHTML = `
+                <div style="font-size: 24px; margin-bottom: 10px;">💡</div>
+                <h2 style="font-size: 20px; font-weight: bold; margin-bottom: 5px;">Business Model Canvas</h2>
+                <p style="font-size: 14px; margin-bottom: 15px; opacity: 0.9;">${businessName}</p>
+                <div style="display: flex; justify-content: center; gap: 20px; font-size: 12px; opacity: 0.8;">
+                    <span>📅 ${new Date().toLocaleDateString('id-ID')}</span>
+                    <span>👤 {{ $business->owner_name }}</span>
+                    <span>📍 {{ $business->location }}</span>
+                </div>
+                <div style="position: absolute; bottom: 10px; right: 10px; font-size: 10px; opacity: 0.3; transform: rotate(-45deg);">IDEATION</div>
+            `;
+            wrapper.appendChild(professionalHeader);
             
             // Clone and append business info
             const businessInfoCloneImg = businessInfo.cloneNode(true);
@@ -803,6 +1309,24 @@
             // Clone and append BMC container
             const bmcContainerCloneImg = bmcContainer.cloneNode(true);
             wrapper.appendChild(bmcContainerCloneImg);
+            
+            // Add professional footer
+            const professionalFooter = document.createElement('div');
+            professionalFooter.style.cssText = `
+                text-align: center;
+                margin-top: 20px;
+                padding: 15px;
+                background: #f8f9fa;
+                border-radius: 10px;
+                font-size: 12px;
+                color: #6c757d;
+                border-top: 2px solid #3498db;
+            `;
+            professionalFooter.innerHTML = `
+                <p style="margin: 0; font-weight: 600;">Generated by Ideation - Professional Business Model Canvas</p>
+                <p style="margin: 5px 0 0 0; font-size: 10px;">Platform profesional untuk mengembangkan ide bisnis Anda</p>
+            `;
+            wrapper.appendChild(professionalFooter);
             
             // Temporarily add to body for rendering
             wrapper.style.position = 'absolute';
@@ -896,7 +1420,7 @@
             }, 3000);
         }
         
-        // Function to print BMC directly - Simple approach
+        // Function to print BMC directly - Using same design as show
         function printBMC(event) {
             // Prevent default behavior
             if (event) {
@@ -911,12 +1435,12 @@
             const businessInfo = document.querySelector('.business-info').outerHTML;
             const bmcContainer = document.querySelector('.bmc-container').outerHTML;
             
-            // Create simple and attractive print content
+            // Create print content with same design as show page
             const printContent = `
                 <!DOCTYPE html>
                 <html>
                 <head>
-                    <title>Print BMC</title>
+                    <title>Print BMC - {{ $business->business_name }}</title>
                     <style>
                         body {
                             font-family: 'Segoe UI', Arial, sans-serif;
@@ -925,25 +1449,75 @@
                             font-size: 11px;
                             line-height: 1.4;
                             color: #333;
+                            background: white;
                         }
                         
                         .print-header {
-                            text-align: center;
-                            background: #2c3e50;
+                            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
                             color: white;
-                            padding: 10mm;
+                            padding: 15mm;
                             margin: -15mm -15mm 10mm -15mm;
-                            font-size: 18px;
+                            text-align: center;
+                            position: relative;
+                            overflow: hidden;
+                        }
+                        
+                        .print-header::before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            bottom: 0;
+                            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+                            opacity: 0.3;
+                        }
+                        
+                        .print-header-content {
+                            position: relative;
+                            z-index: 1;
+                        }
+                        
+                        .print-logo {
+                            font-size: 24px;
+                            margin-bottom: 5mm;
+                        }
+                        
+                        .print-title {
+                            font-size: 20px;
                             font-weight: bold;
-                            border-bottom: 3px solid #3498db;
+                            margin-bottom: 3mm;
+                        }
+                        
+                        .print-subtitle {
+                            font-size: 14px;
+                            margin-bottom: 5mm;
+                            opacity: 0.9;
+                        }
+                        
+                        .print-meta {
+                            display: flex;
+                            justify-content: center;
+                            gap: 10mm;
+                            font-size: 10px;
+                            opacity: 0.8;
+                        }
+                        
+                        .print-watermark {
+                            position: absolute;
+                            bottom: 5mm;
+                            right: 5mm;
+                            font-size: 8px;
+                            opacity: 0.3;
+                            transform: rotate(-45deg);
                         }
                         
                         .business-section {
-                            background: #ecf0f1;
+                            background: #f8f9fa;
                             padding: 8mm;
                             margin-bottom: 8mm;
-                            border-left: 5px solid #3498db;
                             border-radius: 5px;
+                            border-left: 5px solid #3498db;
                         }
                         
                         .business-section h3 {
@@ -963,44 +1537,74 @@
                             border: 3px solid #2c3e50;
                             border-radius: 8px;
                             overflow: hidden;
+                            position: relative;
                         }
                         
-                        .bmc-title {
-                            background: #34495e;
-                            color: white;
-                            padding: 6mm;
-                            text-align: center;
-                            font-size: 16px;
-                            font-weight: bold;
+                        .bmc-wrapper::after {
+                            content: 'Generated by Ideation - Professional Business Model Canvas';
+                            position: absolute;
+                            bottom: 2mm;
+                            right: 2mm;
+                            font-size: 6px;
+                            color: rgba(0,0,0,0.3);
+                            font-weight: 500;
                         }
-                        
                         
                         .bmc-grid {
                             display: grid;
                             grid-template-columns: 1fr 1fr 1fr;
                             grid-template-rows: 1fr 1fr 1fr;
-                            gap: 1px;
+                            gap: 2px;
                             background: #2c3e50;
-                            padding: 1px;
+                            padding: 2px;
                         }
                         
                         .bmc-box {
                             background: white;
                             padding: 4mm;
-                            border: 1px solid #bdc3c7;
+                            border: 1px solid #2c3e50;
                             font-size: 9px;
                             min-height: 30mm;
+                            position: relative;
                         }
+                        
+                        .bmc-box::before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            height: 2px;
+                            background: #2c3e50;
+                        }
+                        
+                        .bmc-box:nth-child(1) { border-color: #e74c3c; }
+                        .bmc-box:nth-child(1)::before { background: #e74c3c; }
+                        .bmc-box:nth-child(2) { border-color: #f39c12; }
+                        .bmc-box:nth-child(2)::before { background: #f39c12; }
+                        .bmc-box:nth-child(3) { border-color: #27ae60; }
+                        .bmc-box:nth-child(3)::before { background: #27ae60; }
+                        .bmc-box:nth-child(4) { border-color: #9b59b6; }
+                        .bmc-box:nth-child(4)::before { background: #9b59b6; }
+                        .bmc-box:nth-child(5) { border-color: #3498db; }
+                        .bmc-box:nth-child(5)::before { background: #3498db; }
+                        .bmc-box:nth-child(6) { border-color: #e67e22; }
+                        .bmc-box:nth-child(6)::before { background: #e67e22; }
+                        .bmc-box:nth-child(7) { border-color: #1abc9c; }
+                        .bmc-box:nth-child(7)::before { background: #1abc9c; }
+                        .bmc-box:nth-child(8) { border-color: #34495e; }
+                        .bmc-box:nth-child(8)::before { background: #34495e; }
+                        .bmc-box:nth-child(9) { border-color: #e91e63; }
+                        .bmc-box:nth-child(9)::before { background: #e91e63; }
                         
                         .bmc-box h6 {
                             font-size: 11px;
                             font-weight: bold;
                             margin: 0 0 3mm 0;
                             color: #2c3e50;
-                            background: #ecf0f1;
-                            padding: 2mm;
-                            border-radius: 3px;
-                            border-left: 4px solid #3498db;
+                            display: flex;
+                            align-items: center;
+                            gap: 2mm;
                         }
                         
                         .bmc-box ul {
@@ -1016,7 +1620,7 @@
                             border-left: 3px solid #3498db;
                             font-size: 8px;
                             color: #2c3e50;
-                            border-radius: 0 3px 3px 0;
+                            border-radius: 0 2px 2px 0;
                         }
                         
                         .bmc-box li:last-child {
@@ -1025,12 +1629,12 @@
                         
                         .print-footer {
                             text-align: center;
-                            background: #34495e;
-                            color: white;
+                            background: #f8f9fa;
+                            color: #6c757d;
                             padding: 4mm;
                             margin: 8mm -15mm -15mm -15mm;
                             font-size: 9px;
-                            border-top: 3px solid #3498db;
+                            border-top: 2px solid #3498db;
                         }
                         
                         @page {
@@ -1040,19 +1644,27 @@
                     </style>
                 </head>
                 <body>
-                    <div class="print-header">💡 IDEATION - BUSINESS MODEL CANVAS</div>
+                    <div class="print-header">
+                        <div class="print-header-content">
+                            <div class="print-logo">💡</div>
+                            <h1 class="print-title">Business Model Canvas</h1>
+                            <p class="print-subtitle">{{ $business->business_name }}</p>
+                            <div class="print-meta">
+                                <span>📅 ${new Date().toLocaleDateString('id-ID')}</span>
+                                <span>👤 {{ $business->owner_name }}</span>
+                                <span>📍 {{ $business->location }}</span>
+                            </div>
+                        </div>
+                        <div class="print-watermark">IDEATION</div>
+                    </div>
                     ${businessInfo}
                     <div class="bmc-wrapper">
-                        <div class="bmc-title">Business Model Canvas</div>
                         ${bmcContainer}
                     </div>
-                    <div class="print-footer">📄 Generated: ${new Date().toLocaleDateString('id-ID', { 
-                        day: '2-digit', 
-                        month: 'short', 
-                        year: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                    })} | 🏢 Professional Business Model Canvas</div>
+                    <div class="print-footer">
+                        <p style="margin: 0; font-weight: 600;">Generated by Ideation - Professional Business Model Canvas</p>
+                        <p style="margin: 2mm 0 0 0; font-size: 8px;">Platform profesional untuk mengembangkan ide bisnis Anda</p>
+                    </div>
                 </body>
                 </html>
             `;

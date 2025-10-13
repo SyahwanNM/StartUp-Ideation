@@ -452,13 +452,13 @@
                         <a class="nav-link" href="{{ route('bmc.landing') }}">Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('bmc.create') }}">Buat BMC</a>
+                        <a class="nav-link" href="{{ route('bmc.create') }}">BMC</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('tam-sam-som.create') }}">TAM SAM SOM</a>
+                        <a class="nav-link" href="{{ route('tam-sam-som.create') }}">Market Validation</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('financial-projection.create') }}">Financial Projection</a>
+                        <a class="nav-link" href="{{ route('projection.create') }}">Proyeksi Keuangan</a>
                     </li>
                 </ul>
             </div>
@@ -472,12 +472,20 @@
                 <div class="col-lg-6">
                     <div class="mb-4">
                         <h1 class="display-4 fw-bold mb-2">Ideation</h1>
-                        <p class="lead mb-3 text-white-50 fs-4">BMC Generator</p>
+                        <p class="lead mb-3 text-white-50 fs-4">Business Strategy Platform</p>
                     </div>
-                    <p class="lead mb-4">Buat Business Model Canvas profesional untuk bisnis Anda dengan mudah. Template yang sudah terbukti untuk mengembangkan strategi bisnis yang solid.</p>
+                    <p class="lead mb-4">Platform lengkap untuk mengembangkan strategi bisnis Anda. Buat Business Model Canvas, analisis TAM SAM SOM, dan proyeksi keuangan dengan mudah dan profesional.</p>
+                    <div class="d-flex flex-wrap gap-3">
                     <a href="{{ route('bmc.create') }}" class="cta-button">
-                        <i class="fas fa-plus me-2"></i>Buat BMC Sekarang
-                    </a>
+                            <i class="fas fa-th-large me-2"></i>BMC
+                        </a>
+                        <a href="{{ route('tam-sam-som.create') }}" class="cta-button" style="background: linear-gradient(45deg, #e74c3c, #c0392b);">
+                            <i class="fas fa-chart-pie me-2"></i>Market Validation
+                        </a>
+                        <a href="{{ route('projection.create') }}" class="cta-button" style="background: linear-gradient(45deg, #27ae60, #229954);">
+                            <i class="fas fa-chart-line me-2"></i>Proyeksi Keuangan
+                        </a>
+                    </div>
                 </div>
                 <div class="col-lg-6 text-center">
                     <div class="hero-illustration">
@@ -589,13 +597,81 @@
         </div>
     </section>
 
-    <!-- What is BMC Section -->
+    <!-- Platform Overview Section -->
     <section class="py-5">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h2 class="section-title">Apa itu Business Model Canvas?</h2>
-                    <p class="lead">Business Model Canvas adalah alat strategis yang membantu Anda memvisualisasikan dan mengembangkan model bisnis Anda. Terdiri dari 9 elemen kunci yang saling berhubungan untuk menciptakan strategi bisnis yang komprehensif.</p>
+                <div class="col-lg-10 mx-auto text-center">
+                    <h2 class="section-title">Platform Strategi Bisnis Lengkap</h2>
+                    <p class="lead mb-5">Ideation menyediakan 3 tools utama untuk mengembangkan strategi bisnis yang komprehensif dan data-driven.</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <!-- BMC Card -->
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100 border-0 shadow-lg">
+                        <div class="card-body text-center p-4">
+                            <div class="feature-icon mb-3" style="color: #667eea;">
+                                <i class="fas fa-th-large"></i>
+                            </div>
+                            <h4 class="card-title mb-3">Business Model Canvas</h4>
+                            <p class="card-text">Alat strategis untuk memvisualisasikan model bisnis Anda dalam 9 elemen kunci yang saling berhubungan.</p>
+                            <ul class="list-unstyled text-start mt-3">
+                                <li><i class="fas fa-check text-success me-2"></i>9 Komponen BMC</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Template Profesional</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Download PDF/Image</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Print Ready</li>
+                            </ul>
+                            <a href="{{ route('bmc.create') }}" class="btn btn-primary mt-3">
+                                <i class="fas fa-plus me-2"></i>Buat BMC
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAM SAM SOM Card -->
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100 border-0 shadow-lg">
+                        <div class="card-body text-center p-4">
+                            <div class="feature-icon mb-3" style="color: #e74c3c;">
+                                <i class="fas fa-chart-pie"></i>
+                            </div>
+                            <h4 class="card-title mb-3">Market Validation</h4>
+                            <p class="card-text">Analisis mendalam tentang ukuran pasar untuk memvalidasi potensi bisnis dan peluang revenue.</p>
+                            <ul class="list-unstyled text-start mt-3">
+                                <li><i class="fas fa-check text-success me-2"></i><strong>TAM</strong> - Total Addressable Market</li>
+                                <li><i class="fas fa-check text-success me-2"></i><strong>SAM</strong> - Serviceable Addressable Market</li>
+                                <li><i class="fas fa-check text-success me-2"></i><strong>SOM</strong> - Serviceable Obtainable Market</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Asumsi & Proyeksi Pasar</li>
+                            </ul>
+                            <a href="{{ route('tam-sam-som.create') }}" class="btn btn-danger mt-3">
+                                <i class="fas fa-chart-pie me-2"></i>Analisis Pasar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Financial Projection Card -->
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100 border-0 shadow-lg">
+                        <div class="card-body text-center p-4">
+                            <div class="feature-icon mb-3" style="color: #27ae60;">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h4 class="card-title mb-3">Proyeksi Keuangan</h4>
+                            <p class="card-text">Proyeksi keuangan berdasarkan growth rate tahunan dengan perhitungan bulanan otomatis yang mudah dipahami.</p>
+                            <ul class="list-unstyled text-start mt-3">
+                                <li><i class="fas fa-check text-success me-2"></i>Growth Rate Bulanan</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Fixed & Variable Costs</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Payroll Management</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Export Excel</li>
+                            </ul>
+                            <a href="{{ route('projection.create') }}" class="btn btn-success mt-3">
+                                <i class="fas fa-chart-line me-2"></i>Proyeksi Keuangan
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -681,25 +757,78 @@
         </div>
     </section>
 
-    <!-- Features Section -->
+    <!-- TAM SAM SOM Explanation Section -->
     <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <h2 class="section-title text-danger">
+                        <i class="fas fa-chart-pie me-2"></i>Memahami TAM SAM SOM
+                    </h2>
+                    <div class="mb-4">
+                        <h5 class="text-danger">TAM (Total Addressable Market)</h5>
+                        <p>Total keseluruhan pasar untuk produk/layanan Anda. Berapa besar pasar jika 100% orang membeli produk Anda?</p>
+                        <small class="text-muted"><strong>Contoh:</strong> Seluruh pengguna smartphone di Indonesia (270 juta orang)</small>
+                    </div>
+                    <div class="mb-4">
+                        <h5 class="text-primary">SAM (Serviceable Addressable Market)</h5>
+                        <p>Bagian dari TAM yang realistis dapat Anda layani berdasarkan model bisnis dan geografis.</p>
+                        <small class="text-muted"><strong>Contoh:</strong> Pengguna smartphone di kota besar dengan akses internet (50 juta orang)</small>
+                    </div>
+                    <div class="mb-4">
+                        <h5 class="text-success">SOM (Serviceable Obtainable Market)</h5>
+                        <p>Bagian dari SAM yang realistis dapat Anda raih berdasarkan kompetisi dan kapasitas bisnis.</p>
+                        <small class="text-muted"><strong>Contoh:</strong> Target market share 2% dari SAM (1 juta pengguna)</small>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <h2 class="section-title text-success">
+                        <i class="fas fa-chart-line me-2"></i>Financial Projection
+                    </h2>
+                    <div class="mb-4">
+                        <h5 class="text-success">Proyeksi Revenue</h5>
+                        <p>Perkiraan pendapatan berdasarkan harga produk, volume penjualan, dan pertumbuhan pasar.</p>
+                        <small class="text-muted"><strong>Termasuk:</strong> Penjualan bulanan, seasonal trends, growth rate</small>
+                    </div>
+                    <div class="mb-4">
+                        <h5 class="text-warning">Proyeksi Expenses</h5>
+                        <p>Estimasi biaya operasional, marketing, gaji karyawan, dan biaya lainnya.</p>
+                        <small class="text-muted"><strong>Termasuk:</strong> Fixed costs, variable costs, one-time expenses</small>
+                    </div>
+                    <div class="mb-4">
+                        <h5 class="text-info">Asumsi Pasar & Keuangan</h5>
+                        <p>Faktor-faktor yang mempengaruhi proyeksi seperti inflasi, kompetisi, dan tren industri.</p>
+                        <small class="text-muted"><strong>Contoh:</strong> Pertumbuhan pasar 15%/tahun, customer acquisition cost</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-5 bg-light">
         <div class="container">
             <h2 class="text-center section-title">Mengapa Menggunakan Ideation?</h2>
             <div class="row">
-                <div class="col-lg-4 text-center mb-4">
+                <div class="col-lg-3 text-center mb-4">
                     <i class="fas fa-magic feature-icon"></i>
                     <h4>Mudah Digunakan</h4>
-                    <p>Interface yang intuitif dan user-friendly untuk membuat BMC profesional dalam hitungan menit.</p>
+                    <p>Interface yang intuitif dan user-friendly untuk membuat analisis bisnis profesional dalam hitungan menit.</p>
                 </div>
-                <div class="col-lg-4 text-center mb-4">
+                <div class="col-lg-3 text-center mb-4">
                     <i class="fas fa-download feature-icon"></i>
-                    <h4>Download & Share</h4>
-                    <p>Download BMC Anda dalam format PDF atau gambar untuk presentasi dan sharing.</p>
+                    <h4>Download & Print</h4>
+                    <p>Download dalam format PDF, PNG, JPG atau print langsung untuk presentasi dan sharing.</p>
                 </div>
-                <div class="col-lg-4 text-center mb-4">
+                <div class="col-lg-3 text-center mb-4">
+                    <i class="fas fa-database feature-icon"></i>
+                    <h4>History & Database</h4>
+                    <p>Semua data tersimpan aman di database dengan history lengkap untuk tracking progress.</p>
+                </div>
+                <div class="col-lg-3 text-center mb-4">
                     <i class="fas fa-chart-bar feature-icon"></i>
                     <h4>Template Profesional</h4>
-                    <p>Template BMC yang sudah terbukti dan digunakan oleh startup dan perusahaan besar.</p>
+                    <p>Template yang sudah terbukti dan digunakan oleh startup dan perusahaan besar di Indonesia.</p>
                 </div>
             </div>
         </div>
@@ -708,11 +837,19 @@
     <!-- CTA Section -->
     <section class="py-5 bg-primary text-white">
         <div class="container text-center">
-            <h2 class="mb-4">Siap Membuat Business Model Canvas?</h2>
-            <p class="lead mb-4">Mulai sekarang dan kembangkan strategi bisnis yang solid untuk kesuksesan jangka panjang.</p>
-            <a href="{{ route('bmc.create') }}" class="btn btn-light btn-lg">
-                <i class="fas fa-rocket me-2"></i>Mulai Sekarang
-            </a>
+            <h2 class="mb-4">Siap Mengembangkan Strategi Bisnis Anda?</h2>
+            <p class="lead mb-4">Mulai dengan salah satu tools kami dan kembangkan strategi bisnis yang solid untuk kesuksesan jangka panjang.</p>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <a href="{{ route('bmc.create') }}" class="btn btn-light btn-lg">
+                    <i class="fas fa-th-large me-2"></i>Buat BMC
+                </a>
+                <a href="{{ route('tam-sam-som.create') }}" class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-chart-pie me-2"></i>Analisis Pasar
+                </a>
+                <a href="{{ route('projection.create') }}" class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-chart-line me-2"></i>Proyeksi Keuangan
+                </a>
+            </div>
         </div>
     </section>
 
