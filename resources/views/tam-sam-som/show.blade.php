@@ -13,6 +13,38 @@
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     
     <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #a5b4fc;
+            --secondary: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #06b6d4;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --radius: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -20,12 +52,13 @@
         }
 
         body {
-            background: #f8fafc;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #2c3e50;
+            background: var(--gray-50);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--gray-800);
             line-height: 1.6;
             min-height: 100vh;
             padding: 0;
+            font-size: 14px;
         }
 
         .container-main {
@@ -36,10 +69,10 @@
 
         /* Header */
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--primary);
             text-align: center;
             margin-bottom: 3rem;
-            padding: 4rem 1rem;
+            padding: 3rem 1rem;
             color: white;
             position: relative;
             overflow: hidden;
@@ -63,20 +96,21 @@
         }
 
         .header h1 {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            letter-spacing: -0.025em;
         }
 
         .header p {
-            font-size: 1.2rem;
+            font-size: 1.125rem;
             opacity: 0.9;
+            line-height: 1.6;
         }
 
         .header .generation-info {
             background: rgba(255,255,255,0.15);
-            border-radius: 15px;
+            border-radius: var(--radius-lg);
             padding: 1rem 1.5rem;
             margin-top: 1.5rem;
             backdrop-filter: blur(15px);
@@ -84,14 +118,44 @@
             border: 1px solid rgba(255,255,255,0.2);
         }
 
+        /* Navigation Styles */
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            box-shadow: var(--shadow-sm);
+            border: none;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--primary-light) !important;
+            transform: translateY(-1px);
+        }
+
+        .navbar-nav .nav-link.active {
+            color: var(--primary-light) !important;
+            font-weight: 600;
+        }
+
         /* Main Content */
         .main-content {
             background: white;
-            border-radius: 24px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08);
-            padding: 3rem;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+            padding: 2rem;
             margin-bottom: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         /* Concentric Circles */
@@ -298,41 +362,40 @@
         }
 
         .card-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.25rem;
         }
 
         .market-card.tam .card-icon {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--primary);
         }
 
         .market-card.sam .card-icon {
-            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            background: var(--success);
         }
 
         .market-card.som .card-icon {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            background: var(--secondary);
         }
 
         .card-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #2c3e50;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--gray-900);
             margin: 0;
         }
 
         .card-value {
-            font-size: 2.5rem;
-            font-weight: 800;
+            font-size: 2rem;
+            font-weight: 700;
             margin: 1rem 0;
-            background: linear-gradient(135deg, currentColor 0%, rgba(0, 0, 0, 0.1) 100%);
-            -webkit-background-clip: text;
+            color: var(--gray-900);
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
@@ -882,13 +945,32 @@
         }
 
         /* Responsive Design */
+        @media (max-width: 1200px) {
+            .main-content {
+                padding: 2.5rem;
+            }
+            
+            .market-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
+            .header {
+                padding: 1rem 0;
+                text-align: center;
+            }
+            
             .header h1 {
-                font-size: 2rem;
+                font-size: 1.75rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
             }
 
             .main-content {
-                padding: 2rem;
+                padding: 1.5rem;
             }
 
             .concentric-circles {
@@ -965,7 +1047,19 @@
             }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 576px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .header p {
+                font-size: 0.875rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
             .concentric-circles {
                 width: 250px;
                 height: 250px;
@@ -1025,10 +1119,46 @@
             .card-value {
                 font-size: 2rem;
             }
+            
+            .navbar-nav {
+                text-align: center;
+            }
+            
+            .navbar-nav .nav-link {
+                padding: 0.75rem 1rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-3" href="{{ route('bmc.landing') }}">
+                <i class="fas fa-lightbulb me-2"></i>Ideation
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('bmc.landing') }}">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('bmc.create') }}">BMC</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ route('tam-sam-som.create') }}">Market Validation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('projection.create') }}">Financial Projection</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div class="container-main">
         <!-- Header -->
         <div class="header">
@@ -1365,5 +1495,8 @@
             if (actions) actions.style.display = 'block';
         });
     </script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

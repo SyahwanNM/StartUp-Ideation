@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
         // Run other seeders
         $this->call([
             TamSamSomSeeder::class,
+            SampleDataSeeder::class,
         ]);
     }
 }

@@ -4,21 +4,56 @@
 
 @section('styles')
 <style>
+    :root {
+        --primary: #6366f1;
+        --primary-dark: #4f46e5;
+        --primary-light: #a5b4fc;
+        --secondary: #64748b;
+        --success: #10b981;
+        --warning: #f59e0b;
+        --danger: #ef4444;
+        --info: #06b6d4;
+        --light: #f8fafc;
+        --dark: #1e293b;
+        --gray-50: #f9fafb;
+        --gray-100: #f3f4f6;
+        --gray-200: #e5e7eb;
+        --gray-300: #d1d5db;
+        --gray-400: #9ca3af;
+        --gray-500: #6b7280;
+        --gray-600: #4b5563;
+        --gray-700: #374151;
+        --gray-800: #1f2937;
+        --gray-900: #111827;
+        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        --radius: 0.5rem;
+        --radius-lg: 0.75rem;
+        --radius-xl: 1rem;
+        --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
     body {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        background: var(--gray-50);
         min-height: 100vh;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        line-height: 1.6;
+        color: var(--gray-800);
+        font-size: 14px;
     }
 
     .navbar {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        background: var(--primary);
+        box-shadow: var(--shadow-sm);
         border: none;
     }
 
     .navbar-brand {
         font-weight: 700;
-        font-size: 1.5rem;
+        font-size: 1.25rem;
     }
 
     .main-container {
@@ -32,28 +67,27 @@
     }
 
     .page-title {
-        font-size: 3rem;
+        font-size: 2.5rem;
         font-weight: 700;
-        color: #2c3e50;
+        color: var(--gray-900);
         margin-bottom: 1rem;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        letter-spacing: -0.025em;
     }
 
     .page-subtitle {
-        font-size: 1.2rem;
-        color: #6c757d;
+        font-size: 1.125rem;
+        color: var(--gray-600);
         margin-bottom: 2rem;
+        line-height: 1.6;
     }
 
     .search-section {
         background: white;
-        border-radius: 15px;
-        padding: 2rem;
+        border-radius: var(--radius-lg);
+        padding: 1.5rem;
         margin-bottom: 2rem;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--gray-200);
     }
 
     .search-form {
@@ -65,73 +99,77 @@
     .search-input {
         flex: 1;
         padding: 0.75rem 1rem;
-        border: 2px solid #e2e8f0;
-        border-radius: 10px;
-        font-size: 1rem;
-        transition: all 0.3s ease;
+        border: 1px solid var(--gray-300);
+        border-radius: var(--radius);
+        font-size: 0.875rem;
+        transition: var(--transition);
     }
 
     .search-input:focus {
         outline: none;
-        border-color: #667eea;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
     }
 
     .search-btn {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--primary);
         border: none;
         color: white;
         padding: 0.75rem 1.5rem;
-        border-radius: 10px;
-        font-weight: 600;
+        border-radius: var(--radius);
+        font-weight: 500;
+        font-size: 0.875rem;
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition: var(--transition);
     }
 
     .search-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        background: var(--primary-dark);
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
     }
 
     .create-btn {
-        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        background: var(--success);
         color: white;
-        padding: 0.75rem 2rem;
-        border-radius: 10px;
+        padding: 0.75rem 1.5rem;
+        border-radius: var(--radius);
         text-decoration: none;
-        font-weight: 600;
+        font-weight: 500;
+        font-size: 0.875rem;
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
-        transition: all 0.3s ease;
+        transition: var(--transition);
         border: none;
     }
 
     .create-btn:hover {
         color: white;
-        transform: translateY(-2px);
-        box-shadow: 0 10px 20px rgba(40, 167, 69, 0.3);
+        background: #059669;
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
     }
 
     .tam-sam-som-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-        gap: 2rem;
+        gap: 1.5rem;
         margin-bottom: 2rem;
     }
 
     .tam-sam-som-card {
         background: white;
-        border-radius: 20px;
-        padding: 2rem;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-        transition: all 0.3s ease;
-        border: 1px solid #e2e8f0;
+        border-radius: var(--radius-xl);
+        padding: 1.5rem;
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--gray-200);
+        transition: var(--transition);
     }
 
     .tam-sam-som-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
     }
 
     .card-header {
@@ -139,15 +177,15 @@
     }
 
     .business-name {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: #2d3748;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--gray-900);
         margin-bottom: 0.5rem;
     }
 
     .business-owner {
-        color: #718096;
-        font-size: 1rem;
+        color: var(--gray-600);
+        font-size: 0.875rem;
         margin-bottom: 1rem;
     }
 
@@ -162,12 +200,12 @@
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        color: #4a5568;
-        font-size: 0.9rem;
+        color: var(--gray-600);
+        font-size: 0.75rem;
     }
 
     .meta-item i {
-        color: #667eea;
+        color: var(--primary);
     }
 
     .tam-sam-som-summary {
@@ -180,44 +218,45 @@
     .summary-item {
         text-align: center;
         padding: 1rem;
-        border-radius: 10px;
-        border-left: 4px solid;
+        border-radius: var(--radius);
+        border-left: 3px solid;
+        background: var(--gray-50);
     }
 
     .tam-item {
-        border-left-color: #e53e3e;
-        background: linear-gradient(135deg, #fed7d7 0%, #feb2b2 100%);
+        border-left-color: var(--danger);
+        background: var(--gray-50);
     }
 
     .sam-item {
-        border-left-color: #3182ce;
-        background: linear-gradient(135deg, #bee3f8 0%, #90cdf4 100%);
+        border-left-color: var(--info);
+        background: var(--gray-50);
     }
 
     .som-item {
-        border-left-color: #38a169;
-        background: linear-gradient(135deg, #c6f6d5 0%, #9ae6b4 100%);
+        border-left-color: var(--success);
+        background: var(--gray-50);
     }
 
     .summary-label {
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: #4a5568;
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--gray-600);
         margin-bottom: 0.25rem;
     }
 
     .summary-value {
-        font-size: 1rem;
-        font-weight: 700;
+        font-size: 0.875rem;
+        font-weight: 600;
         margin-bottom: 0.25rem;
     }
 
     .tam-item .summary-value {
-        color: #c53030;
+        color: var(--danger);
     }
 
     .sam-item .summary-value {
-        color: #2b6cb0;
+        color: var(--info);
     }
 
     .som-item .summary-value {
@@ -236,71 +275,75 @@
     }
 
     .action-btn {
-        padding: 0.5rem 1rem;
+        padding: 0.5rem 0.75rem;
         border: none;
-        border-radius: 8px;
-        font-weight: 600;
+        border-radius: var(--radius);
+        font-weight: 500;
         text-decoration: none;
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
         cursor: pointer;
-        transition: all 0.3s ease;
-        font-size: 0.9rem;
+        transition: var(--transition);
+        font-size: 0.75rem;
     }
 
     .action-btn.primary {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--primary);
         color: white;
+        box-shadow: var(--shadow-sm);
     }
 
     .action-btn.secondary {
-        background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+        background: var(--secondary);
         color: white;
+        box-shadow: var(--shadow-sm);
     }
 
     .action-btn.danger {
-        background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        background: var(--danger);
         color: white;
+        box-shadow: var(--shadow-sm);
     }
 
     .action-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
         color: white;
     }
 
     .empty-state {
         text-align: center;
-        padding: 4rem 2rem;
+        padding: 3rem 2rem;
         background: white;
-        border-radius: 20px;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--gray-200);
     }
 
     .empty-icon {
-        width: 80px;
-        height: 80px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        width: 64px;
+        height: 64px;
+        background: var(--primary);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         margin: 0 auto 2rem;
-        font-size: 2rem;
+        font-size: 1.5rem;
         color: white;
     }
 
     .empty-title {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         font-weight: 600;
-        color: #2c3e50;
+        color: var(--gray-900);
         margin-bottom: 0.5rem;
     }
 
     .empty-subtitle {
-        font-size: 1rem;
-        color: #6c757d;
+        font-size: 0.875rem;
+        color: var(--gray-600);
         margin-bottom: 2rem;
     }
 
@@ -310,37 +353,125 @@
     }
 
     .page-link {
-        color: #667eea;
-        border-color: #e2e8f0;
+        color: var(--primary);
+        border-color: var(--gray-300);
         padding: 0.5rem 1rem;
     }
 
     .page-link:hover {
-        color: #764ba2;
-        background-color: #f8f9fa;
-        border-color: #667eea;
+        color: var(--primary-dark);
+        background-color: var(--gray-50);
+        border-color: var(--primary);
     }
 
     .page-item.active .page-link {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border-color: #667eea;
+        background: var(--primary);
+        border-color: var(--primary);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+        .tam-sam-som-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .tam-sam-som-summary {
+            grid-template-columns: repeat(2, 1fr);
+        }
     }
 
     @media (max-width: 768px) {
+        .main-container {
+            padding: 1rem 0.5rem;
+        }
+        
+        .page-header {
+            padding: 1rem 0;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 1.75rem;
+        }
+        
+        .page-subtitle {
+            font-size: 1rem;
+        }
+        
         .tam-sam-som-grid {
             grid-template-columns: 1fr;
+            gap: 1rem;
         }
         
         .tam-sam-som-summary {
             grid-template-columns: 1fr;
+            gap: 0.75rem;
         }
         
         .search-form {
             flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .search-input {
+            width: 100%;
         }
         
         .card-actions {
             flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .action-btn {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .navbar-nav {
+            text-align: center;
+        }
+        
+        .navbar-nav .nav-link {
+            padding: 0.75rem 1rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .main-container {
+            padding: 0.5rem;
+        }
+        
+        .page-title {
+            font-size: 1.5rem;
+        }
+        
+        .page-subtitle {
+            font-size: 0.875rem;
+        }
+        
+        .tam-sam-som-card {
+            padding: 1rem;
+        }
+        
+        .business-name {
+            font-size: 1.125rem;
+        }
+        
+        .business-owner {
+            font-size: 0.875rem;
+        }
+        
+        .summary-value {
+            font-size: 1.25rem;
+        }
+        
+        .summary-label {
+            font-size: 0.75rem;
+        }
+        
+        .action-btn {
+            padding: 0.625rem 1rem;
+            font-size: 0.8rem;
         }
     }
 </style>
@@ -348,7 +479,7 @@
 
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
         <div class="container">
             <a class="navbar-brand text-white" href="{{ route('bmc.landing') }}">
                 <i class="fas fa-lightbulb me-2"></i>

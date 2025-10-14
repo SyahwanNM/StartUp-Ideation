@@ -13,6 +13,36 @@
             padding: 20px 0;
             margin-bottom: 30px;
         }
+
+        /* Navigation Styles */
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            box-shadow: var(--shadow-sm);
+            border: none;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--primary-light) !important;
+            transform: translateY(-1px);
+        }
+
+        .navbar-nav .nav-link.active {
+            color: var(--primary-light) !important;
+            font-weight: 600;
+        }
         .bmc-container {
             background: white;
             border-radius: 15px;
@@ -67,7 +97,7 @@
             margin-bottom: 30px;
         }
         .back-btn {
-            background: linear-gradient(45deg, #6c757d, #495057);
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
             border: none;
             color: white;
             padding: 10px 25px;
@@ -113,21 +143,26 @@
         }
         
         @media (max-width: 768px) {
+            .main-container {
+                padding: 1rem 0.5rem;
+            }
+            
             .admin-header {
-                padding: 15px 0;
-                margin-bottom: 20px;
+                padding: 1rem 0;
+                margin-bottom: 1rem;
+                text-align: center;
             }
             
             .admin-header h1 {
-                font-size: 1.5rem;
+                font-size: 1.75rem;
             }
             
             .admin-header p {
-                font-size: 0.9rem;
+                font-size: 1rem;
             }
             
             .bmc-header {
-                padding: 20px;
+                padding: 1rem;
             }
             
             .bmc-header h2 {
@@ -139,8 +174,8 @@
             }
             
             .business-info {
-                padding: 15px;
-                margin-bottom: 20px;
+                padding: 1rem;
+                margin-bottom: 1rem;
             }
             
             .business-info h3 {
@@ -180,28 +215,32 @@
         }
         
         @media (max-width: 576px) {
+            .main-container {
+                padding: 0.5rem;
+            }
+            
             .admin-header {
-                padding: 10px 0;
+                padding: 0.75rem 0;
             }
             
             .admin-header h1 {
-                font-size: 1.3rem;
+                font-size: 1.5rem;
             }
             
             .admin-header p {
-                font-size: 0.8rem;
+                font-size: 0.875rem;
             }
             
             .bmc-header {
-                padding: 15px;
+                padding: 0.75rem;
             }
             
             .bmc-header h2 {
-                font-size: 1.3rem;
+                font-size: 1.25rem;
             }
             
             .bmc-header p {
-                font-size: 0.8rem;
+                font-size: 0.875rem;
             }
             
             .business-info {
@@ -236,10 +275,43 @@
                 padding: 8px 20px;
                 font-size: 0.9rem;
             }
+            
+            .navbar-nav {
+                text-align: center;
+            }
+            
+            .navbar-nav .nav-link {
+                padding: 0.75rem 1rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-3" href="{{ route('admin.index') }}">
+                <i class="fas fa-lightbulb me-2"></i>Ideation Admin
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.index') }}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('bmc.landing') }}">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('auth.logout') }}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div class="admin-header">
         <div class="container">
             <div class="row align-items-center">

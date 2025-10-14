@@ -13,6 +13,7 @@ class Business extends Model
         'owner_name',
         'business_name',
         'business_description',
+        'industry',
         'location',
         'phone_number',
     ];

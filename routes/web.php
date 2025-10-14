@@ -32,7 +32,7 @@ Route::prefix('tam-sam-som')->group(function () {
     });
 });
 
-// New Projection routes (simplified financial projection)
+// Financial Projection routes (unit-based system)
 Route::prefix('projection')->group(function () {
     Route::get('/', [App\Http\Controllers\ProjectionController::class, 'index'])->name('projection.index');
     Route::get('/create', [App\Http\Controllers\ProjectionController::class, 'create'])->name('projection.create');

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Projection extends Model
 {
@@ -11,7 +12,9 @@ class Projection extends Model
 
     protected $fillable = [
         'business_name',
-        'baseline_revenue',
+        'industry',
+        'baseline_units_sold',
+        'product_distribution',
         'projection_years',
         'fixed_costs',
         'variable_costs',
@@ -31,11 +34,20 @@ class Projection extends Model
         'employees' => 'array',
         'assets' => 'array',
         'yearly_growth_rates' => 'array',
+        'product_distribution' => 'array',
         'products' => 'array',
         'funding_sources' => 'array',
         'projections_data' => 'array',
-        'baseline_revenue' => 'decimal:2',
+        'baseline_units_sold' => 'integer',
     ];
+
+    /**
+     * Get the products for the projection.
+     */
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
 
     // Accessor for formatted currency
     public function getFormattedCurrencyAttribute()
@@ -187,5 +199,139 @@ class Projection extends Model
         }
         
         return $yearlyData;
+    }
+
+    /**
+     * Calculate units sold for a specific month based on growth rate.
+     */
+    public function getUnitsSoldForMonth(int $month): int
+    {
+        $year = ceil($month / 12);
+        $monthlyGrowthRate = $this->getMonthlyGrowthRateForYear($year);
+        
+        // Calculate cumulative growth from month 1 to current month
+        $cumulativeGrowth = pow(1 + $monthlyGrowthRate, $month - 1);
+        
+        return (int) round($this->baseline_units_sold * $cumulativeGrowth);
+    }
+
+    /**
+     * Calculate total revenue for a specific month.
+     */
+    public function getTotalRevenueForMonth(int $month): float
+    {
+        $totalUnitsSold = $this->getUnitsSoldForMonth($month);
+        $totalRevenue = 0;
+        
+        $products = $this->products ?? [];
+        foreach ($products as $product) {
+            $salesPercentage = $product['sales_percentage'] ?? 0;
+            $sellingPrice = $product['selling_price'] ?? 0;
+            $productUnitsSold = $totalUnitsSold * ($salesPercentage / 100);
+            $totalRevenue += $productUnitsSold * $sellingPrice;
+        }
+        
+        return $totalRevenue;
+    }
+
+    /**
+     * Calculate total HPP for a specific month.
+     */
+    public function getTotalHPPForMonth(int $month): float
+    {
+        $totalUnitsSold = $this->getUnitsSoldForMonth($month);
+        $totalHPP = 0;
+        
+        $products = $this->products ?? [];
+        foreach ($products as $product) {
+            $salesPercentage = $product['sales_percentage'] ?? 0;
+            $productUnitsSold = $totalUnitsSold * ($salesPercentage / 100);
+            
+            // Calculate HPP for this product
+            $productHPP = 0;
+            $rawMaterials = $product['raw_materials'] ?? [];
+            foreach ($rawMaterials as $material) {
+                $costPerUnit = $material['cost_per_unit'] ?? 0;
+                $quantity = $material['quantity'] ?? 0;
+                $productHPP += $costPerUnit * $quantity;
+            }
+            
+            // Add packaging and labor costs
+            $packagingCost = $product['packaging_cost'] ?? 0;
+            $directLaborCost = $product['direct_labor_cost'] ?? 0;
+            $productHPP += $packagingCost + $directLaborCost;
+            
+            $totalHPP += $productHPP * $productUnitsSold;
+        }
+        
+        return $totalHPP;
+    }
+
+    /**
+     * Calculate total gross profit for a specific month.
+     */
+    public function getTotalGrossProfitForMonth(int $month): float
+    {
+        return $this->getTotalRevenueForMonth($month) - $this->getTotalHPPForMonth($month);
+    }
+
+    /**
+     * Get product breakdown for a specific month.
+     */
+    public function getProductBreakdownForMonth(int $month): array
+    {
+        $totalUnitsSold = $this->getUnitsSoldForMonth($month);
+        $breakdown = [];
+        
+        $products = $this->products ?? [];
+        foreach ($products as $product) {
+            $salesPercentage = $product['sales_percentage'] ?? 0;
+            $sellingPrice = $product['selling_price'] ?? 0;
+            $productUnitsSold = $totalUnitsSold * ($salesPercentage / 100);
+            
+            // Calculate HPP for this product
+            $productHPP = 0;
+            $rawMaterials = $product['raw_materials'] ?? [];
+            foreach ($rawMaterials as $material) {
+                $costPerUnit = $material['cost_per_unit'] ?? 0;
+                $quantity = $material['quantity'] ?? 0;
+                $productHPP += $costPerUnit * $quantity;
+            }
+            
+            // Add packaging and labor costs
+            $packagingCost = $product['packaging_cost'] ?? 0;
+            $directLaborCost = $product['direct_labor_cost'] ?? 0;
+            $productHPP += $packagingCost + $directLaborCost;
+            
+            $revenue = $productUnitsSold * $sellingPrice;
+            $hpp = $productHPP * $productUnitsSold;
+            $grossProfit = $revenue - $hpp;
+            $grossProfitMargin = $revenue > 0 ? ($grossProfit / $revenue) * 100 : 0;
+            
+            $breakdown[] = [
+                'product_name' => $product['name'] ?? 'Unknown Product',
+                'units_sold' => $productUnitsSold,
+                'revenue' => $revenue,
+                'hpp' => $hpp,
+                'gross_profit' => $grossProfit,
+                'gross_profit_margin' => $grossProfitMargin,
+            ];
+        }
+        
+        return $breakdown;
+    }
+
+    /**
+     * Validate that product distribution percentages sum to 100%.
+     */
+    public function validateProductDistribution(): bool
+    {
+        $totalPercentage = 0;
+        $products = $this->products ?? [];
+        foreach ($products as $product) {
+            $totalPercentage += $product['sales_percentage'] ?? 0;
+        }
+        
+        return abs($totalPercentage - 100) < 0.01; // Allow for small floating point errors
     }
 }

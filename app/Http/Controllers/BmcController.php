@@ -26,6 +26,7 @@ class BmcController extends Controller
             'owner_name' => 'required|string|max:255',
             'business_name' => 'required|string|max:255',
             'business_description' => 'required|string',
+            'industry' => 'required|string|max:255',
             'location' => 'required|string|max:255',
             'phone_number' => 'required|string|max:20',
             'customer_segments' => 'required|array',
@@ -43,6 +44,7 @@ class BmcController extends Controller
             'owner_name',
             'business_name',
             'business_description',
+            'industry',
             'location',
             'phone_number'
         ]));
@@ -152,6 +154,7 @@ class BmcController extends Controller
                 'owner_name' => 'required|string|max:255',
                 'business_name' => 'required|string|max:255',
                 'business_description' => 'required|string',
+                'industry' => 'required|string|max:255',
                 'location' => 'required|string|max:255',
                 'phone_number' => 'required|string|max:20',
                 'customer_segments' => 'required|array',
@@ -169,6 +172,7 @@ class BmcController extends Controller
                 'owner_name',
                 'business_name',
                 'business_description',
+                'industry',
                 'location',
                 'phone_number'
             ]));

@@ -392,14 +392,37 @@
             padding: 1rem 0.8rem;
         }
 
-        /* Responsive */
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .table-responsive {
+                font-size: 0.9rem;
+            }
+        }
+
         @media (max-width: 768px) {
             .main-container {
-                padding: 1rem;
+                padding: 1rem 0.5rem;
+            }
+            
+            .page-header {
+                padding: 1rem 0;
+                text-align: center;
+            }
+            
+            .page-title {
+                font-size: 1.75rem;
+            }
+            
+            .page-subtitle {
+                font-size: 1rem;
             }
             
             .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr;
                 gap: 1rem;
             }
             
@@ -410,19 +433,60 @@
             }
             
             .table-responsive {
-                font-size: 0.9rem;
+                font-size: 0.8rem;
             }
 
             .business-description {
                 max-width: 150px;
-                font-size: 0.8rem;
+                font-size: 0.75rem;
+            }
+            
+            .navbar-nav {
+                text-align: center;
+            }
+            
+            .navbar-nav .nav-link {
+                padding: 0.75rem 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .main-container {
+                padding: 0.5rem;
+            }
+            
+            .page-title {
+                font-size: 1.5rem;
+            }
+            
+            .page-subtitle {
+                font-size: 0.875rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+            
+            .table-responsive {
+                font-size: 0.7rem;
+            }
+
+            .business-description {
+                max-width: 100px;
+                font-size: 0.7rem;
+            }
+            
+            .table th,
+            .table td {
+                padding: 0.25rem;
             }
         }
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
         <div class="container">
             <a class="navbar-brand text-white" href="{{ route('admin.index') }}">
                 <i class="fas fa-chart-line me-2"></i>
@@ -693,7 +757,8 @@
                         <thead>
                             <tr>
                                 <th>Nama Bisnis</th>
-                                <th>Revenue Awal</th>
+                                <th>Industri</th>
+                                <th>Total Unit Terjual Bulan Pertama</th>
                                 <th>Tingkat Pertumbuhan</th>
                                 <th>Durasi Proyeksi</th>
                                 <th>Biaya Tetap</th>
@@ -708,13 +773,20 @@
                                 <td>
                                     <strong>{{ $projection->business_name }}</strong>
                                 </td>
+                                <td>{{ $projection->industry ?? 'N/A' }}</td>
                                 <td>
                                     <div class="value-cell">
-                                        <strong>Rp {{ number_format($projection->baseline_revenue, 0, ',', '.') }}</strong>
+                                        <strong>{{ number_format($projection->baseline_units_sold, 0, ',', '.') }} Unit</strong>
                                     </div>
                                 </td>
                                 <td>
-                                    <span class="badge bg-success">{{ $projection->annual_growth_rate }}%</span>
+                                    <span class="badge bg-success">
+                                        @if(isset($projection->yearly_growth_rates[1]))
+                                            {{ $projection->yearly_growth_rates[1] }}%
+                                        @else
+                                            N/A
+                                        @endif
+                                    </span>
                                 </td>
                                 <td>
                                     <span class="badge bg-info">{{ $projection->projection_years }} Tahun</span>

@@ -7,59 +7,93 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #a5b4fc;
+            --secondary: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #06b6d4;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --radius: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         .hero-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--primary);
             color: white;
-            padding: 100px 0;
+            padding: 4rem 0;
         }
         .bmc-card {
-            border: 2px solid #e9ecef;
-            border-radius: 15px;
-            padding: 20px;
-            margin: 10px 0;
-            transition: all 0.3s ease;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin: 0.5rem 0;
+            transition: var(--transition);
             height: 200px;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            background: white;
         }
         .bmc-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
         .bmc-card h5 {
-            color: #495057;
-            font-weight: bold;
+            color: var(--gray-900);
+            font-weight: 600;
         }
         .bmc-card p {
-            color: #6c757d;
-            font-size: 0.9rem;
+            color: var(--gray-600);
+            font-size: 0.875rem;
         }
         .cta-button {
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            background: var(--primary);
             border: none;
-            padding: 15px 30px;
-            border-radius: 50px;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
             color: white;
-            font-weight: bold;
+            font-weight: 500;
             text-decoration: none;
             display: inline-block;
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
         .cta-button:hover {
-            transform: translateY(-2px);
+            background: var(--primary-dark);
+            transform: translateY(-1px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             color: white;
         }
         .feature-icon {
-            font-size: 3rem;
-            color: #667eea;
-            margin-bottom: 20px;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
         }
         .section-title {
-            color: #495057;
-            font-weight: bold;
-            margin-bottom: 30px;
+            color: var(--gray-900);
+            font-weight: 600;
+            margin-bottom: 2rem;
         }
         
         /* Hero Illustration Styles */
@@ -343,7 +377,7 @@
         
         .line {
             position: absolute;
-            background: linear-gradient(45deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1));
+            background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 100%);
             border-radius: 2px;
             animation: pulse 2s ease-in-out infinite;
         }
@@ -405,10 +439,34 @@
             50% { opacity: 0.8; }
         }
         
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero-section {
+                padding: 3rem 0;
+            }
+            
             .hero-illustration {
-                height: 350px;
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 2rem 0;
+                text-align: center;
+            }
+            
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-section .lead {
+                font-size: 1.125rem;
+            }
+            
+            .hero-illustration {
+                height: 300px;
+                margin-top: 2rem;
             }
             
             .person-head {
@@ -430,8 +488,75 @@
                 font-size: 14px;
             }
             
+            .cta-button {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.875rem;
+                margin: 0.25rem;
+            }
+            
+            .navbar-nav {
+                text-align: center;
+            }
+            
+            .navbar-nav .nav-link {
+                padding: 0.75rem 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-section {
+                padding: 1.5rem 0;
+            }
+            
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-section .lead {
+                font-size: 1rem;
+            }
+            
+            .hero-illustration {
+                height: 250px;
+            }
+            
+            .person-head {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .person-body {
+                width: 45px;
+                height: 75px;
+            }
+            
+            .bmc-element {
+                width: 45px;
+                height: 30px;
+            }
+            
+            .bmc-element i {
+                font-size: 12px;
+            }
+            
+            .cta-button {
+                padding: 0.625rem 1rem;
+                font-size: 0.8rem;
+                margin: 0.125rem;
+            }
+        }
+            
             .bmc-element span {
                 font-size: 8px;
+            }
+            
+            .bmc-card {
+                height: 180px;
+                padding: 1rem;
+            }
+            
+            .feature-icon {
+                font-size: 2rem;
             }
         }
     </style>
@@ -458,7 +583,7 @@
                         <a class="nav-link" href="{{ route('tam-sam-som.create') }}">Market Validation</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('projection.create') }}">Proyeksi Keuangan</a>
+                        <a class="nav-link" href="{{ route('projection.create') }}">Financial Projection</a>
                     </li>
                 </ul>
             </div>
@@ -474,16 +599,16 @@
                         <h1 class="display-4 fw-bold mb-2">Ideation</h1>
                         <p class="lead mb-3 text-white-50 fs-4">Business Strategy Platform</p>
                     </div>
-                    <p class="lead mb-4">Platform lengkap untuk mengembangkan strategi bisnis Anda. Buat Business Model Canvas, analisis TAM SAM SOM, dan proyeksi keuangan dengan mudah dan profesional.</p>
+                    <p class="lead mb-4">Platform lengkap untuk mengembangkan strategi bisnis Anda. Buat Business Model Canvas, analisis TAM SAM SOM, dan Financial Projection dengan mudah dan profesional.</p>
                     <div class="d-flex flex-wrap gap-3">
                     <a href="{{ route('bmc.create') }}" class="cta-button">
                             <i class="fas fa-th-large me-2"></i>BMC
                         </a>
-                        <a href="{{ route('tam-sam-som.create') }}" class="cta-button" style="background: linear-gradient(45deg, #e74c3c, #c0392b);">
+                        <a href="{{ route('tam-sam-som.create') }}" class="cta-button" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">
                             <i class="fas fa-chart-pie me-2"></i>Market Validation
                         </a>
-                        <a href="{{ route('projection.create') }}" class="cta-button" style="background: linear-gradient(45deg, #27ae60, #229954);">
-                            <i class="fas fa-chart-line me-2"></i>Proyeksi Keuangan
+                        <a href="{{ route('projection.create') }}" class="cta-button" style="background: linear-gradient(135deg, #27ae60 0%, #229954 100%);">
+                            <i class="fas fa-chart-line me-2"></i>Financial Projection
                         </a>
                     </div>
                 </div>
@@ -659,16 +784,17 @@
                             <div class="feature-icon mb-3" style="color: #27ae60;">
                                 <i class="fas fa-chart-line"></i>
                             </div>
-                            <h4 class="card-title mb-3">Proyeksi Keuangan</h4>
-                            <p class="card-text">Proyeksi keuangan berdasarkan growth rate tahunan dengan perhitungan bulanan otomatis yang mudah dipahami.</p>
+                            <h4 class="card-title mb-3">Financial Projection</h4>
+                            <p class="card-text">Financial Projection berbasis unit produk dengan perhitungan HPP otomatis dan analisis margin yang mendalam.</p>
                             <ul class="list-unstyled text-start mt-3">
-                                <li><i class="fas fa-check text-success me-2"></i>Growth Rate Bulanan</li>
-                                <li><i class="fas fa-check text-success me-2"></i>Fixed & Variable Costs</li>
-                                <li><i class="fas fa-check text-success me-2"></i>Payroll Management</li>
-                                <li><i class="fas fa-check text-success me-2"></i>Export Excel</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Berbasis Unit Produk</li>
+                                <li><i class="fas fa-check text-success me-2"></i>HPP Otomatis dari Bahan Baku</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Analisis Margin per Produk</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Multiple Produk & Distribusi</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Export Excel Profesional</li>
                             </ul>
                             <a href="{{ route('projection.create') }}" class="btn btn-success mt-3">
-                                <i class="fas fa-chart-line me-2"></i>Proyeksi Keuangan
+                                <i class="fas fa-chart-line me-2"></i>Financial Projection
                             </a>
                         </div>
                     </div>
@@ -847,7 +973,7 @@
                     <i class="fas fa-chart-pie me-2"></i>Analisis Pasar
                 </a>
                 <a href="{{ route('projection.create') }}" class="btn btn-outline-light btn-lg">
-                    <i class="fas fa-chart-line me-2"></i>Proyeksi Keuangan
+                    <i class="fas fa-chart-line me-2"></i>Financial Projection
                 </a>
             </div>
         </div>

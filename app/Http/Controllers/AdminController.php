@@ -73,6 +73,12 @@ class AdminController extends Controller
 
             $business = Business::with('bmcData')->findOrFail($id);
             
+            // Check if business has BMC data
+            if (!$business->bmcData) {
+                return redirect()->route('admin.index')
+                    ->with('error', 'Data BMC tidak tersedia untuk bisnis ini.');
+            }
+            
             return view('admin.show', compact('business'));
             
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

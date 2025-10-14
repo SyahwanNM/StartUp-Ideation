@@ -4,10 +4,45 @@
 
 @section('styles')
 <style>
+    :root {
+        --primary: #6366f1;
+        --primary-dark: #4f46e5;
+        --primary-light: #a5b4fc;
+        --secondary: #64748b;
+        --success: #10b981;
+        --warning: #f59e0b;
+        --danger: #ef4444;
+        --info: #06b6d4;
+        --light: #f8fafc;
+        --dark: #1e293b;
+        --gray-50: #f9fafb;
+        --gray-100: #f3f4f6;
+        --gray-200: #e5e7eb;
+        --gray-300: #d1d5db;
+        --gray-400: #9ca3af;
+        --gray-500: #6b7280;
+        --gray-600: #4b5563;
+        --gray-700: #374151;
+        --gray-800: #1f2937;
+        --gray-900: #111827;
+        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        --radius: 0.5rem;
+        --radius-lg: 0.75rem;
+        --radius-xl: 1rem;
+        --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
     body {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--gray-50);
         min-height: 100vh;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        line-height: 1.6;
+        color: var(--gray-800);
+        font-size: 14px;
     }
 
     .main-container {
@@ -17,8 +52,9 @@
 
     .wizard-container {
         background: white;
-        border-radius: 20px;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--gray-200);
         padding: 0;
         margin: 2rem auto;
         max-width: 900px;
@@ -26,7 +62,7 @@
     }
 
     .wizard-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--primary);
         color: white;
         padding: 2rem;
         text-align: center;
@@ -36,16 +72,18 @@
         font-size: 2rem;
         font-weight: 700;
         margin-bottom: 0.5rem;
+        letter-spacing: -0.025em;
     }
 
     .wizard-subtitle {
         opacity: 0.9;
-        font-size: 1.1rem;
+        font-size: 1.125rem;
+        line-height: 1.6;
     }
 
     .progress-container {
         background: rgba(255,255,255,0.1);
-        border-radius: 10px;
+        border-radius: var(--radius);
         padding: 1rem;
         margin-top: 1.5rem;
     }
@@ -76,26 +114,27 @@
 
     .step {
         background: rgba(255,255,255,0.3);
-        width: 40px;
-        height: 40px;
+        width: 36px;
+        height: 36px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         font-weight: 600;
+        font-size: 0.875rem;
         position: relative;
         z-index: 2;
-        transition: all 0.3s ease;
+        transition: var(--transition);
     }
 
     .step.active {
         background: white;
-        color: #667eea;
-        transform: scale(1.1);
+        color: var(--primary);
+        transform: scale(1.05);
     }
 
     .step.completed {
-        background: #28a745;
+        background: var(--success);
         color: white;
     }
 
@@ -106,14 +145,14 @@
     }
 
     .step-label {
-        font-size: 0.9rem;
+        font-size: 0.75rem;
         opacity: 0.8;
         text-align: center;
         flex: 1;
     }
 
     .wizard-content {
-        padding: 3rem;
+        padding: 2rem;
     }
 
     .step-content {
@@ -136,44 +175,44 @@
     }
 
     .step-title {
-        color: #2d3748;
-        font-size: 1.8rem;
+        color: var(--gray-900);
+        font-size: 1.5rem;
         font-weight: 700;
         margin-bottom: 0.5rem;
     }
 
     .step-description {
-        color: #718096;
-        font-size: 1.1rem;
+        color: var(--gray-600);
+        font-size: 1rem;
         line-height: 1.6;
     }
 
     .form-group {
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
     }
 
     .form-label {
         display: block;
-        font-weight: 600;
-        color: #2d3748;
+        font-weight: 500;
+        color: var(--gray-700);
         margin-bottom: 0.5rem;
-        font-size: 1rem;
+        font-size: 0.875rem;
     }
 
     .form-control {
         width: 100%;
-        padding: 1rem;
-        border: 2px solid #e2e8f0;
-        border-radius: 12px;
-        font-size: 1rem;
-        transition: all 0.3s ease;
-        background: #f8f9fa;
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--gray-300);
+        border-radius: var(--radius);
+        font-size: 0.875rem;
+        transition: var(--transition);
+        background: white;
     }
 
     .form-control:focus {
         outline: none;
-        border-color: #667eea;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
         background: white;
     }
 
@@ -466,37 +505,40 @@
     }
 
     .btn {
-        padding: 0.75rem 2rem;
+        padding: 0.75rem 1.5rem;
         border: none;
-        border-radius: 10px;
-        font-weight: 600;
+        border-radius: var(--radius);
+        font-weight: 500;
         text-decoration: none;
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
         cursor: pointer;
-        font-size: 1rem;
-        transition: all 0.3s ease;
+        font-size: 0.875rem;
+        transition: var(--transition);
     }
 
     .btn-primary {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--primary);
         color: white;
+        box-shadow: var(--shadow-sm);
     }
 
     .btn-secondary {
-        background: #6c757d;
+        background: var(--secondary);
         color: white;
+        box-shadow: var(--shadow-sm);
     }
 
     .btn-success {
-        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        background: var(--success);
         color: white;
+        box-shadow: var(--shadow-sm);
     }
 
     .btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
     }
 
     .btn:disabled {
@@ -637,17 +679,54 @@
         color: #721c24;
     }
 
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+        .wizard-container {
+            margin: 1.5rem;
+        }
+        
+        .wizard-content {
+            padding: 2.5rem;
+        }
+    }
+
     @media (max-width: 768px) {
         .wizard-container {
             margin: 1rem;
         }
         
+        .wizard-header {
+            padding: 1rem 0;
+            text-align: center;
+        }
+        
+        .wizard-title {
+            font-size: 1.75rem;
+        }
+        
+        .wizard-subtitle {
+            font-size: 1rem;
+        }
+        
         .wizard-content {
-            padding: 2rem;
+            padding: 1.5rem;
+        }
+        
+        .step-content {
+            padding: 1rem;
+        }
+        
+        .step-title {
+            font-size: 1.25rem;
+        }
+        
+        .step-description {
+            font-size: 0.875rem;
         }
         
         .summary-grid {
             grid-template-columns: 1fr;
+            gap: 1rem;
         }
         
         .wizard-actions {
@@ -657,6 +736,68 @@
         
         .step-labels {
             font-size: 0.8rem;
+        }
+        
+        .form-control {
+            font-size: 0.875rem;
+            padding: 0.75rem;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .navbar-nav {
+            text-align: center;
+        }
+        
+        .navbar-nav .nav-link {
+            padding: 0.75rem 1rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .wizard-container {
+            margin: 0.5rem;
+        }
+        
+        .wizard-title {
+            font-size: 1.5rem;
+        }
+        
+        .wizard-subtitle {
+            font-size: 0.875rem;
+        }
+        
+        .wizard-content {
+            padding: 1rem;
+        }
+        
+        .step-content {
+            padding: 0.75rem;
+        }
+        
+        .step-title {
+            font-size: 1.125rem;
+        }
+        
+        .step-description {
+            font-size: 0.8rem;
+        }
+        
+        .form-control {
+            font-size: 0.8rem;
+            padding: 0.625rem;
+        }
+        
+        .btn {
+            padding: 0.625rem 1rem;
+            font-size: 0.8rem;
+        }
+        
+        .step-labels {
+            font-size: 0.7rem;
         }
     }
 </style>

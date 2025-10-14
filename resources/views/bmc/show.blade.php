@@ -397,16 +397,15 @@
         
         .bmc-container {
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-sm);
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
+            border: 1px solid var(--gray-200);
         }
         .bmc-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--primary);
             color: white;
-            padding: 30px;
+            padding: 2rem;
             text-align: center;
         }
         
@@ -415,7 +414,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             grid-template-rows: 1fr 1fr 1fr;
-            gap: 15px;
+            gap: 1rem;
             margin: 2rem;
             max-width: 1000px;
             margin-left: auto;
@@ -424,10 +423,10 @@
 
         .bmc-box {
             background: white;
-            border: 3px solid #e9ecef;
-            border-radius: 15px;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
             padding: 1.5rem;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             position: relative;
             overflow: hidden;
             min-height: 200px;
@@ -436,7 +435,7 @@
         }
 
         .bmc-box:hover {
-            transform: translateY(-5px);
+            transform: translateY(-2px);
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
         }
 
@@ -446,87 +445,87 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 3px;
+            background: var(--primary);
         }
 
         /* Specific component colors */
         .bmc-box:nth-child(1) {
-            border-color: #e74c3c;
-            background: linear-gradient(135deg, #fff5f5 0%, #ffeaea 100%);
+            border-color: var(--danger);
+            background: var(--gray-50);
         }
         .bmc-box:nth-child(1)::before {
-            background: linear-gradient(90deg, #e74c3c, #c0392b);
+            background: var(--danger);
         }
 
         .bmc-box:nth-child(2) {
-            border-color: #f39c12;
-            background: linear-gradient(135deg, #fffbf0 0%, #fff2e0 100%);
+            border-color: var(--warning);
+            background: var(--gray-50);
         }
         .bmc-box:nth-child(2)::before {
-            background: linear-gradient(90deg, #f39c12, #e67e22);
+            background: var(--warning);
         }
 
         .bmc-box:nth-child(3) {
-            border-color: #27ae60;
-            background: linear-gradient(135deg, #f0fff4 0%, #e8f5e8 100%);
+            border-color: var(--success);
+            background: var(--gray-50);
         }
         .bmc-box:nth-child(3)::before {
-            background: linear-gradient(90deg, #27ae60, #2ecc71);
+            background: var(--success);
         }
 
         .bmc-box:nth-child(4) {
-            border-color: #9b59b6;
-            background: linear-gradient(135deg, #faf5ff 0%, #f0e6ff 100%);
+            border-color: var(--primary);
+            background: var(--gray-50);
         }
         .bmc-box:nth-child(4)::before {
-            background: linear-gradient(90deg, #9b59b6, #8e44ad);
+            background: var(--primary);
         }
 
         .bmc-box:nth-child(5) {
-            border-color: #3498db;
-            background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+            border-color: var(--info);
+            background: var(--gray-50);
         }
         .bmc-box:nth-child(5)::before {
-            background: linear-gradient(90deg, #3498db, #2980b9);
+            background: var(--info);
         }
 
         .bmc-box:nth-child(6) {
-            border-color: #e67e22;
-            background: linear-gradient(135deg, #fff8f0 0%, #fff0e6 100%);
+            border-color: var(--warning);
+            background: var(--gray-50);
         }
         .bmc-box:nth-child(6)::before {
-            background: linear-gradient(90deg, #e67e22, #d35400);
+            background: var(--warning);
         }
 
         .bmc-box:nth-child(7) {
-            border-color: #1abc9c;
-            background: linear-gradient(135deg, #f0fffe 0%, #e6fffc 100%);
+            border-color: var(--success);
+            background: var(--gray-50);
         }
         .bmc-box:nth-child(7)::before {
-            background: linear-gradient(90deg, #1abc9c, #16a085);
+            background: var(--success);
         }
 
         .bmc-box:nth-child(8) {
-            border-color: #34495e;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-color: var(--secondary);
+            background: var(--gray-50);
         }
         .bmc-box:nth-child(8)::before {
-            background: linear-gradient(90deg, #34495e, #2c3e50);
+            background: var(--secondary);
         }
 
         .bmc-box:nth-child(9) {
-            border-color: #e91e63;
-            background: linear-gradient(135deg, #fff0f5 0%, #ffe6f0 100%);
+            border-color: var(--danger);
+            background: var(--gray-50);
         }
         .bmc-box:nth-child(9)::before {
-            background: linear-gradient(90deg, #e91e63, #c2185b);
+            background: var(--danger);
         }
 
         .bmc-box h6 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #2c3e50;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gray-900);
             margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
@@ -541,67 +540,71 @@
         }
 
         .bmc-box li {
-            background: rgba(255,255,255,0.8);
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
+            background: white;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius);
             padding: 0.5rem 0.75rem;
             margin-bottom: 0.5rem;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            color: #495057;
+            transition: var(--transition);
+            font-size: 0.875rem;
+            color: var(--gray-700);
         }
 
         .bmc-box li:hover {
-            border-color: #667eea;
+            border-color: var(--primary);
             background: white;
-            transform: translateX(5px);
+            transform: translateX(2px);
         }
         .business-info {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 30px;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--gray-200);
         }
         .download-buttons {
             text-align: center;
-            margin: 30px 0;
+            margin: 2rem 0;
         }
         .download-btn {
-            background: linear-gradient(45deg, #28a745, #20c997);
+            background: var(--success);
             border: none;
             color: white;
-            padding: 12px 25px;
-            border-radius: 25px;
-            margin: 0 10px;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            margin: 0 0.5rem;
             text-decoration: none;
             display: inline-block;
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            font-size: 0.875rem;
+            font-weight: 500;
         }
         .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background: #059669;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
             color: white;
         }
         .download-btn.pdf {
-            background: linear-gradient(45deg, #dc3545, #e74c3c);
+            background: var(--danger);
         }
         .download-btn.jpg {
-            background: linear-gradient(45deg, #28a745, #20c997);
+            background: var(--success);
         }
         .download-btn.png {
-            background: linear-gradient(45deg, #fd7e14, #ffc107);
+            background: var(--warning);
         }
         .download-btn.print {
-            background: linear-gradient(45deg, #6c757d, #495057);
+            background: var(--secondary);
         }
         
         /* Footer Styles */
         .footer {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            background: var(--gray-900);
             color: white;
             padding: 2rem 0;
             margin-top: 3rem;
-            border-top: 3px solid #3498db;
+            border-top: 3px solid var(--primary);
         }
         
         .footer-content {
@@ -616,18 +619,67 @@
         }
         
         .footer-brand h4 {
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-size: 1.25rem;
+            font-weight: 600;
             margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #3498db, #2ecc71);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--primary);
         }
         
         .footer-brand p {
-            color: #bdc3c7;
-            font-size: 0.9rem;
+            color: var(--gray-400);
+            font-size: 0.875rem;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 1rem;
+            letter-spacing: -0.025em;
+        }
+
+        .page-subtitle {
+            font-size: 1.125rem;
+            color: var(--gray-600);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Navigation Styles */
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            box-shadow: var(--shadow-sm);
+            border: none;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--primary-light) !important;
+            transform: translateY(-1px);
+        }
+
+        .navbar-nav .nav-link.active {
+            color: var(--primary-light) !important;
+            font-weight: 600;
         }
         
         .footer-links {
@@ -851,10 +903,10 @@
             animation: slideIn 0.3s ease;
         }
         .notification.success {
-            background: linear-gradient(45deg, #28a745, #20c997);
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
         }
         .notification.error {
-            background: linear-gradient(45deg, #dc3545, #e74c3c);
+            background: linear-gradient(135deg, #dc3545 0%, #e74c3c 100%);
         }
         @keyframes slideIn {
             from { transform: translateX(100%); opacity: 0; }
@@ -863,7 +915,41 @@
     </style>
 </head>
 <body data-date="{{ now()->format('d M Y H:i') }}">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-3" href="{{ route('bmc.landing') }}">
+                <i class="fas fa-lightbulb me-2"></i>Ideation
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('bmc.landing') }}">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ route('bmc.create') }}">BMC</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('tam-sam-som.create') }}">Market Validation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('projection.create') }}">Financial Projection</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div class="container py-5">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">Business Model Canvas</h1>
+            <p class="page-subtitle">{{ $business->business_name }}</p>
+        </div>
+
         <!-- Business Information -->
         <div class="business-info">
             <h3 class="text-primary mb-3">

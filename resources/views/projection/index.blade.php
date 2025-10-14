@@ -3,14 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Proyeksi Keuangan - Ideation</title>
+    <title>Daftar Financial Projection - Ideation</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #a5b4fc;
+            --secondary: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #06b6d4;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --radius: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: var(--gray-50);
             min-height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--gray-800);
+            font-size: 14px;
         }
 
         .main-container {
@@ -27,46 +62,74 @@
         .page-title {
             font-size: 2.5rem;
             font-weight: 700;
-            color: #2c3e50;
+            color: var(--gray-900);
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            letter-spacing: -0.025em;
         }
 
         .page-subtitle {
-            font-size: 1.1rem;
-            color: #6c757d;
+            font-size: 1.125rem;
+            color: var(--gray-600);
             max-width: 600px;
             margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Navigation Styles */
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            box-shadow: var(--shadow-sm);
+            border: none;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--primary-light) !important;
+            transform: translateY(-1px);
+        }
+
+        .navbar-nav .nav-link.active {
+            color: var(--primary-light) !important;
+            font-weight: 600;
         }
 
         .projection-card {
             background: white;
-            border-radius: 15px;
+            border-radius: var(--radius-lg);
             padding: 1.5rem;
             margin-bottom: 1.5rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border: 1px solid #e9ecef;
-            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+            transition: var(--transition);
         }
 
         .projection-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            box-shadow: var(--shadow-md);
         }
 
         .projection-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #2c3e50;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--gray-900);
             margin-bottom: 0.5rem;
         }
 
         .projection-meta {
-            color: #6c757d;
-            font-size: 0.9rem;
+            color: var(--gray-600);
+            font-size: 0.875rem;
             margin-bottom: 1rem;
         }
 
@@ -79,88 +142,97 @@
 
         .stat-item {
             text-align: center;
-            padding: 0.5rem;
-            background: #f8f9fa;
-            border-radius: 8px;
+            padding: 0.75rem;
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            border: 1px solid var(--gray-200);
         }
 
         .stat-value {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
-            color: #2c3e50;
+            color: var(--gray-900);
         }
 
         .stat-label {
-            font-size: 0.8rem;
-            color: #6c757d;
+            font-size: 0.75rem;
+            color: var(--gray-600);
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--primary);
             border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            padding: 0.625rem 1.25rem;
+            border-radius: var(--radius);
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: var(--transition);
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
         }
 
         .btn-success {
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            background: var(--success);
             border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            padding: 0.625rem 1.25rem;
+            border-radius: var(--radius);
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: var(--transition);
         }
 
         .btn-success:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+            background: #059669;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
         }
 
         .btn-danger {
-            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            background: var(--danger);
             border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            padding: 0.625rem 1.25rem;
+            border-radius: var(--radius);
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: var(--transition);
         }
 
         .btn-danger:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+            background: #dc2626;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
         }
 
         .btn-warning {
-            background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+            background: var(--warning);
             border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            padding: 0.625rem 1.25rem;
+            border-radius: var(--radius);
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: var(--transition);
         }
 
         .btn-warning:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+            background: #d97706;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
         }
 
         .empty-state {
             text-align: center;
-            padding: 4rem 2rem;
-            color: #6c757d;
+            padding: 3rem 2rem;
+            color: var(--gray-600);
         }
 
         .empty-state i {
-            font-size: 4rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
-            color: #dee2e6;
+            color: var(--gray-400);
         }
 
         .action-buttons {
@@ -169,27 +241,142 @@
             flex-wrap: wrap;
         }
 
-        @media (max-width: 768px) {
-            .main-container {
-                padding: 1rem;
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .projection-card {
+                padding: 1.5rem;
             }
             
             .projection-stats {
                 grid-template-columns: repeat(2, 1fr);
             }
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 1rem 0.5rem;
+            }
+            
+            .page-header {
+                padding: 1rem 0;
+                text-align: center;
+            }
+            
+            .page-title {
+                font-size: 1.75rem;
+            }
+            
+            .page-subtitle {
+                font-size: 1rem;
+            }
+            
+            .projection-card {
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+            
+            .projection-title {
+                font-size: 1.25rem;
+            }
+            
+            .projection-stats {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+            
+            .stat-item {
+                padding: 0.75rem;
+            }
+            
+            .stat-value {
+                font-size: 1.25rem;
+            }
             
             .action-buttons {
                 flex-direction: column;
+                gap: 0.75rem;
+            }
+            
+            .btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.875rem;
+            }
+            
+            .navbar-nav {
+                text-align: center;
+            }
+            
+            .navbar-nav .nav-link {
+                padding: 0.75rem 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .main-container {
+                padding: 0.5rem;
+            }
+            
+            .page-title {
+                font-size: 1.5rem;
+            }
+            
+            .projection-card {
+                padding: 0.75rem;
+            }
+            
+            .projection-title {
+                font-size: 1.125rem;
+            }
+            
+            .stat-value {
+                font-size: 1rem;
+            }
+            
+            .stat-label {
+                font-size: 0.75rem;
+            }
+            
+            .btn {
+                padding: 0.625rem 1rem;
+                font-size: 0.8rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-3" href="{{ route('bmc.landing') }}">
+                <i class="fas fa-lightbulb me-2"></i>Ideation
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('bmc.landing') }}">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('bmc.create') }}">BMC</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('tam-sam-som.create') }}">Market Validation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ route('projection.create') }}">Financial Projection</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div class="main-container">
         <!-- Page Header -->
         <div class="page-header">
-            <h1 class="page-title">Daftar Proyeksi Keuangan</h1>
-            <p class="page-subtitle">Kelola dan lihat semua proyeksi keuangan yang telah dibuat</p>
+            <h1 class="page-title">Daftar Financial Projection</h1>
+            <p class="page-subtitle">Kelola dan lihat semua Financial Projection yang telah dibuat</p>
             <div class="mt-3">
                 <a href="{{ route('projection.create') }}" class="btn btn-primary">
                     <i class="fas fa-plus me-2"></i>
@@ -283,8 +470,8 @@
         @else
             <div class="empty-state">
                 <i class="fas fa-chart-line"></i>
-                <h3>Belum Ada Proyeksi Keuangan</h3>
-                <p>Mulai buat proyeksi keuangan pertama Anda untuk merencanakan pertumbuhan bisnis.</p>
+                <h3>Belum Ada Financial Projection</h3>
+                <p>Mulai buat Financial Projection pertama Anda untuk merencanakan pertumbuhan bisnis.</p>
                 <a href="{{ route('projection.create') }}" class="btn btn-primary">
                     <i class="fas fa-plus me-2"></i>
                     Buat Proyeksi Pertama

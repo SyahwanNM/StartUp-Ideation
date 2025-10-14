@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Projection;
 use Illuminate\Support\Facades\Log;
+use DateTime;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ProfessionalProjectionExport;
 
@@ -31,7 +32,8 @@ class ProjectionController extends Controller
         try {
             $request->validate([
                 'business_name' => 'required|string|max:255',
-                'baseline_revenue' => 'required|numeric|min:0',
+                'industry' => 'required|string|max:255',
+                'baseline_units_sold' => 'required|integer|min:1',
                 'projection_years' => 'required|integer|min:1|max:5',
                 'fixed_costs' => 'required|array|min:1',
                 'fixed_costs.*.name' => 'required|string|max:255',
@@ -48,16 +50,18 @@ class ProjectionController extends Controller
                 'assets.*.name' => 'nullable|string|max:255',
                 'assets.*.purchase_price' => 'nullable|numeric|min:0',
                 'assets.*.purchase_date' => 'nullable|date',
-                'assets.*.useful_life_months' => 'nullable|integer|min:1',
                 'yearly_growth_rates' => 'required|array',
                 'yearly_growth_rates.*' => 'required|numeric|min:0|max:100',
-                'products' => 'nullable|array',
-                'products.*.name' => 'nullable|string|max:255',
-                'products.*.selling_price' => 'nullable|numeric|min:0',
-                'products.*.raw_materials' => 'nullable|array',
-                'products.*.raw_materials.*.name' => 'nullable|string|max:255',
-                'products.*.raw_materials.*.cost_per_unit' => 'nullable|numeric|min:0',
-                'products.*.raw_materials.*.quantity' => 'nullable|numeric|min:0',
+                'products' => 'required|array|min:1',
+                'products.*.name' => 'required|string|max:255',
+                'products.*.selling_price' => 'required|numeric|min:0',
+                'products.*.packaging_cost' => 'nullable|numeric|min:0',
+                'products.*.direct_labor_cost' => 'nullable|numeric|min:0',
+                'products.*.sales_percentage' => 'required|numeric|min:0|max:100',
+                'products.*.raw_materials' => 'required|array|min:1',
+                'products.*.raw_materials.*.name' => 'required|string|max:255',
+                'products.*.raw_materials.*.cost_per_unit' => 'required|numeric|min:0',
+                'products.*.raw_materials.*.quantity' => 'required|numeric|min:0',
                 'funding_sources' => 'nullable|array',
                 'funding_sources.*.type' => 'nullable|string|in:equity,loan,investment',
                 'funding_sources.*.amount' => 'nullable|numeric|min:0',
@@ -65,41 +69,91 @@ class ProjectionController extends Controller
                 'funding_sources.*.tenor_months' => 'nullable|integer|min:1',
             ]);
 
+            // Validate product distribution percentages sum to 100%
+            $totalPercentage = 0;
+            foreach ($request->products as $product) {
+                $totalPercentage += $product['sales_percentage'];
+            }
+            if (abs($totalPercentage - 100) > 0.01) {
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', 'Total persentase distribusi produk harus 100%. Saat ini: ' . number_format($totalPercentage, 2) . '%');
+            }
+
             // Clean and prepare data
             $fixedCosts = array_filter($request->fixed_costs, function($cost) {
+                // Clean currency input by removing dots and converting to numeric
+                $amount = is_string($cost['amount']) ? str_replace('.', '', $cost['amount']) : $cost['amount'];
+                $cost['amount'] = (float) $amount;
                 return !empty($cost['name']) && !empty($cost['amount']) && $cost['amount'] > 0;
             });
             
             $variableCosts = array_filter($request->variable_costs ?? [], function($cost) {
-                return !empty($cost['name']) && isset($cost['percentage']) && $cost['percentage'] !== '' && is_numeric($cost['percentage']) && $cost['percentage'] > 0;
+                // Clean percentage input
+                $percentage = is_string($cost['percentage']) ? str_replace(',', '.', $cost['percentage']) : $cost['percentage'];
+                return !empty($cost['name']) && isset($cost['percentage']) && $cost['percentage'] !== '' && is_numeric($percentage) && $percentage > 0;
             });
             
             $employees = array_filter($request->employees ?? [], function($employee) {
+                // Clean currency input
+                $salary = is_string($employee['salary']) ? str_replace('.', '', $employee['salary']) : $employee['salary'];
+                $employee['salary'] = (float) $salary;
                 return !empty($employee['name']) && !empty($employee['salary']) && $employee['salary'] > 0 && 
                        !empty($employee['start_month']) && !empty($employee['end_month']) &&
                        $employee['start_month'] < $employee['end_month'];
             });
 
             $assets = array_filter($request->assets ?? [], function($asset) {
+                // Clean currency input
+                $purchasePrice = is_string($asset['purchase_price']) ? str_replace('.', '', $asset['purchase_price']) : $asset['purchase_price'];
+                $asset['purchase_price'] = (float) $purchasePrice;
                 return !empty($asset['name']) && !empty($asset['purchase_price']) && $asset['purchase_price'] > 0 &&
-                       !empty($asset['useful_life_months']) && $asset['useful_life_months'] > 0;
-            });
-
-            $products = array_filter($request->products ?? [], function($product) {
-                return !empty($product['name']) && !empty($product['selling_price']) && $product['selling_price'] > 0;
+                       !empty($asset['purchase_date']);
             });
 
             $fundingSources = array_filter($request->funding_sources ?? [], function($source) {
+                // Clean currency input
+                $amount = is_string($source['amount']) ? str_replace('.', '', $source['amount']) : $source['amount'];
+                $source['amount'] = (float) $amount;
                 return !empty($source['type']) && !empty($source['amount']) && $source['amount'] > 0;
             });
 
-            // Calculate projections
-            $projections = $this->calculateProjections($request, $fixedCosts, $variableCosts, $employees, $assets, $products, $fundingSources);
+            // Prepare products data for array storage
+            $products = [];
+            foreach ($request->products as $productData) {
+                // Clean currency inputs for products
+                $sellingPrice = is_string($productData['selling_price']) ? str_replace('.', '', $productData['selling_price']) : $productData['selling_price'];
+                $packagingCost = isset($productData['packaging_cost']) && is_string($productData['packaging_cost']) ? str_replace('.', '', $productData['packaging_cost']) : ($productData['packaging_cost'] ?? null);
+                $directLaborCost = isset($productData['direct_labor_cost']) && is_string($productData['direct_labor_cost']) ? str_replace('.', '', $productData['direct_labor_cost']) : ($productData['direct_labor_cost'] ?? null);
+                
+                $product = [
+                    'name' => $productData['name'],
+                    'selling_price' => (float) $sellingPrice,
+                    'packaging_cost' => $packagingCost ? (float) $packagingCost : null,
+                    'direct_labor_cost' => $directLaborCost ? (float) $directLaborCost : null,
+                    'sales_percentage' => $productData['sales_percentage'],
+                    'raw_materials' => []
+                ];
+                
+                foreach ($productData['raw_materials'] as $materialData) {
+                    // Clean currency input for raw materials
+                    $costPerUnit = is_string($materialData['cost_per_unit']) ? str_replace('.', '', $materialData['cost_per_unit']) : $materialData['cost_per_unit'];
+                    
+                    $product['raw_materials'][] = [
+                        'name' => $materialData['name'],
+                        'cost_per_unit' => (float) $costPerUnit,
+                        'quantity' => $materialData['quantity'],
+                    ];
+                }
+                
+                $products[] = $product;
+            }
 
-            // Save to database
+            // Create projection
             $projection = Projection::create([
                 'business_name' => $request->business_name,
-                'baseline_revenue' => $request->baseline_revenue,
+                'industry' => $request->industry,
+                'baseline_units_sold' => $request->baseline_units_sold,
                 'projection_years' => $request->projection_years,
                 'fixed_costs' => $fixedCosts,
                 'variable_costs' => $variableCosts,
@@ -108,12 +162,18 @@ class ProjectionController extends Controller
                 'yearly_growth_rates' => $request->yearly_growth_rates,
                 'products' => $products,
                 'funding_sources' => $fundingSources,
-                'projections_data' => $projections,
             ]);
+
+
+            // Calculate projections
+            $projections = $this->calculateUnitBasedProjections($projection, $fixedCosts, $variableCosts, $employees, $assets, $fundingSources);
+
+            // Update projection with calculated data
+            $projection->update(['projections_data' => $projections]);
 
             return redirect()->route('projection.show', $projection->id)
                 ->with('success', 'Proyeksi keuangan berhasil dibuat!');
-
+                
         } catch (\Exception $e) {
             Log::error('Error in ProjectionController@store: ' . $e->getMessage());
             return redirect()->back()
@@ -135,9 +195,11 @@ class ProjectionController extends Controller
                 // In the future, you might want to add user_id to track who created the projection
             }
             
-            $projections = $projection->getProjectionsData();
+            // Get projections data for the view
+            $projectionsData = $projection->getProjectionsData();
             
-            return view('projection.result', compact('projection', 'projections'));
+            // Always use unit-based result view
+            return view('projection.result', compact('projection', 'projectionsData'));
 
         } catch (\Exception $e) {
             Log::error('Error in ProjectionController@show: ' . $e->getMessage());
@@ -177,7 +239,7 @@ class ProjectionController extends Controller
             
             $request->validate([
                 'business_name' => 'required|string|max:255',
-                'baseline_revenue' => 'required|numeric|min:0',
+                'baseline_units_sold' => 'required|integer|min:1',
                 'projection_years' => 'required|integer|min:1|max:5',
                 'fixed_costs' => 'required|array|min:1',
                 'fixed_costs.*.name' => 'required|string|max:255',
@@ -194,7 +256,6 @@ class ProjectionController extends Controller
                 'assets.*.name' => 'nullable|string|max:255',
                 'assets.*.purchase_price' => 'nullable|numeric|min:0',
                 'assets.*.purchase_date' => 'nullable|date',
-                'assets.*.useful_life_months' => 'nullable|integer|min:1',
                 'yearly_growth_rates' => 'required|array',
                 'yearly_growth_rates.*' => 'required|numeric|min:0|max:100',
                 'products' => 'nullable|array',
@@ -228,7 +289,7 @@ class ProjectionController extends Controller
 
             $assets = array_filter($request->assets ?? [], function($asset) {
                 return !empty($asset['name']) && !empty($asset['purchase_price']) && $asset['purchase_price'] > 0 &&
-                       !empty($asset['useful_life_months']) && $asset['useful_life_months'] > 0;
+                       !empty($asset['purchase_date']);
             });
 
             $products = array_filter($request->products ?? [], function($product) {
@@ -301,6 +362,7 @@ class ProjectionController extends Controller
             return redirect()->back()->with('error', 'Terjadi kesalahan saat mengexport data.');
         }
     }
+
 
     private function calculateProjections($request, $fixedCosts, $variableCosts, $employees, $assets, $products, $fundingSources)
     {
@@ -378,6 +440,134 @@ class ProjectionController extends Controller
         }
         
         return $projections;
+    }
+
+    private function calculateUnitBasedProjections($projection, $fixedCosts, $variableCosts, $employees, $assets, $fundingSources)
+    {
+        $projections = [];
+        $totalMonths = $projection->projection_years * 12;
+        
+        for ($month = 1; $month <= $totalMonths; $month++) {
+            // Calculate units sold for this month
+            $unitsSold = $projection->getUnitsSoldForMonth($month);
+            
+            // Calculate revenue from products
+            $totalRevenue = $projection->getTotalRevenueForMonth($month);
+            
+            // Calculate HPP from products
+            $totalHPP = $projection->getTotalHPPForMonth($month);
+            
+            // Calculate gross profit
+            $grossProfit = $totalRevenue - $totalHPP;
+            
+            // Calculate fixed costs
+            $fixedCostsTotal = 0;
+            foreach ($fixedCosts as $cost) {
+                $fixedCostsTotal += $cost['amount'];
+            }
+            
+            // Calculate variable costs (percentage of revenue)
+            $variableCostsTotal = 0;
+            foreach ($variableCosts as $cost) {
+                $variableCostsTotal += ($totalRevenue * $cost['percentage'] / 100);
+            }
+            
+            // Calculate payroll
+            $payroll = $this->calculatePayroll($employees, $month);
+            
+            // Calculate depreciation
+            $depreciation = $this->calculateDepreciation($assets, $month, $projection->projection_years);
+            
+            // Calculate interest expense
+            $interestExpense = $this->calculateInterestExpense($fundingSources, $month);
+            
+            // Calculate total costs
+            $totalCosts = $totalHPP + $fixedCostsTotal + $variableCostsTotal + $payroll + $depreciation + $interestExpense;
+            
+            // Calculate net profit
+            $netProfit = $totalRevenue - $totalCosts;
+            
+            // Get product breakdown for this month
+            $productBreakdown = $projection->getProductBreakdownForMonth($month);
+            
+            $projections[] = [
+                'month' => $month,
+                'year' => ceil($month / 12),
+                'units_sold' => $unitsSold,
+                'revenue' => round($totalRevenue, 2),
+                'hpp' => round($totalHPP, 2),
+                'gross_profit' => round($grossProfit, 2),
+                'fixed_costs' => round($fixedCostsTotal, 2),
+                'variable_costs' => round($variableCostsTotal, 2),
+                'payroll' => round($payroll, 2),
+                'depreciation' => round($depreciation, 2),
+                'interest_expense' => round($interestExpense, 2),
+                'total_costs' => round($totalCosts, 2),
+                'net_profit' => round($netProfit, 2),
+                'product_breakdown' => $productBreakdown,
+            ];
+        }
+        
+        return $projections;
+    }
+
+    private function calculateDepreciation($assets, $currentMonth, $projectionYears = null)
+    {
+        $total = 0;
+        if (empty($assets)) {
+            return $total;
+        }
+        
+        // Calculate total months in projection if not provided
+        $totalProjectionMonths = $projectionYears ? $projectionYears * 12 : 60; // Default to 5 years
+        
+        foreach ($assets as $asset) {
+            $purchasePrice = $asset['purchase_price'];
+            $purchaseDate = $asset['purchase_date'];
+            
+            // Calculate months since purchase
+            $purchaseDateTime = new DateTime($purchaseDate);
+            $currentDateTime = new DateTime();
+            $monthsSincePurchase = $currentDateTime->diff($purchaseDateTime)->m + ($currentDateTime->diff($purchaseDateTime)->y * 12);
+            
+            // Use projection duration as useful life, but not less than 12 months
+            $usefulLifeMonths = max($totalProjectionMonths, 12);
+            
+            // Calculate monthly depreciation
+            $monthlyDepreciation = $purchasePrice / $usefulLifeMonths;
+            
+            // Check if asset is still being depreciated
+            // Asset starts depreciating from month 1 of projection, regardless of purchase date
+            if ($currentMonth <= $usefulLifeMonths) {
+                $total += $monthlyDepreciation;
+            }
+        }
+        
+        return $total;
+    }
+
+    private function calculateInterestExpense($fundingSources, $currentMonth)
+    {
+        $total = 0;
+        if (empty($fundingSources)) {
+            return $total;
+        }
+        
+        foreach ($fundingSources as $source) {
+            if ($source['type'] === 'loan' && isset($source['interest_rate']) && isset($source['tenor_months'])) {
+                $principal = $source['amount'];
+                $interestRate = $source['interest_rate'] / 100;
+                $tenorMonths = $source['tenor_months'];
+                
+                // Check if loan is still active
+                if ($currentMonth <= $tenorMonths) {
+                    $monthlyInterest = $principal * $interestRate / 12;
+                    $total += $monthlyInterest;
+                }
+            }
+        }
+        
+        return $total;
     }
 
     private function calculatePayroll($employees, $currentMonth)

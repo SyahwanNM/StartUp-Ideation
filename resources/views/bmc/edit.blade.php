@@ -32,7 +32,7 @@
             box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
         }
         .add-item-btn {
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border: none;
             color: white;
             padding: 10px 20px;
@@ -52,7 +52,7 @@
             font-size: 0.8rem;
         }
         .submit-btn {
-            background: linear-gradient(45deg, #28a745, #20c997);
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
             border: none;
             color: white;
             padding: 15px 40px;
@@ -61,7 +61,7 @@
             font-size: 1.1rem;
         }
         .delete-btn {
-            background: linear-gradient(45deg, #dc3545, #e74c3c);
+            background: linear-gradient(135deg, #dc3545 0%, #e74c3c 100%);
             border: none;
             color: white;
             padding: 10px 25px;
@@ -157,15 +157,96 @@
                 font-size: 0.8rem;
             }
         }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            letter-spacing: -0.025em;
+        }
+
+        .page-subtitle {
+            font-size: 1.125rem;
+            color: #6c757d;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Navigation Styles */
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            box-shadow: var(--shadow-sm);
+            border: none;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--primary-light) !important;
+            transform: translateY(-1px);
+        }
+
+        .navbar-nav .nav-link.active {
+            color: var(--primary-light) !important;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-3" href="{{ route('bmc.landing') }}">
+                <i class="fas fa-lightbulb me-2"></i>Ideation
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('bmc.landing') }}">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ route('bmc.create') }}">BMC</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('tam-sam-som.create') }}">Market Validation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('projection.create') }}">Financial Projection</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div class="container py-5">
         <div class="row">
             <div class="col-lg-8 mx-auto">
-                <div class="text-center mb-5">
-                    <h1 class="display-5 fw-bold text-primary">Edit Business Model Canvas</h1>
-                    <p class="lead">Perbarui informasi bisnis dan BMC Anda</p>
+                <!-- Page Header -->
+                <div class="page-header">
+                    <h1 class="page-title">Edit Business Model Canvas</h1>
+                    <p class="page-subtitle">Perbarui informasi bisnis dan BMC Anda</p>
                 </div>
 
                 <form action="{{ route('bmc.update', $business->id) }}" method="POST">
@@ -192,6 +273,28 @@
                         <div class="mb-3">
                             <label for="business_description" class="form-label">Deskripsi Usaha</label>
                             <textarea class="form-control" id="business_description" name="business_description" rows="3" required>{{ $business->business_description }}</textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="industry" class="form-label">Industri</label>
+                            <select class="form-select" id="industry" name="industry" required>
+                                <option value="">Pilih Industri</option>
+                                <option value="Food & Beverage" {{ $business->industry == 'Food & Beverage' ? 'selected' : '' }}>Food & Beverage</option>
+                                <option value="Technology" {{ $business->industry == 'Technology' ? 'selected' : '' }}>Technology</option>
+                                <option value="Fashion" {{ $business->industry == 'Fashion' ? 'selected' : '' }}>Fashion</option>
+                                <option value="Healthcare" {{ $business->industry == 'Healthcare' ? 'selected' : '' }}>Healthcare</option>
+                                <option value="Education" {{ $business->industry == 'Education' ? 'selected' : '' }}>Education</option>
+                                <option value="Finance" {{ $business->industry == 'Finance' ? 'selected' : '' }}>Finance</option>
+                                <option value="Manufacturing" {{ $business->industry == 'Manufacturing' ? 'selected' : '' }}>Manufacturing</option>
+                                <option value="Retail" {{ $business->industry == 'Retail' ? 'selected' : '' }}>Retail</option>
+                                <option value="Services" {{ $business->industry == 'Services' ? 'selected' : '' }}>Services</option>
+                                <option value="Agriculture" {{ $business->industry == 'Agriculture' ? 'selected' : '' }}>Agriculture</option>
+                                <option value="Transportation" {{ $business->industry == 'Transportation' ? 'selected' : '' }}>Transportation</option>
+                                <option value="Real Estate" {{ $business->industry == 'Real Estate' ? 'selected' : '' }}>Real Estate</option>
+                                <option value="Entertainment" {{ $business->industry == 'Entertainment' ? 'selected' : '' }}>Entertainment</option>
+                                <option value="Energy" {{ $business->industry == 'Energy' ? 'selected' : '' }}>Energy</option>
+                                <option value="Other" {{ $business->industry == 'Other' ? 'selected' : '' }}>Lainnya</option>
+                            </select>
                         </div>
                         
                         <div class="row">
@@ -405,5 +508,8 @@
             }
         }
     </script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

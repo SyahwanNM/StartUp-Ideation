@@ -7,10 +7,45 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #a5b4fc;
+            --secondary: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #06b6d4;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --radius: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: var(--gray-50);
             min-height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--gray-800);
+            font-size: 14px;
         }
         
         .main-container {
@@ -27,29 +62,26 @@
         .page-title {
             font-size: 2.5rem;
             font-weight: 700;
-            color: #2c3e50;
+            color: var(--gray-900);
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            letter-spacing: -0.025em;
         }
         
         .page-subtitle {
-            font-size: 1.1rem;
-            color: #6c757d;
+            font-size: 1.125rem;
+            color: var(--gray-600);
             max-width: 600px;
             margin: 0 auto;
+            line-height: 1.6;
         }
         
         .form-section {
             background: white;
-            border-radius: 20px;
-            padding: 2.5rem;
+            border-radius: var(--radius-xl);
+            padding: 2rem;
             margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
         }
 
         /* BMC Grid Layout */
@@ -57,7 +89,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             grid-template-rows: 1fr 1fr 1fr;
-            gap: 15px;
+            gap: 1rem;
             margin: 2rem 0;
             max-width: 1000px;
             margin-left: auto;
@@ -66,10 +98,10 @@
 
         .bmc-component {
             background: white;
-            border: 3px solid #e9ecef;
-            border-radius: 15px;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
             padding: 1.5rem;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             position: relative;
             overflow: hidden;
             min-height: 200px;
@@ -78,8 +110,8 @@
         }
 
         .bmc-component:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
         .bmc-component::before {
@@ -88,87 +120,87 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 3px;
+            background: var(--primary);
         }
 
         /* Specific component colors */
         .bmc-customer-segments {
-            border-color: #e74c3c;
-            background: linear-gradient(135deg, #fff5f5 0%, #ffeaea 100%);
+            border-color: var(--danger);
+            background: var(--gray-50);
         }
         .bmc-customer-segments::before {
-            background: linear-gradient(90deg, #e74c3c, #c0392b);
+            background: var(--danger);
         }
 
         .bmc-value-propositions {
-            border-color: #f39c12;
-            background: linear-gradient(135deg, #fffbf0 0%, #fff2e0 100%);
+            border-color: var(--warning);
+            background: var(--gray-50);
         }
         .bmc-value-propositions::before {
-            background: linear-gradient(90deg, #f39c12, #e67e22);
+            background: var(--warning);
         }
 
         .bmc-channels {
-            border-color: #27ae60;
-            background: linear-gradient(135deg, #f0fff4 0%, #e8f5e8 100%);
+            border-color: var(--success);
+            background: var(--gray-50);
         }
         .bmc-channels::before {
-            background: linear-gradient(90deg, #27ae60, #2ecc71);
+            background: var(--success);
         }
 
         .bmc-customer-relationships {
-            border-color: #9b59b6;
-            background: linear-gradient(135deg, #faf5ff 0%, #f0e6ff 100%);
+            border-color: var(--primary);
+            background: var(--gray-50);
         }
         .bmc-customer-relationships::before {
-            background: linear-gradient(90deg, #9b59b6, #8e44ad);
+            background: var(--primary);
         }
 
         .bmc-revenue-streams {
-            border-color: #3498db;
-            background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+            border-color: var(--info);
+            background: var(--gray-50);
         }
         .bmc-revenue-streams::before {
-            background: linear-gradient(90deg, #3498db, #2980b9);
+            background: var(--info);
         }
 
         .bmc-key-resources {
-            border-color: #e67e22;
-            background: linear-gradient(135deg, #fff8f0 0%, #fff0e6 100%);
+            border-color: var(--warning);
+            background: var(--gray-50);
         }
         .bmc-key-resources::before {
-            background: linear-gradient(90deg, #e67e22, #d35400);
+            background: var(--warning);
         }
 
         .bmc-key-activities {
-            border-color: #1abc9c;
-            background: linear-gradient(135deg, #f0fffe 0%, #e6fffc 100%);
+            border-color: var(--success);
+            background: var(--gray-50);
         }
         .bmc-key-activities::before {
-            background: linear-gradient(90deg, #1abc9c, #16a085);
+            background: var(--success);
         }
 
         .bmc-key-partnerships {
-            border-color: #34495e;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-color: var(--secondary);
+            background: var(--gray-50);
         }
         .bmc-key-partnerships::before {
-            background: linear-gradient(90deg, #34495e, #2c3e50);
+            background: var(--secondary);
         }
 
         .bmc-cost-structure {
-            border-color: #e91e63;
-            background: linear-gradient(135deg, #fff0f5 0%, #ffe6f0 100%);
+            border-color: var(--danger);
+            background: var(--gray-50);
         }
         .bmc-cost-structure::before {
-            background: linear-gradient(90deg, #e91e63, #c2185b);
+            background: var(--danger);
         }
 
         .bmc-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #2c3e50;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gray-900);
             margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
@@ -176,8 +208,8 @@
         }
 
         .bmc-description {
-            font-size: 0.85rem;
-            color: #6c757d;
+            font-size: 0.75rem;
+            color: var(--gray-600);
             margin-bottom: 1rem;
             line-height: 1.4;
         }
@@ -187,19 +219,19 @@
         }
 
         .bmc-input-item {
-            background: rgba(255,255,255,0.8);
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
+            background: white;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius);
             padding: 0.5rem 0.75rem;
             margin-bottom: 0.5rem;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
         .bmc-input-item:hover {
-            border-color: #667eea;
+            border-color: var(--primary);
             background: white;
         }
 
@@ -207,7 +239,7 @@
             border: none;
             background: transparent;
             flex: 1;
-            font-size: 0.9rem;
+            font-size: 0.875rem;
             padding: 0.25rem;
         }
 
@@ -216,31 +248,32 @@
         }
 
         .bmc-add-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--primary);
             border: none;
             color: white;
-            padding: 0.4rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius);
+            font-size: 0.75rem;
             font-weight: 500;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             width: 100%;
             margin-top: 0.5rem;
         }
 
         .bmc-add-btn:hover {
+            background: var(--primary-dark);
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            box-shadow: var(--shadow-md);
         }
 
         .bmc-remove-btn {
-            background: #e74c3c;
+            background: var(--danger);
             border: none;
             color: white;
             padding: 0.25rem 0.5rem;
             border-radius: 50%;
             font-size: 0.7rem;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             width: 24px;
             height: 24px;
             display: flex;
@@ -249,8 +282,8 @@
         }
 
         .bmc-remove-btn:hover {
-            background: #c0392b;
-            transform: scale(1.1);
+            background: #dc2626;
+            transform: scale(1.05);
         }
 
         /* Grid positioning for BMC components */
@@ -283,9 +316,27 @@
         }
 
         @media (max-width: 768px) {
+            .main-container {
+                padding: 1rem 0.5rem;
+            }
+            
+            .page-header {
+                padding: 1rem 0;
+                text-align: center;
+            }
+            
+            .page-title {
+                font-size: 1.75rem;
+            }
+            
+            .page-subtitle {
+                font-size: 1rem;
+            }
+            
             .bmc-grid {
                 grid-template-columns: 1fr;
                 grid-template-rows: repeat(9, 1fr);
+                gap: 1rem;
             }
             
             .bmc-customer-segments { grid-column: 1; grid-row: 1; }
@@ -300,9 +351,9 @@
         }
         
         .section-title {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 600;
-            color: #2c3e50;
+            color: var(--gray-900);
             margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
@@ -313,7 +364,7 @@
             content: '';
             flex: 1;
             height: 2px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
+            background: var(--primary);
             margin-left: 1rem;
         }
         
@@ -475,11 +526,49 @@
         
         @media (max-width: 576px) {
             .main-container {
-                padding: 1rem 0.5rem;
+                padding: 0.5rem;
+            }
+            
+            .page-title {
+                font-size: 1.5rem;
+            }
+            
+            .page-subtitle {
+                font-size: 0.875rem;
             }
             
             .form-section {
-                padding: 1rem;
+                padding: 0.75rem;
+            }
+            
+            .section-title {
+                font-size: 1.125rem;
+            }
+            
+            .bmc-component {
+                padding: 0.75rem;
+            }
+            
+            .bmc-title {
+                font-size: 0.875rem;
+            }
+            
+            .bmc-input {
+                font-size: 0.8rem;
+                padding: 0.5rem;
+            }
+            
+            .btn {
+                padding: 0.625rem 1rem;
+                font-size: 0.8rem;
+            }
+            
+            .navbar-nav {
+                text-align: center;
+            }
+            
+            .navbar-nav .nav-link {
+                padding: 0.75rem 1rem;
             }
         }
     </style>
@@ -542,6 +631,28 @@
                 <div class="mb-3">
                     <label for="business_description" class="form-label">Deskripsi Usaha</label>
                     <textarea class="form-control" id="business_description" name="business_description" rows="3" required></textarea>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="industry" class="form-label">Industri</label>
+                    <select class="form-select" id="industry" name="industry" required>
+                        <option value="">Pilih Industri</option>
+                        <option value="Food & Beverage">Food & Beverage</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Fashion">Fashion</option>
+                        <option value="Healthcare">Healthcare</option>
+                        <option value="Education">Education</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Manufacturing">Manufacturing</option>
+                        <option value="Retail">Retail</option>
+                        <option value="Services">Services</option>
+                        <option value="Agriculture">Agriculture</option>
+                        <option value="Transportation">Transportation</option>
+                        <option value="Real Estate">Real Estate</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Energy">Energy</option>
+                        <option value="Other">Lainnya</option>
+                    </select>
                 </div>
                         
                 <div class="row">
