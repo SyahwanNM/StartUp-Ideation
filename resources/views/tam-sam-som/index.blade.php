@@ -46,14 +46,32 @@
     }
 
     .navbar {
-        background: var(--primary);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
         box-shadow: var(--shadow-sm);
         border: none;
     }
 
     .navbar-brand {
         font-weight: 700;
-        font-size: 1.25rem;
+        font-size: 1.5rem;
+        color: white !important;
+    }
+
+    .navbar-nav .nav-link {
+        color: white !important;
+        font-weight: 500;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        padding: 0.5rem 1rem;
+    }
+
+    .navbar-nav .nav-link:hover {
+        color: #a5b4fc !important;
+        transform: translateY(-1px);
+    }
+
+    .navbar-nav .nav-link.active {
+        color: #a5b4fc !important;
+        font-weight: 600;
     }
 
     .main-container {
@@ -77,8 +95,9 @@
     .page-subtitle {
         font-size: 1.125rem;
         color: var(--gray-600);
-        margin-bottom: 2rem;
+        font-weight: 400;
         line-height: 1.6;
+        margin-bottom: 2rem;
     }
 
     .search-section {

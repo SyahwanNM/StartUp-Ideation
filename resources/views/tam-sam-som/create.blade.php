@@ -69,16 +69,19 @@
     }
 
     .wizard-title {
-        font-size: 2rem;
+        font-size: 2.5rem;
         font-weight: 700;
+        color: var(--gray-900);
         margin-bottom: 0.5rem;
         letter-spacing: -0.025em;
     }
 
     .wizard-subtitle {
-        opacity: 0.9;
         font-size: 1.125rem;
+        color: var(--gray-600);
+        font-weight: 400;
         line-height: 1.6;
+        opacity: 0.9;
     }
 
     .progress-container {
@@ -677,6 +680,36 @@
     .alert-danger {
         background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
         color: #721c24;
+    }
+
+    /* Navigation Styles */
+    .navbar {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        border: none;
+    }
+
+    .navbar-brand {
+        font-weight: 700;
+        font-size: 1.5rem;
+        color: white !important;
+    }
+
+    .navbar-nav .nav-link {
+        color: white !important;
+        font-weight: 500;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        padding: 0.5rem 1rem;
+    }
+
+    .navbar-nav .nav-link:hover {
+        color: #a5b4fc !important;
+        transform: translateY(-1px);
+    }
+
+    .navbar-nav .nav-link.active {
+        color: #a5b4fc !important;
+        font-weight: 600;
     }
 
     /* Responsive Design */

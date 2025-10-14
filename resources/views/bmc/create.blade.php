@@ -66,13 +66,14 @@
             margin-bottom: 1rem;
             letter-spacing: -0.025em;
         }
-        
+
         .page-subtitle {
             font-size: 1.125rem;
             color: var(--gray-600);
+            font-weight: 400;
+            line-height: 1.6;
             max-width: 600px;
             margin: 0 auto;
-            line-height: 1.6;
         }
         
         .form-section {
@@ -497,6 +498,36 @@
             gap: 1rem;
             justify-content: center;
             margin-top: 2rem;
+        }
+
+        /* Navigation Styles */
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            box-shadow: var(--shadow-sm);
+            border: none;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--primary-light) !important;
+            transform: translateY(-1px);
+        }
+
+        .navbar-nav .nav-link.active {
+            color: var(--primary-light) !important;
+            font-weight: 600;
         }
         
         @media (max-width: 768px) {
