@@ -1,688 +1,662 @@
-@extends('layouts.head')
-
-@section('title', 'Buat Market Validation - Ideation')
-
+@extends('layouts.app')
+@section('title', 'Market Validation Analysis - Ideation')
 @section('styles')
 <style>
-    :root {
-        --primary: #6366f1;
-        --primary-dark: #4f46e5;
-        --primary-light: #a5b4fc;
-        --secondary: #64748b;
-        --success: #10b981;
-        --warning: #f59e0b;
-        --danger: #ef4444;
-        --info: #06b6d4;
-        --light: #f8fafc;
-        --dark: #1e293b;
-        --gray-50: #f9fafb;
-        --gray-100: #f3f4f6;
-        --gray-200: #e5e7eb;
-        --gray-300: #d1d5db;
-        --gray-400: #9ca3af;
-        --gray-500: #6b7280;
-        --gray-600: #4b5563;
-        --gray-700: #374151;
-        --gray-800: #1f2937;
-        --gray-900: #111827;
-        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-        --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-        --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-        --radius: 0.5rem;
-        --radius-lg: 0.75rem;
-        --radius-xl: 1rem;
-        --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
     body {
-        background: var(--gray-50);
+        background: linear-gradient(160deg, #4f46e5 0%, #7c3aed 45%, #a855f7 100%);
+        font-family: 'Inter', 'Segoe UI', sans-serif;
         min-height: 100vh;
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        line-height: 1.6;
-        color: var(--gray-800);
-        font-size: 14px;
+        color: #0f172a;
     }
-
-    .main-container {
-        padding: 2rem 0;
-        min-height: 100vh;
-    }
-
-    .wizard-container {
-        background: white;
-        border-radius: var(--radius-xl);
-        box-shadow: var(--shadow-sm);
-        border: 1px solid var(--gray-200);
-        padding: 0;
-        margin: 2rem auto;
-        max-width: 900px;
-        overflow: hidden;
-    }
-
-    .wizard-header {
-        background: var(--primary);
-        color: white;
-        padding: 2rem;
-        text-align: center;
-    }
-
-    .wizard-title {
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: var(--gray-900);
-        margin-bottom: 0.5rem;
-        letter-spacing: -0.025em;
-    }
-
-    .wizard-subtitle {
-        font-size: 1.125rem;
-        color: var(--gray-600);
-        font-weight: 400;
-        line-height: 1.6;
-        opacity: 0.9;
-    }
-
-    .progress-container {
-        background: rgba(255,255,255,0.1);
-        border-radius: var(--radius);
-        padding: 1rem;
-        margin-top: 1.5rem;
-    }
-
-    .progress-steps {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+    .mv-page {
         position: relative;
+        padding: 3.5rem 0 4.5rem;
+        min-height: 100vh;
     }
-
-    .progress-line {
+    .mv-page::before {
+        content: '';
         position: absolute;
-        top: 50%;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background: rgba(255,255,255,0.3);
-        z-index: 1;
+        inset: 0;
+        background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.18), transparent 55%),
+                    radial-gradient(circle at 80% 15%, rgba(79,70,229,0.25), transparent 60%);
+        opacity: 0.9;
+        pointer-events: none;
     }
-
-    .progress-line-fill {
-        height: 100%;
-        background: white;
-        transition: width 0.3s ease;
-        width: 0%;
-    }
-
-    .step {
-        background: rgba(255,255,255,0.3);
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 600;
-        font-size: 0.875rem;
+    .mv-container {
         position: relative;
         z-index: 2;
-        transition: var(--transition);
     }
-
-    .step.active {
-        background: white;
-        color: var(--primary);
-        transform: scale(1.05);
+    .mv-hero {
+        text-align: center;
+        color: #f8fafc;
+        max-width: 760px;
+        margin: 0 auto 2.5rem;
     }
-
-    .step.completed {
-        background: var(--success);
-        color: white;
+    .mv-hero span {
+        display: inline-block;
+        font-size: 0.9rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(226,232,240,0.85);
     }
-
-    .step-labels {
+    .mv-hero h1 {
+        font-weight: 700;
+        font-size: 2.75rem;
+        margin: 1.1rem 0 0.6rem;
+        letter-spacing: -0.02em;
+    }
+    .mv-hero p {
+        margin: 0;
+        font-size: 1.05rem;
+        color: rgba(226,232,240,0.85);
+    }
+    .mv-stepper {
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.18);
+        border-radius: 28px;
+        padding: 2.25rem;
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        box-shadow: 0 28px 50px rgba(15,23,42,0.25);
+        color: #f8fafc;
+    }
+    .mv-stepper-header {
         display: flex;
         justify-content: space-between;
-        margin-top: 0.5rem;
-    }
-
-    .step-label {
-        font-size: 0.75rem;
-        opacity: 0.8;
-        text-align: center;
-        flex: 1;
-    }
-
-    .wizard-content {
-        padding: 2rem;
-    }
-
-    .step-content {
-        display: none;
-        animation: fadeIn 0.3s ease;
-    }
-
-    .step-content.active {
-        display: block;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    .step-header {
-        text-align: center;
-        margin-bottom: 2rem;
-    }
-
-    .step-title {
-        color: var(--gray-900);
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-    }
-
-    .step-description {
-        color: var(--gray-600);
-        font-size: 1rem;
-        line-height: 1.6;
-    }
-
-    .form-group {
-        margin-bottom: 1.5rem;
-    }
-
-    .form-label {
-        display: block;
-        font-weight: 500;
-        color: var(--gray-700);
-        margin-bottom: 0.5rem;
-        font-size: 0.875rem;
-    }
-
-    .form-control {
-        width: 100%;
-        padding: 0.75rem 1rem;
-        border: 1px solid var(--gray-300);
-        border-radius: var(--radius);
-        font-size: 0.875rem;
-        transition: var(--transition);
-        background: white;
-    }
-
-    .form-control:focus {
-        outline: none;
-        border-color: var(--primary);
-        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-        background: white;
-    }
-
-    .form-control.large {
-        min-height: 120px;
-        resize: vertical;
-    }
-
-    .input-group {
-        display: flex;
         align-items: center;
+        margin-bottom: 1.5rem;
+        font-size: 0.95rem;
+        color: rgba(226,232,240,0.75);
+    }
+    .mv-stepper-line {
+        position: relative;
+        top: 65px;
+        height: 4px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 999px;
+        overflow: hidden;
+        margin-bottom: 2.2rem;
+    }
+    .mv-stepper-line-fill {
+        position: absolute;
+        inset: 0;
+        width: 0;
+        border-radius: 999px;
+        transition: width 0.35s ease;
+        background: linear-gradient(90deg, rgba(56,189,248,0.9), rgba(129,140,248,0.95));
+    }
+    .mv-steps {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
         gap: 1rem;
     }
-
-    .input-with-label {
-        flex: 1;
+    .mv-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+        position: relative;
+        cursor: pointer;
+        transition: transform 0.25s ease, opacity 0.25s ease;
+        opacity: 0.85;
     }
-
-    .currency-input {
+    .mv-step:hover {
+        transform: translateY(-4px);
+        opacity: 1;
+    }
+    .mv-step.is-active {
+        opacity: 1;
+    }
+    .mv-step-icon {
+        width: 58px;
+        height: 58px;
+        border-radius: 20px;
+        background: rgba(255,255,255,0.18);
+        border: 1px solid rgba(255,255,255,0.35);
+        display: grid;
+        place-items: center;
+        font-size: 1.3rem;
+        box-shadow: 0 18px 32px rgba(15,23,42,0.22);
+        position: relative;
+        transition: all 0.25s ease;
+    }
+    .mv-step.is-active .mv-step-icon {
+        background: rgba(255,255,255,0.92);
+        color: #312e81;
+        transform: translateY(-3px);
+    }
+    .mv-step.is-complete .mv-step-icon {
+        background: rgba(255,255,255,0.28);
+        color: #14b8a6;
+    }
+    .mv-step-label {
+        font-weight: 600;
+        font-size: 0.92rem;
+    }
+    .mv-step-number {
+        position: absolute;
+        inset: auto auto -10px;
+        background: rgba(255,255,255,0.2);
+        color: rgba(241,245,249,0.92);
+        padding: 3px 10px;
+        font-size: 0.75rem;
+        border-radius: 999px;
+        backdrop-filter: blur(12px);
+    }
+    .mv-step.is-active .mv-step-number {
+        background: linear-gradient(90deg, #4f46e5, #a855f7);
+        color: #fff;
+    }
+    .mv-card {
+        background: #f8fafc;
+        border-radius: 28px;
+        padding: 2.75rem;
+        margin-top: 2.5rem;
+        box-shadow: 0 36px 70px rgba(15,23,42,0.22);
         position: relative;
     }
-
-    .currency-symbol {
-        position: absolute;
-        left: 1rem;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #718096;
+    .mv-card-header {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        align-items: center;
+    }
+    .mv-card-heading small {
+        display: block;
+        color: #64748b;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 0.4rem;
+    }
+    .mv-card-heading h2 {
+        font-weight: 700;
+        font-size: 1.75rem;
+        margin-bottom: 0.35rem;
+        color: #0f172a;
+    }
+    .mv-card-heading p {
+        margin: 0;
+        color: #475569;
+        font-size: 1rem;
+    }
+    .mv-progress {
+        width: 170px;
+    }
+    .mv-progress-label {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 0.4rem;
+        margin-bottom: 0.35rem;
+        font-weight: 600;
+        color: #475569;
+    }
+    .mv-progress-track {
+        width: 100%;
+        height: 8px;
+        border-radius: 999px;
+        background: #e2e8f0;
+        overflow: hidden;
+    }
+    .mv-progress-bar {
+        height: 100%;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #2563eb, #38bdf8);
+        width: 0;
+        transition: width 0.35s ease;
+    }
+    .mv-card-accent {
+        width: 70px;
+        height: 4px;
+        border-radius: 999px;
+        margin-top: -0.8rem;
+        margin-bottom: 1.8rem;
+    }
+    .mv-section-title {
+        font-weight: 700;
+        font-size: 1.35rem;
+        margin-bottom: 0.8rem;
+        color: #111827;
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+    }
+    .mv-section-title i {
+        font-size: 1.2rem;
+        color: inherit;
+    }
+    .mv-section-subtitle {
+        color: #64748b;
+        margin-bottom: 1.8rem;
+        font-size: 0.98rem;
+    }
+    .mv-knowledge {
+        display: flex;
+        gap: 1rem;
+        background: linear-gradient(135deg, #fef3c7, #fde68a);
+        border: 1px solid #fbbf24;
+        border-radius: 18px;
+        padding: 1.3rem 1.6rem;
+        color: #92400e;
+        margin-bottom: 2rem;
+    }
+    .mv-knowledge i {
+        font-size: 1.4rem;
+    }
+    .mv-data-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.2rem;
+        margin-bottom: 2.4rem;
+    }
+    .mv-data-card {
+        background: #fff;
+        border-radius: 18px;
+        border: 1px solid #e2e8f0;
+        padding: 1.4rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        min-height: 175px;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .mv-data-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 18px 35px rgba(15,23,42,0.08);
+    }
+    .mv-data-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        font-size: 1.1rem;
+        color: #fff;
         font-weight: 600;
     }
+    .mv-data-card h4 {
+        font-size: 1.05rem;
+        font-weight: 600;
+        margin: 0;
+        color: #1f2937;
+    }
+    .mv-data-card p {
+        margin: 0;
+        font-size: 0.92rem;
+        color: #64748b;
+        flex: 1;
+    }
+    .mv-data-card a {
+        font-weight: 600;
+        color: #2563eb;
+        text-decoration: none;
+        font-size: 0.9rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+    }
+    .mv-tip-box {
+        background: #f8fafc;
+        border: 1px solid #dbeafe;
+        border-radius: 18px;
+        padding: 1.5rem;
+        margin-bottom: 2.5rem;
+    }
+    .mv-tip-box h5 {
+        margin: 0 0 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-weight: 700;
+        color: #1d4ed8;
+    }
+    .mv-tip-box ul {
+        padding-left: 1.1rem;
+        margin: 0;
+        color: #475569;
+        display: grid;
+        gap: 0.45rem;
+    }
+    .mv-form-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2.2rem;
+    }
+    .mv-form-group label {
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 0.45rem;
+        display: block;
+    }
+    .mv-card .form-control {
+        border-radius: 14px;
+        border: 1px solid #dbe1f1;
+        padding: 0.85rem 1.1rem;
+        font-size: 0.95rem;
+        background: #f8fafc;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .mv-card .form-control:focus {
+        border-color: #6366f1;
+        box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+        background: #fff;
+    }
 
-    .currency-input .form-control {
+
+    .mv-card textarea.form-control {
+        min-height: 140px;
+        resize: none;
+    }
+
+    .mv-input-adornment {
+        position: relative;
+    }
+    .mv-input-adornment span {
+        position: absolute;       
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #94a3b8;
+        font-weight: 600;
+        pointer-events: none;
+    }
+    .mv-input-adornment input {
         padding-left: 3rem;
     }
 
-    .percentage-input {
-        position: relative;
-    }
-
-    .percentage-symbol {
-        position: absolute;
+    .mv-input-adornment.m-right span {
+        left: auto;
         right: 1rem;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #718096;
-        font-weight: 600;
+        padding-left: 0;
     }
 
-    .percentage-input .form-control {
+    .mv-input-adornment.m-right input {
+        padding-left: 1.1rem;
         padding-right: 3rem;
     }
 
-    .calculated-field {
-        background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-        border-color: #0ea5e9;
-        color: #0c4a6e;
-        font-weight: 600;
+    .mv-input-adornment-rp {
+    position: relative;
+    display: inline-block;
+    width: 100%;                
+    }
+    .mv-input-adornment-rp span {
+    position: absolute;
+    left: 10px;                 
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6b7280;
+    pointer-events: none;       
+    font-weight: 500;
     }
 
-    .info-box {
-        background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-        border: 1px solid #f59e0b;
-        border-radius: 12px;
-        padding: 1rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .info-box-icon {
-        color: #d97706;
-        margin-right: 0.5rem;
-    }
-
-    .info-box-text {
-        color: #92400e;
+    .mv-input-adornment-rp input { 
+        border-radius: 14px;
+        border: 1px solid #dbe1f1;
+        padding: 13px 13px 13px 30px;
         font-size: 0.95rem;
-        line-height: 1.5;
-        margin: 0;
+        background: #f8fafc;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
-
-    .calculation-preview {
-        background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-        border: 2px solid #0ea5e9;
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin-top: 1.5rem;
-    }
-
-    .calculation-title {
-        color: #0c4a6e;
-        font-weight: 700;
-        font-size: 1.1rem;
-        margin-bottom: 1rem;
+    .mv-summary {
+        border-radius: 18px;
+        padding: 1.4rem 1.6rem;
+        border: 1px solid;
         display: flex;
-        align-items: center;
-        gap: 0.5rem;
+        flex-direction: column;
+        gap: 0.4rem;
     }
-
-    .calculation-result {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: #0ea5e9;
-        text-align: center;
+    .mv-summary strong {
+        font-size: 1.4rem;
     }
-
-    .calculation-formula {
+    .mv-summary span {
+        color: #475569;
         font-size: 0.9rem;
-        color: #64748b;
-        text-align: center;
-        margin-top: 0.5rem;
     }
-
-    .reference-section {
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        border: 2px solid #dee2e6;
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin: 1.5rem 0;
+    .mv-summary.blue {
+        background: #eef6ff;
+        border-color: #c7ddff;
+        color: #1e40af;
     }
-
-    .reference-title {
-        color: #495057;
-        font-weight: 700;
-        font-size: 1.1rem;
-        margin-bottom: 1rem;
-        display: flex;
-        align-items: center;
+    .mv-summary.orange {
+        background: #fff4e5;
+        border-color: #ffd7b5;
+        color: #c2410c;
     }
-
-    .reference-grid {
+    .mv-summary.green {
+        background: #ecfdf3;
+        border-color: #bbf7d0;
+        color: #15803d;
+    }
+    .mv-reference {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+        gap: 1.1rem;
+        margin-bottom: 2rem;
     }
-
-    .reference-item {
-        background: white;
-        border: 1px solid #dee2e6;
-        border-radius: 8px;
-        padding: 1rem;
-        text-align: center;
-    }
-
-    .reference-label {
-        display: block;
-        font-size: 0.85rem;
-        color: #6c757d;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-    }
-
-    .reference-value {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: #495057;
-    }
-
-    /* Data Sources Section - Minimalist Design */
-    .data-sources-section {
-        background: #fafbfc;
-        border: 1px solid #e1e5e9;
-        border-radius: 8px;
-        padding: 1.5rem;
-        margin: 1.5rem 0;
-    }
-
-    .data-sources-title {
-        color: #2d3748;
-        font-weight: 600;
-        font-size: 1.1rem;
-        margin-bottom: 0.75rem;
+    .mv-reference-card {
+        background: rgba(241,245,249,0.75);
+        border: 1px solid #dbe3ef;
+        border-radius: 18px;
+        padding: 1.2rem 1.4rem;
         display: flex;
-        align-items: center;
+        flex-direction: column;
+        gap: 0.35rem;
     }
-
-    .data-sources-description {
-        color: #718096;
+    .mv-reference-card h6 {
+        margin: 0;
         font-size: 0.9rem;
-        margin-bottom: 1.25rem;
-        line-height: 1.5;
-    }
-
-    .data-sources-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .data-source-card {
-        background: white;
-        border: 1px solid #e2e8f0;
-        border-radius: 6px;
-        padding: 1rem;
-        transition: all 0.2s ease;
-        position: relative;
-    }
-
-    .data-source-card:hover {
-        border-color: #3182ce;
-        box-shadow: 0 2px 8px rgba(49, 130, 206, 0.1);
-    }
-
-    .data-source-header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 0.75rem;
-    }
-
-    .data-source-logo {
-        width: 32px;
-        height: 32px;
-        margin-right: 0.75rem;
-        border-radius: 4px;
-        object-fit: contain;
-        background: #f7fafc;
-        padding: 4px;
-    }
-
-    .data-source-header h5 {
-        color: #2d3748;
         font-weight: 600;
-        font-size: 0.95rem;
-        margin: 0;
-        line-height: 1.3;
+        color: #475569;
     }
-
-    .data-source-description {
-        color: #718096;
-        font-size: 0.85rem;
-        line-height: 1.4;
-        margin-bottom: 0.75rem;
+    .mv-reference-card div {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #0f172a;
     }
-
-    .data-source-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.375rem;
-        background: #3182ce;
-        color: white;
-        text-decoration: none;
-        padding: 0.375rem 0.75rem;
-        border-radius: 4px;
-        font-size: 0.8rem;
-        font-weight: 500;
-        transition: all 0.2s ease;
-    }
-
-    .data-source-link:hover {
-        background: #2c5282;
-        color: white;
-        text-decoration: none;
-    }
-
-    .data-tips {
-        background: #f7fafc;
-        border: 1px solid #e2e8f0;
-        border-radius: 6px;
-        padding: 1rem;
-        margin-top: 1rem;
-    }
-
-    .data-tips h5 {
-        color: #2d3748;
-        font-weight: 600;
-        margin-bottom: 0.75rem;
+    .mv-footer {
+        margin-top: 2.5rem;
         display: flex;
         align-items: center;
-        font-size: 0.95rem;
-    }
-
-    .data-tips ul {
-        margin: 0;
-        padding-left: 1.25rem;
-    }
-
-    .data-tips li {
-        color: #4a5568;
-        font-size: 0.85rem;
-        line-height: 1.5;
-        margin-bottom: 0.375rem;
-    }
-
-    .wizard-actions {
-        display: flex;
         justify-content: space-between;
-        align-items: center;
-        margin-top: 3rem;
-        padding-top: 2rem;
-        border-top: 1px solid #e2e8f0;
+        flex-wrap: wrap;
+        gap: 1rem;
     }
-
-    .btn {
-        padding: 0.75rem 1.5rem;
+    .mv-footer small {
+        font-weight: 600;
+        color: #64748b;
+    }
+    .mv-actions {
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+    }
+    .mv-btn {
+        border-radius: 999px;
+        padding: 0.85rem 1.4rem;
+        font-weight: 600;
         border: none;
-        border-radius: var(--radius);
-        font-weight: 500;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        cursor: pointer;
-        font-size: 0.875rem;
-        transition: var(--transition);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-
-    .btn-primary {
-        background: var(--primary);
-        color: white;
-        box-shadow: var(--shadow-sm);
+    .mv-btn:hover {
+        transform: translateY(-2px);
     }
-
-    .btn-secondary {
-        background: var(--secondary);
-        color: white;
-        box-shadow: var(--shadow-sm);
-    }
-
-    .btn-success {
-        background: var(--success);
-        color: white;
-        box-shadow: var(--shadow-sm);
-    }
-
-    .btn:hover {
-        transform: translateY(-1px);
-        box-shadow: var(--shadow-md);
-    }
-
-    .btn:disabled {
+    .mv-btn:disabled {
         opacity: 0.6;
         cursor: not-allowed;
         transform: none;
     }
-
-    .dynamic-inputs {
-        margin-top: 1rem;
-    }
-
-    .dynamic-input-group {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .dynamic-input-group input {
-        flex: 1;
-    }
-
-    .btn-remove {
-        background: #dc3545;
-        color: white;
-        border: none;
-        width: 40px;
-        height: 40px;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .btn-remove:hover {
-        background: #c82333;
-        transform: scale(1.1);
-    }
-
-    .btn-add {
-        background: #28a745;
-        color: white;
-        border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 8px;
-        font-size: 0.9rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .btn-add:hover {
-        background: #218838;
-        transform: translateY(-1px);
-    }
-
-    .summary-section {
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        border-radius: 12px;
-        padding: 2rem;
-        margin-top: 2rem;
-    }
-
-    .summary-title {
-        color: #2d3748;
-        font-weight: 700;
-        font-size: 1.3rem;
-        margin-bottom: 1.5rem;
-        text-align: center;
-    }
-
-    .summary-grid {
+    .mv-btn-secondary {
+        background: #fff;
+        border: 1px solid #cbd5f5;
+        color: #475569;
+        width: 46px;
+        height: 46px;
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 1rem;
+        place-items: center;
+        padding: 0;
     }
 
-    .summary-card {
-        background: white;
-        border-radius: 10px;
-        padding: 1.5rem;
-        text-align: center;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    .mv-btn-secondary.small {
+        width: auto;
+        height: auto;
+        padding: 0.55rem 1.1rem;
+        font-size: 0.9rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
     }
-
-    .summary-card.tam {
-        border-top: 4px solid #e53e3e;
+    .mv-btn-primary {
+        color: #fff;
+        box-shadow: 0 16px 32px rgba(15,23,42,0.16);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
     }
-
-    .summary-card.sam {
-        border-top: 4px solid #3182ce;
+    .mv-review-grid {
+        display: grid;
+        gap: 1.5rem;
+        margin-bottom: 2.4rem;
     }
-
-    .summary-card.som {
-        border-top: 4px solid #38a169;
+    .mv-review-card {
+        border-radius: 20px;
+        padding: 1.7rem;
+        background: #eef2ff;
+        border: 1px solid #d7dcff;
     }
-
-    .summary-card-title {
-        font-weight: 700;
-        font-size: 1.1rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .summary-card.tam .summary-card-title {
-        color: #e53e3e;
-    }
-
-    .summary-card.sam .summary-card-title {
-        color: #3182ce;
-    }
-
-    .summary-card.som .summary-card-title {
-        color: #38a169;
-    }
-
-    .summary-card-value {
+    .mv-review-card h4 {
+        margin-bottom: 1rem;
         font-size: 1.2rem;
         font-weight: 700;
-        color: #2d3748;
+        color: #312e81;
     }
-
-    .alert {
-        border-radius: 10px;
-        padding: 1rem;
-        margin-bottom: 1rem;
+    .mv-review-details {
+        display: grid;
+        gap: 0.65rem;
+        color: #4338ca;
+    }
+    .mv-review-details span {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 600;
+    }
+    .mv-review-values {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 1rem;
+    }
+    .mv-review-pill {
+        border-radius: 18px;
+        padding: 1.1rem 1.3rem;
+        font-weight: 700;
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+    }
+    .mv-review-pill span {
+        font-size: 0.85rem;
+        font-weight: 600;
+        display: inline-block;
+    }
+    .mv-review-pill.tam {
+        background: #fff1f2;
+        color: #be123c;
+    }
+    .mv-review-pill.sam {
+        background: #fff7ed;
+        color: #c2410c;
+    }
+    .mv-review-pill.som {
+        background: #f0fdf4;
+        color: #15803d;
+    }
+    .mv-opportunity {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 20px;
+        padding: 1.6rem;
+    }
+    .mv-opportunity h4 {
+        margin-bottom: 0.75rem;
+        font-weight: 700;
+        color: #0f172a;
+    }
+    .mv-opportunity p {
+        margin: 0;
+        color: #475569;
+        font-size: 0.95rem;
+    }
+    .mv-dynamic-list {
+        display: grid;
+        gap: 0.75rem;
+    }
+    .mv-dynamic-item {
+        position: relative;
+    }
+    .mv-dynamic-item button {
+        position: absolute;
+        right: 0.75rem;
+        top: 0.75rem;
         border: none;
+        background: none;
+        color: #ef4444;
+        font-weight: 700;
+    }
+    @media (max-width: 992px) {
+        .mv-card {
+            padding: 2.2rem;
+        }
+        .mv-stepper {
+            padding: 1.8rem;
+        }
+    }
+    @media (max-width: 768px) {
+        .mv-hero h1 {
+            font-size: 2.2rem;
+        }
+        .mv-stepper {
+            border-radius: 22px;
+        }
+        .mv-stepper-line {
+            margin-bottom: 1.6rem;
+        }
+        .mv-steps {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            row-gap: 1.6rem;
+        }
+        .mv-stepper-header {
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+        .mv-card {
+            padding: 1.9rem;
+        }
+        .mv-progress {
+            width: 100%;
+        }
+        .mv-footer {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .mv-actions {
+            width: 100%;
+            justify-content: space-between;
+        }
+        .mv-btn-secondary {
+            width: 44px;
+            height: 44px;
+        }
+        .mv-review-grid {
+            gap: 1rem;
+        }
     }
 
-    .alert-success {
-        background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
-        color: #155724;
-    }
-
-    .alert-danger {
-        background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
-        color: #721c24;
-    }
-
-    /* Navigation Styles */
+     /* Navigation Styles */
     .navbar {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
         box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -711,133 +685,9 @@
         color: #a5b4fc !important;
         font-weight: 600;
     }
-
-    /* Responsive Design */
-    @media (max-width: 1200px) {
-        .wizard-container {
-            margin: 1.5rem;
-        }
-        
-        .wizard-content {
-            padding: 2.5rem;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .wizard-container {
-            margin: 1rem;
-        }
-        
-        .wizard-header {
-            padding: 1rem 0;
-            text-align: center;
-        }
-        
-        .wizard-title {
-            font-size: 1.75rem;
-        }
-        
-        .wizard-subtitle {
-            font-size: 1rem;
-        }
-        
-        .wizard-content {
-            padding: 1.5rem;
-        }
-        
-        .step-content {
-            padding: 1rem;
-        }
-        
-        .step-title {
-            font-size: 1.25rem;
-        }
-        
-        .step-description {
-            font-size: 0.875rem;
-        }
-        
-        .summary-grid {
-            grid-template-columns: 1fr;
-            gap: 1rem;
-        }
-        
-        .wizard-actions {
-            flex-direction: column;
-            gap: 1rem;
-        }
-        
-        .step-labels {
-            font-size: 0.8rem;
-        }
-        
-        .form-control {
-            font-size: 0.875rem;
-            padding: 0.75rem;
-        }
-        
-        .btn {
-            padding: 0.75rem 1.5rem;
-            font-size: 0.875rem;
-        }
-        
-        .navbar-nav {
-            text-align: center;
-        }
-        
-        .navbar-nav .nav-link {
-            padding: 0.75rem 1rem;
-        }
-    }
-
-    @media (max-width: 576px) {
-        .wizard-container {
-            margin: 0.5rem;
-        }
-        
-        .wizard-title {
-            font-size: 1.5rem;
-        }
-        
-        .wizard-subtitle {
-            font-size: 0.875rem;
-        }
-        
-        .wizard-content {
-            padding: 1rem;
-        }
-        
-        .step-content {
-            padding: 0.75rem;
-        }
-        
-        .step-title {
-            font-size: 1.125rem;
-        }
-        
-        .step-description {
-            font-size: 0.8rem;
-        }
-        
-        .form-control {
-            font-size: 0.8rem;
-            padding: 0.625rem;
-        }
-        
-        .btn {
-            padding: 0.625rem 1rem;
-            font-size: 0.8rem;
-        }
-        
-        .step-labels {
-            font-size: 0.7rem;
-        }
-    }
 </style>
 @endsection
-
-<body>
-    <!-- Navigation -->
+<!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
         <div class="container">
             <a class="navbar-brand fw-bold fs-3" href="{{ route('bmc.landing') }}">
@@ -855,7 +705,7 @@
                         <a class="nav-link" href="{{ route('bmc.create') }}">BMC</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('tam-sam-som.create') }}">Market Validation</a>
+                        <a class="nav-link active" href="{{ route('tam-sam-som.create') }}">Market Validation</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('projection.create') }}">Financial Projection</a>
@@ -864,1063 +714,783 @@
             </div>
         </div>
     </nav>
-
-    <div class="container main-container">
-        <div class="wizard-container">
-            <!-- Wizard Header -->
-            <div class="wizard-header">
-                <h1 class="wizard-title">Market Validation Analysis</h1>
-                <p class="wizard-subtitle">Analisis pasar yang komprehensif untuk validasi bisnis Anda</p>
-                
-                <!-- Progress Indicator -->
-                <div class="progress-container">
-                    <div class="progress-steps">
-                        <div class="progress-line">
-                            <div class="progress-line-fill" id="progressFill"></div>
-                        </div>
-                        <div class="step active" data-step="1">1</div>
-                        <div class="step" data-step="2">2</div>
-                        <div class="step" data-step="3">3</div>
-                        <div class="step" data-step="4">4</div>
-                        <div class="step" data-step="5">5</div>
-                    </div>
-                    <div class="step-labels">
-                        <div class="step-label">Info Bisnis</div>
-                        <div class="step-label">TAM</div>
-                        <div class="step-label">SAM</div>
-                        <div class="step-label">SOM</div>
-                        <div class="step-label">Review</div>
-                    </div>
-                </div>
+@section('content')
+<div class="mv-page">
+    <div class="container mv-container" x-data="mvWizard()" x-init="init()">
+        <div class="mv-hero">
+            <span>Market Validation Analysis</span>
+            <h1>Analisis pasar yang komprehensif untuk validasi bisnis Anda</h1>
+            <p>Ikuti langkah demi langkah untuk memetakan TAM, SAM, dan SOM.</p>
+        </div>
+        <div class="mv-stepper mb-4">
+            <div class="mv-stepper-header">
+                <div>Langkah <strong x-text="current"></strong> dari <strong x-text="steps.length"></strong></div>
+                <div x-text="steps[current-1] ? steps[current-1].label : ''"></div>
             </div>
-
-            <!-- Wizard Content -->
-            <div class="wizard-content">
-                <form id="tamSamSomForm" method="POST" action="{{ route('tam-sam-som.store') }}">
-                    @csrf
-                    
-                    <!-- Step 1: Business Information -->
-                    <div class="step-content active" data-step="1">
-                        <div class="step-header">
-                            <h2 class="step-title">Informasi Bisnis</h2>
-                            <p class="step-description">Mulai dengan informasi dasar tentang bisnis Anda</p>
+            <div class="mv-stepper-line">
+                <div class="mv-stepper-line-fill" :style="{ width: progressWidth, background: progressGradient }"></div>
+            </div>
+            <div class="mv-steps">
+                <template x-for="step in steps" :key="step.id">
+                    <div class="mv-step" :class="{'is-active': current === step.id, 'is-complete': current > step.id}" @click="goTo(step.id)">
+                        <div class="mv-step-icon">
+                            <template x-if="current > step.id">
+                                <i class="fa-solid fa-check"></i>
+                            </template>
+                            <template x-if="current === step.id">
+                                <i :class="step.icon"></i>
+                            </template>
+                            <template x-if="current < step.id">
+                                <i :class="step.icon"></i>
+                            </template>
+                            <span class="mv-step-number" x-text="step.id"></span>
                         </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Nama Bisnis</label>
-                            <input type="text" name="business_name" class="form-control" 
-                                   placeholder="Contoh: EduTech Platform" 
-                                   value="{{ old('business_name') }}" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Nama Pemilik</label>
-                            <input type="text" name="owner_name" class="form-control" 
-                                   placeholder="Contoh: Ahmad Rizki" 
-                                   value="{{ old('owner_name') }}" required>
-                        </div>
-
-                        <div class="input-group">
-                            <div class="input-with-label">
-                                <label class="form-label">Industri</label>
-                                <select name="industry" class="form-control" required>
-                                    <option value="">Pilih Industri</option>
-                                    <option value="Technology" {{ old('industry') == 'Technology' ? 'selected' : '' }}>Technology</option>
-                                    <option value="Education Technology" {{ old('industry') == 'Education Technology' ? 'selected' : '' }}>Education Technology</option>
-                                    <option value="Healthcare" {{ old('industry') == 'Healthcare' ? 'selected' : '' }}>Healthcare</option>
-                                    <option value="Financial Services" {{ old('industry') == 'Financial Services' ? 'selected' : '' }}>Financial Services</option>
-                                    <option value="E-commerce" {{ old('industry') == 'E-commerce' ? 'selected' : '' }}>E-commerce</option>
-                                    <option value="Food & Beverage" {{ old('industry') == 'Food & Beverage' ? 'selected' : '' }}>Food & Beverage</option>
-                                    <option value="Retail" {{ old('industry') == 'Retail' ? 'selected' : '' }}>Retail</option>
-                                    <option value="Manufacturing" {{ old('industry') == 'Manufacturing' ? 'selected' : '' }}>Manufacturing</option>
-                                    <option value="Real Estate" {{ old('industry') == 'Real Estate' ? 'selected' : '' }}>Real Estate</option>
-                                    <option value="Transportation & Logistics" {{ old('industry') == 'Transportation & Logistics' ? 'selected' : '' }}>Transportation & Logistics</option>
-                                    <option value="Entertainment & Media" {{ old('industry') == 'Entertainment & Media' ? 'selected' : '' }}>Entertainment & Media</option>
-                                    <option value="Energy & Utilities" {{ old('industry') == 'Energy & Utilities' ? 'selected' : '' }}>Energy & Utilities</option>
-                                    <option value="Agriculture" {{ old('industry') == 'Agriculture' ? 'selected' : '' }}>Agriculture</option>
-                                    <option value="Tourism & Hospitality" {{ old('industry') == 'Tourism & Hospitality' ? 'selected' : '' }}>Tourism & Hospitality</option>
-                                    <option value="Professional Services" {{ old('industry') == 'Professional Services' ? 'selected' : '' }}>Professional Services</option>
-                                    <option value="Construction" {{ old('industry') == 'Construction' ? 'selected' : '' }}>Construction</option>
-                                    <option value="Automotive" {{ old('industry') == 'Automotive' ? 'selected' : '' }}>Automotive</option>
-                                    <option value="Fashion & Beauty" {{ old('industry') == 'Fashion & Beauty' ? 'selected' : '' }}>Fashion & Beauty</option>
-                                    <option value="Sports & Fitness" {{ old('industry') == 'Sports & Fitness' ? 'selected' : '' }}>Sports & Fitness</option>
-                                    <option value="Gaming" {{ old('industry') == 'Gaming' ? 'selected' : '' }}>Gaming</option>
-                                    <option value="Social Media" {{ old('industry') == 'Social Media' ? 'selected' : '' }}>Social Media</option>
-                                    <option value="Consulting" {{ old('industry') == 'Consulting' ? 'selected' : '' }}>Consulting</option>
-                                    <option value="Non-profit" {{ old('industry') == 'Non-profit' ? 'selected' : '' }}>Non-profit</option>
-                                    <option value="Government" {{ old('industry') == 'Government' ? 'selected' : '' }}>Government</option>
-                                    <option value="Other" {{ old('industry') == 'Other' ? 'selected' : '' }}>Other</option>
-                                </select>
-                            </div>
-                            <div class="input-with-label">
-                                <label class="form-label">Lokasi</label>
-                                <input type="text" name="location" class="form-control" 
-                                       placeholder="Contoh: Jakarta, Indonesia" 
-                                       value="{{ old('location') }}" required>
-                            </div>
-                        </div>
+                        <div class="mv-step-label" x-text="step.label"></div>
                     </div>
-
-                    <!-- Step 2: TAM -->
-                    <div class="step-content" data-step="2">
-                        <div class="step-header">
-                            <h2 class="step-title">TAM - Total Addressable Market</h2>
-                            <p class="step-description">Berapa besar total pasar jika 100% target audience membeli produk Anda?</p>
-                        </div>
-
-                        <div class="info-box">
-                            <i class="fas fa-info-circle info-box-icon"></i>
-                            <p class="info-box-text">
-                                <strong>TAM</strong> adalah total keseluruhan pasar untuk produk/layanan Anda. 
-                                Contoh: Seluruh pengguna smartphone di Indonesia yang membutuhkan aplikasi produktivitas.
-                            </p>
-                        </div>
-
-                        <!-- Data Sources Section -->
-                        <div class="data-sources-section">
-                            <h4 class="data-sources-title">
-                                <i class="fas fa-database me-2"></i>Sumber Data untuk TAM
-                            </h4>
-                            <p class="data-sources-description">
-                                Gunakan sumber data terpercaya untuk mendapatkan informasi pasar yang akurat:
-                            </p>
-                            <div class="data-sources-grid">
-                                <div class="data-source-card">
-                                    <div class="data-source-header">
-                                        <div class="data-source-logo" style="background: linear-gradient(135deg, #1e3a8a, #3b82f6); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">BPS</div>
-                                        <h5>Badan Pusat Statistik</h5>
-                                    </div>
-                                    <p class="data-source-description">
-                                        Data demografi, ekonomi, dan sosial Indonesia yang resmi
-                                    </p>
-                                    <a href="https://www.bps.go.id" target="_blank" class="data-source-link">
-                                        Kunjungi BPS
-                                    </a>
-                                </div>
-                                
-                                <div class="data-source-card">
-                                    <div class="data-source-header">
-                                        <div class="data-source-logo" style="background: linear-gradient(135deg, #059669, #10b981); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 12px;">STAT</div>
-                                        <h5>Statista</h5>
-                                    </div>
-                                    <p class="data-source-description">
-                                        Database statistik global dengan data pasar Indonesia
-                                    </p>
-                                    <a href="https://www.statista.com" target="_blank" class="data-source-link">
-                                        Kunjungi Statista
-                                    </a>
-                                </div>
-                                
-                                <div class="data-source-card">
-                                    <div class="data-source-header">
-                                        <div class="data-source-logo" style="background: linear-gradient(135deg, #7c3aed, #a855f7); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 10px;">WAS</div>
-                                        <h5>We Are Social</h5>
-                                    </div>
-                                    <p class="data-source-description">
-                                        Laporan digital dan media sosial Indonesia tahunan
-                                    </p>
-                                    <a href="https://wearesocial.com" target="_blank" class="data-source-link">
-                                        Kunjungi We Are Social
-                                    </a>
-                                </div>
-                                
-                                <div class="data-source-card">
-                                    <div class="data-source-header">
-                                        <div class="data-source-logo" style="background: linear-gradient(135deg, #dc2626, #ef4444); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 10px;">KEM</div>
-                                        <h5>Kementerian Perindustrian</h5>
-                                    </div>
-                                    <p class="data-source-description">
-                                        Data industri dan sektor ekonomi Indonesia
-                                    </p>
-                                    <a href="https://www.kemenperin.go.id" target="_blank" class="data-source-link">
-                                        Kunjungi Kemenperin
-                                    </a>
-                                </div>
-                                
-                                <div class="data-source-card">
-                                    <div class="data-source-header">
-                                        <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google Logo" class="data-source-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                        <div class="data-source-logo" style="background: linear-gradient(135deg, #4285f4, #34a853); color: white; display: none; align-items: center; justify-content: center; font-weight: bold; font-size: 12px;">GOOGLE</div>
-                                        <h5>Google Trends</h5>
-                                    </div>
-                                    <p class="data-source-description">
-                                        Analisis tren pencarian dan minat pasar
-                                    </p>
-                                    <a href="https://trends.google.com" target="_blank" class="data-source-link">
-                                        Kunjungi Google Trends
-                                    </a>
-                                </div>
-                                
-                                <div class="data-source-card">
-                                    <div class="data-source-header">
-                                        <div class="data-source-logo" style="background: linear-gradient(135deg, #4f46e5, #6366f1); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 10px;">AI</div>
-                                        <h5>Asosiasi Industri</h5>
-                                    </div>
-                                    <p class="data-source-description">
-                                        Data spesifik industri dari asosiasi terkait
-                                    </p>
-                                    <a href="#" class="data-source-link" onclick="showIndustryAssociations()">
-                                        Lihat Daftar Asosiasi
-                                    </a>
-                                </div>
-                            </div>
-                            
-                            <div class="data-tips">
-                                <h5><i class="fas fa-lightbulb me-2"></i>Tips Mencari Data TAM:</h5>
-                                <ul>
-                                    <li>Gunakan kata kunci: "market size", "total addressable market", "industri [nama industri]"</li>
-                                    <li>Gabungkan data dari beberapa sumber untuk validasi</li>
-                                    <li>Perhatikan tahun data dan pastikan masih relevan</li>
-                                    <li>Gunakan data demografi BPS untuk estimasi populasi target</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Deskripsi TAM</label>
-                            <textarea name="tam_description" class="form-control large" 
-                                      placeholder="Jelaskan total pasar yang dapat dialamatkan. Contoh: Seluruh pelajar dan mahasiswa di Indonesia yang membutuhkan platform pembelajaran online..." 
-                                      required>{{ old('tam_description') }}</textarea>
-                        </div>
-
-                        <div class="input-group">
-                            <div class="input-with-label">
-                                <label class="form-label">Jumlah Total Pasar</label>
-                                <input type="text" name="tam_market_size" id="tamMarketSize" class="form-control" 
-                                       placeholder="50.000.000" value="{{ old('tam_market_size') ? number_format(old('tam_market_size'), 0, ',', '.') : '' }}" required>
-                                <small class="text-muted">Jumlah total konsumen/unit dalam pasar</small>
-                            </div>
-                            <div class="input-with-label">
-                                <label class="form-label">Nilai per Unit</label>
-                                <div class="currency-input">
-                                    <span class="currency-symbol">Rp</span>
-                                    <input type="text" name="tam_unit_value" id="tamUnitValue" class="form-control" 
-                                           placeholder="200.000" value="{{ old('tam_unit_value') ? number_format(old('tam_unit_value'), 0, ',', '.') : '' }}" required>
-                                </div>
-                                <small class="text-muted">Nilai rata-rata per konsumen/unit</small>
-                            </div>
-                        </div>
-
-                        <div class="calculation-preview">
-                            <div class="calculation-title">
-                                <i class="fas fa-calculator"></i>
-                                Total Nilai TAM
-                            </div>
-                            <div class="calculation-result" id="tamResult">Rp 0</div>
-                            <div class="calculation-formula">Jumlah Pasar × Nilai per Unit</div>
-                        </div>
-                    </div>
-
-                    <!-- Step 3: SAM -->
-                    <div class="step-content" data-step="3">
-                        <div class="step-header">
-                            <h2 class="step-title">SAM - Serviceable Addressable Market</h2>
-                            <p class="step-description">Bagian dari TAM yang realistis dapat Anda layani</p>
-                        </div>
-
-                        <div class="info-box">
-                            <i class="fas fa-info-circle info-box-icon"></i>
-                            <p class="info-box-text">
-                                <strong>SAM</strong> adalah bagian dari TAM yang realistis dapat Anda layani berdasarkan 
-                                model bisnis, geografis, dan kemampuan operasional Anda.
-                            </p>
-                        </div>
-
-                        <!-- Data Sources Section for SAM -->
-                        <div class="data-sources-section">
-                            <h4 class="data-sources-title">
-                                <i class="fas fa-target me-2"></i>Sumber Data untuk SAM
-                            </h4>
-                            <p class="data-sources-description">
-                                Analisis segmentasi pasar dan kemampuan layanan untuk menentukan SAM:
-                            </p>
-                            <div class="data-sources-grid">
-                                <div class="data-source-card">
-                                    <div class="data-source-header">
-                                        <div class="data-source-logo" style="background: linear-gradient(135deg, #1e3a8a, #3b82f6); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 12px;">BPS</div>
-                                        <h5>Data Geografis BPS</h5>
-                                    </div>
-                                    <p class="data-source-description">
-                                        Data populasi dan ekonomi per provinsi/kota
-                                    </p>
-                                    <a href="https://www.bps.go.id/subject/12/geografi.html" target="_blank" class="data-source-link">
-                                        Data Geografis BPS
-                                    </a>
-                                </div>
-                                
-                                <div class="data-source-card">
-                                    <div class="data-source-header">
-                                        <div class="data-source-logo" style="background: linear-gradient(135deg, #059669, #10b981); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 12px;">APJII</div>
-                                        <h5>APJII Internet Report</h5>
-                                    </div>
-                                    <p class="data-source-description">
-                                        Penetrasi internet dan demografi pengguna digital
-                                    </p>
-                                    <a href="https://apjii.or.id" target="_blank" class="data-source-link">
-                                        Kunjungi APJII
-                                    </a>
-                                </div>
-                                
-                                <div class="data-source-card">
-                                    <div class="data-source-header">
-                                        <div class="data-source-logo" style="background: linear-gradient(135deg, #dc2626, #ef4444); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 10px;">EC</div>
-                                        <h5>E-commerce Indonesia</h5>
-                                    </div>
-                                    <p class="data-source-description">
-                                        Data penetrasi e-commerce dan perilaku konsumen online
-                                    </p>
-                                    <a href="https://www.ecommerce.id" target="_blank" class="data-source-link">
-                                        Kunjungi E-commerce ID
-                                    </a>
-                                </div>
-                                
-                                <div class="data-source-card">
-                                    <div class="data-source-header">
-                                        <div class="data-source-logo" style="background: linear-gradient(135deg, #1e3a8a, #3b82f6); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 10px;">EDU</div>
-                                        <h5>Data Pendidikan</h5>
-                                    </div>
-                                    <p class="data-source-description">
-                                        Statistik pendidikan dan literasi digital
-                                    </p>
-                                    <a href="https://www.bps.go.id/subject/28/pendidikan.html" target="_blank" class="data-source-link">
-                                        Data Pendidikan BPS
-                                    </a>
-                                </div>
-                                
-                                <div class="data-source-card">
-                                    <div class="data-source-header">
-                                        <div class="data-source-logo" style="background: linear-gradient(135deg, #7c3aed, #a855f7); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 10px;">MCK</div>
-                                        <h5>McKinsey Indonesia</h5>
-                                    </div>
-                                    <p class="data-source-description">
-                                        Laporan ekonomi dan konsumen Indonesia
-                                    </p>
-                                    <a href="https://www.mckinsey.com/id" target="_blank" class="data-source-link">
-                                        Kunjungi McKinsey
-                                    </a>
-                                </div>
-                                
-                                <div class="data-source-card">
-                                    <div class="data-source-header">
-                                        <div class="data-source-logo" style="background: linear-gradient(135deg, #4f46e5, #6366f1); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 10px;">SV</div>
-                                        <h5>Survei Konsumen</h5>
-                                    </div>
-                                    <p class="data-source-description">
-                                        Lembaga survei seperti Ipsos, Nielsen, atau Roy Morgan
-                                    </p>
-                                    <a href="#" class="data-source-link" onclick="showSurveyCompanies()">
-                                        Lihat Daftar Survei
-                                    </a>
-                                </div>
-                            </div>
-                            
-                            <div class="data-tips">
-                                <h5><i class="fas fa-lightbulb me-2"></i>Tips Menentukan SAM:</h5>
-                                <ul>
-                                    <li>Pertimbangkan jangkauan geografis operasional Anda</li>
-                                    <li>Analisis demografi yang sesuai dengan produk/layanan</li>
-                                    <li>Evaluasi kemampuan distribusi dan layanan</li>
-                                    <li>Gunakan data penetrasi teknologi untuk estimasi realistis</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- TAM Data Reference -->
-                        <div class="reference-section">
-                            <h4 class="reference-title">
-                                <i class="fas fa-chart-pie me-2"></i>Data TAM sebagai Referensi
-                            </h4>
-                            <div class="reference-grid">
-                                <div class="reference-item">
-                                    <label class="reference-label">Total Nilai TAM</label>
-                                    <div class="reference-value" id="tamReferenceValue">Rp 0</div>
-                                </div>
-                                <div class="reference-item">
-                                    <label class="reference-label">Jumlah Pasar TAM</label>
-                                    <div class="reference-value" id="tamMarketSizeReference">0 unit</div>
-                                </div>
-                                <div class="reference-item">
-                                    <label class="reference-label">Nilai per Unit TAM</label>
-                                    <div class="reference-value" id="tamUnitValueReference">Rp 0</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Deskripsi SAM</label>
-                            <textarea name="sam_description" class="form-control large" 
-                                      placeholder="Jelaskan pasar yang dapat Anda layani. Contoh: Pelajar SMA dan mahasiswa di kota-kota besar dengan akses internet stabil..." 
-                                      required>{{ old('sam_description') }}</textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Persentase dari TAM</label>
-                            <div class="percentage-input">
-                                <input type="number" name="sam_percentage" id="samPercentage" class="form-control" 
-                                       placeholder="25" value="{{ old('sam_percentage') }}" min="0" max="100" step="0.1" required>
-                                <span class="percentage-symbol">%</span>
-                            </div>
-                            <small class="text-muted">Berapa persen dari TAM yang dapat Anda layani?</small>
-                        </div>
-
-                        <div class="calculation-preview">
-                            <div class="calculation-title">
-                                <i class="fas fa-calculator"></i>
-                                Total Nilai SAM
-                            </div>
-                            <div class="calculation-result" id="samResult">Rp 0</div>
-                            <div class="calculation-formula">TAM × Persentase SAM</div>
-                        </div>
-
-                        <input type="hidden" name="sam_market_size" id="samMarketSize">
-                        <input type="hidden" name="sam_value" id="samValue">
-                    </div>
-
-                    <!-- Step 4: SOM -->
-                    <div class="step-content" data-step="4">
-                        <div class="step-header">
-                            <h2 class="step-title">SOM - Serviceable Obtainable Market</h2>
-                            <p class="step-description">Bagian dari SAM yang realistis dapat Anda raih</p>
-                        </div>
-
-                        <div class="info-box">
-                            <i class="fas fa-info-circle info-box-icon"></i>
-                            <p class="info-box-text">
-                                <strong>SOM</strong> adalah bagian dari SAM yang realistis dapat Anda raih berdasarkan 
-                                kompetisi, kapasitas bisnis, dan strategi marketing yang dimiliki.
-                            </p>
-                        </div>
-
-                        <!-- Data Sources Section for SOM -->
-                        <div class="data-sources-section">
-                            <h4 class="data-sources-title">
-                                <i class="fas fa-trophy me-2"></i>Sumber Data untuk SOM
-                            </h4>
-                            <p class="data-sources-description">
-                                Analisis kompetisi dan kapasitas untuk menentukan market share yang realistis:
-                            </p>
-                            <div class="data-sources-grid">
-                                <div class="data-source-card">
-                                    <div class="data-source-header">
-                                        <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google Logo" class="data-source-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                        <div class="data-source-logo" style="background: linear-gradient(135deg, #4285f4, #34a853); color: white; display: none; align-items: center; justify-content: center; font-weight: bold; font-size: 10px;">GSC</div>
-                                        <h5>Google Search Console</h5>
-                                    </div>
-                                    <p class="data-source-description">
-                                        Analisis kompetitor dan kata kunci populer
-                                    </p>
-                                    <a href="https://search.google.com/search-console" target="_blank" class="data-source-link">
-                                        Kunjungi Search Console
-                                    </a>
-                                </div>
-                                
-                                <div class="data-source-card">
-                                    <div class="data-source-header">
-                                        <div class="data-source-logo" style="background: linear-gradient(135deg, #059669, #10b981); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 10px;">SW</div>
-                                        <h5>SimilarWeb</h5>
-                                    </div>
-                                    <p class="data-source-description">
-                                        Analisis traffic dan market share kompetitor
-                                    </p>
-                                    <a href="https://www.similarweb.com" target="_blank" class="data-source-link">
-                                        Kunjungi SimilarWeb
-                                    </a>
-                                </div>
-                                
-                                <div class="data-source-card">
-                                    <div class="data-source-header">
-                                        <div class="data-source-logo" style="background: linear-gradient(135deg, #7c3aed, #a855f7); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 10px;">CB</div>
-                                        <h5>Crunchbase</h5>
-                                    </div>
-                                    <p class="data-source-description">
-                                        Database startup dan funding untuk analisis kompetitor
-                                    </p>
-                                    <a href="https://www.crunchbase.com" target="_blank" class="data-source-link">
-                                        Kunjungi Crunchbase
-                                    </a>
-                                </div>
-                                
-                                <div class="data-source-card">
-                                    <div class="data-source-header">
-                                        <div class="data-source-logo" style="background: linear-gradient(135deg, #dc2626, #ef4444); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 10px;">TIA</div>
-                                        <h5>Tech in Asia</h5>
-                                    </div>
-                                    <p class="data-source-description">
-                                        Analisis berita industri dan pengumuman kompetitor
-                                    </p>
-                                    <a href="https://www.techinasia.com" target="_blank" class="data-source-link">
-                                        Kunjungi Tech in Asia
-                                    </a>
-                                </div>
-                                
-                                <div class="data-source-card">
-                                    <div class="data-source-header">
-                                        <div class="data-source-logo" style="background: linear-gradient(135deg, #4f46e5, #6366f1); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 10px;">SB</div>
-                                        <h5>Socialbakers</h5>
-                                    </div>
-                                    <p class="data-source-description">
-                                        Analisis engagement dan follower kompetitor
-                                    </p>
-                                    <a href="https://www.socialbakers.com" target="_blank" class="data-source-link">
-                                        Kunjungi Socialbakers
-                                    </a>
-                                </div>
-                                
-                                <div class="data-source-card">
-                                    <div class="data-source-header">
-                                        <div class="data-source-logo" style="background: linear-gradient(135deg, #1e3a8a, #3b82f6); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 10px;">MR</div>
-                                        <h5>Market Research Reports</h5>
-                                    </div>
-                                    <p class="data-source-description">
-                                        Laporan riset pasar dari Frost & Sullivan, Gartner
-                                    </p>
-                                    <a href="#" class="data-source-link" onclick="showMarketResearch()">
-                                        Lihat Daftar Lembaga Riset
-                                    </a>
-                                </div>
-                            </div>
-                            
-                            <div class="data-tips">
-                                <h5><i class="fas fa-lightbulb me-2"></i>Tips Menentukan SOM:</h5>
-                                <ul>
-                                    <li>Analisis market share kompetitor utama di industri</li>
-                                    <li>Evaluasi kapasitas produksi dan operasional Anda</li>
-                                    <li>Pertimbangkan budget marketing dan sales yang tersedia</li>
-                                    <li>Gunakan data historis pertumbuhan startup sejenis</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- SAM Data Reference -->
-                        <div class="reference-section">
-                            <h4 class="reference-title">
-                                <i class="fas fa-chart-bar me-2"></i>Data SAM sebagai Referensi
-                            </h4>
-                            <div class="reference-grid">
-                                <div class="reference-item">
-                                    <label class="reference-label">Total Nilai SAM</label>
-                                    <div class="reference-value" id="samReferenceValue">Rp 0</div>
-                                </div>
-                                <div class="reference-item">
-                                    <label class="reference-label">Jumlah Pasar SAM</label>
-                                    <div class="reference-value" id="samMarketSizeReference">0 unit</div>
-                                </div>
-                                <div class="reference-item">
-                                    <label class="reference-label">Persentase dari TAM</label>
-                                    <div class="reference-value" id="samPercentageReference">0%</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Deskripsi SOM</label>
-                            <textarea name="som_description" class="form-control large" 
-                                      placeholder="Jelaskan pasar yang dapat Anda peroleh. Contoh: Target 8% market share melalui strategi digital marketing dan partnership..." 
-                                      required>{{ old('som_description') }}</textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Persentase dari SAM</label>
-                            <div class="percentage-input">
-                                <input type="number" name="som_percentage" id="somPercentage" class="form-control" 
-                                       placeholder="8" value="{{ old('som_percentage') }}" min="0" max="100" step="0.1" required>
-                                <span class="percentage-symbol">%</span>
-                            </div>
-                            <small class="text-muted">Berapa persen dari SAM yang realistis dapat Anda raih?</small>
-                        </div>
-
-                        <div class="calculation-preview">
-                            <div class="calculation-title">
-                                <i class="fas fa-calculator"></i>
-                                Total Nilai SOM
-                            </div>
-                            <div class="calculation-result" id="somResult">Rp 0</div>
-                            <div class="calculation-formula">SAM × Persentase SOM</div>
-                        </div>
-
-                        <!-- Additional Information -->
-                        <div class="form-group">
-                            <label class="form-label">Asumsi Pasar (Opsional)</label>
-                            <div id="marketAssumptions">
-                                <div class="dynamic-input-group">
-                                    <input type="text" name="market_assumptions[]" class="form-control" 
-                                           placeholder="Contoh: Penetrasi internet di Indonesia mencapai 80% pada 2025">
-                                    <button type="button" class="btn-remove" onclick="removeInput(this)">×</button>
-                                </div>
-                            </div>
-                            <button type="button" class="btn-add" onclick="addMarketAssumption()">
-                                <i class="fas fa-plus"></i> Tambah Asumsi
-                            </button>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Proyeksi Pertumbuhan (Opsional)</label>
-                            <div id="growthProjections">
-                                <div class="dynamic-input-group">
-                                    <input type="text" name="growth_projections[]" class="form-control" 
-                                           placeholder="Contoh: Pertumbuhan pasar e-commerce 25% per tahun selama 3 tahun">
-                                    <button type="button" class="btn-remove" onclick="removeInput(this)">×</button>
-                                </div>
-                            </div>
-                            <button type="button" class="btn-add" onclick="addGrowthProjection()">
-                                <i class="fas fa-plus"></i> Tambah Proyeksi
-                            </button>
-                        </div>
-
-                        <input type="hidden" name="som_market_size" id="somMarketSize">
-                        <input type="hidden" name="som_value" id="somValue">
-                        <input type="hidden" name="tam_value" id="tamValueHidden">
-                        <input type="hidden" name="tam_market_size_raw" id="tamMarketSizeRaw">
-                        <input type="hidden" name="tam_unit_value_raw" id="tamUnitValueRaw">
-                    </div>
-
-                    <!-- Step 5: Review & Submit -->
-                    <div class="step-content" data-step="5">
-                        <div class="step-header">
-                            <h2 class="step-title">Review & Submit</h2>
-                            <p class="step-description">Periksa kembali analisis Market Validation Anda sebelum menyimpan</p>
-                        </div>
-
-                        <div class="summary-section">
-                            <h3 class="summary-title">Ringkasan Analisis</h3>
-                            <div class="summary-grid">
-                                <div class="summary-card tam">
-                                    <div class="summary-card-title">TAM</div>
-                                    <div class="summary-card-value" id="finalTamValue">Rp 0</div>
-                                </div>
-                                <div class="summary-card sam">
-                                    <div class="summary-card-title">SAM</div>
-                                    <div class="summary-card-value" id="finalSamValue">Rp 0</div>
-                                </div>
-                                <div class="summary-card som">
-                                    <div class="summary-card-title">SOM</div>
-                                    <div class="summary-card-value" id="finalSomValue">Rp 0</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Success/Error Messages -->
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul class="mb-0">
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
-                        @if (session('error'))
-                            <div class="alert alert-danger">
-                                {{ session('error') }}
-                            </div>
-                        @endif
-
-                        @if (session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        @endif
-                    </div>
-
-                    <!-- Wizard Actions -->
-                    <div class="wizard-actions">
-                        <button type="button" id="prevBtn" class="btn btn-secondary" onclick="changeStep(-1)">
-                            <i class="fas fa-arrow-left"></i> Sebelumnya
-                        </button>
-                        <div>
-                            <span id="stepInfo">Langkah 1 dari 5</span>
-                        </div>
-                        <button type="button" id="nextBtn" class="btn btn-primary" onclick="changeStep(1)">
-                            Selanjutnya <i class="fas fa-arrow-right"></i>
-                        </button>
-                        <button type="submit" id="submitBtn" class="btn btn-success" style="display: none;">
-                            <i class="fas fa-save"></i> Simpan Market Validation
-                        </button>
-                    </div>
-                </form>
+                </template>
             </div>
         </div>
-    </div>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <script>
-        let currentStep = 1;
-        const totalSteps = 5;
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            updateStepDisplay();
-            
-            // Format existing values on page load
-            const tamMarketSizeInput = document.getElementById('tamMarketSize');
-            if (tamMarketSizeInput.value) {
-                formatInputWithSeparator(tamMarketSizeInput);
-            }
-            
-            // Add event listeners for calculations
-            tamMarketSizeInput.addEventListener('input', function() {
-                formatInputWithSeparator(this);
-                calculateTAM();
-            });
-            tamMarketSizeInput.addEventListener('blur', function() {
-                formatInputWithSeparator(this);
-                calculateTAM();
-            });
-            document.getElementById('tamUnitValue').addEventListener('input', function() {
-                formatInputWithSeparator(this);
-                calculateTAM();
-            });
-            document.getElementById('tamUnitValue').addEventListener('blur', function() {
-                formatInputWithSeparator(this);
-                calculateTAM();
-            });
-            document.getElementById('samPercentage').addEventListener('input', calculateSAM);
-            document.getElementById('somPercentage').addEventListener('input', calculateSOM);
-            
-            // Add form submit event listener
-            document.getElementById('tamSamSomForm').addEventListener('submit', function(e) {
-                // Ensure all calculations are done before submit
-                calculateTAM();
-                calculateSAM();
-                calculateSOM();
-            });
-        });
-
-        function changeStep(direction) {
-            if (direction === 1 && !validateCurrentStep()) {
-                return;
-            }
-
-            const newStep = currentStep + direction;
-            
-            if (newStep < 1 || newStep > totalSteps) {
-                return;
-            }
-
-            // Hide current step
-            document.querySelector(`.step-content[data-step="${currentStep}"]`).classList.remove('active');
-            
-            // Show new step
-            currentStep = newStep;
-            document.querySelector(`.step-content[data-step="${currentStep}"]`).classList.add('active');
-            
-            updateStepDisplay();
-            updateFinalSummary();
-            
-            // Update reference data when moving to SAM or SOM steps
-            if (currentStep === 3) {
-                // Moving to SAM step, update TAM reference
-                const marketSize = parseFormattedNumber(document.getElementById('tamMarketSize').value);
-                const unitValue = parseFormattedNumber(document.getElementById('tamUnitValue').value) || 0;
-                const tamValue = marketSize * unitValue;
-                updateTAMReference(marketSize, unitValue, tamValue);
-            } else if (currentStep === 4) {
-                // Moving to SOM step, update SAM reference
-                const samValue = parseFloat(document.getElementById('samValue').value) || 0;
-                const samMarketSize = parseFloat(document.getElementById('samMarketSize').value) || 0;
-                const samPercentage = parseFloat(document.getElementById('samPercentage').value) || 0;
-                updateSAMReference(samValue, samMarketSize, samPercentage);
-            }
-        }
-
-        function updateStepDisplay() {
-            // Update progress
-            const progressFill = document.getElementById('progressFill');
-            const progressPercentage = ((currentStep - 1) / (totalSteps - 1)) * 100;
-            progressFill.style.width = progressPercentage + '%';
-
-            // Update step indicators
-            document.querySelectorAll('.step').forEach((step, index) => {
-                const stepNumber = index + 1;
-                step.classList.remove('active', 'completed');
-                
-                if (stepNumber === currentStep) {
-                    step.classList.add('active');
-                } else if (stepNumber < currentStep) {
-                    step.classList.add('completed');
-                    step.innerHTML = '<i class="fas fa-check"></i>';
-                } else {
-                    step.innerHTML = stepNumber;
-                }
-            });
-
-            // Update buttons
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            const submitBtn = document.getElementById('submitBtn');
-            const stepInfo = document.getElementById('stepInfo');
-
-            prevBtn.style.display = currentStep === 1 ? 'none' : 'inline-flex';
-            nextBtn.style.display = currentStep === totalSteps ? 'none' : 'inline-flex';
-            submitBtn.style.display = currentStep === totalSteps ? 'inline-flex' : 'none';
-            
-            stepInfo.textContent = `Langkah ${currentStep} dari ${totalSteps}`;
-        }
-
-        function validateCurrentStep() {
-            const currentStepElement = document.querySelector(`.step-content[data-step="${currentStep}"]`);
-            const requiredFields = currentStepElement.querySelectorAll('input[required], textarea[required]');
-            
-            for (let field of requiredFields) {
-                if (!field.value.trim()) {
-                    field.focus();
-                    field.style.borderColor = '#dc3545';
-                    setTimeout(() => {
-                        field.style.borderColor = '';
-                    }, 3000);
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        function calculateTAM() {
-            const marketSize = parseFormattedNumber(document.getElementById('tamMarketSize').value);
-            const unitValue = parseFormattedNumber(document.getElementById('tamUnitValue').value) || 0;
-            const tamValue = marketSize * unitValue;
-            
-            document.getElementById('tamResult').textContent = formatCurrency(tamValue);
-            document.getElementById('tamValueHidden').value = tamValue;
-            document.getElementById('tamMarketSizeRaw').value = marketSize;
-            document.getElementById('tamUnitValueRaw').value = unitValue;
-            
-            // Update TAM reference data
-            updateTAMReference(marketSize, unitValue, tamValue);
-            
-            // Trigger SAM calculation
-            calculateSAM();
-        }
-
-        function calculateSAM() {
-            const tamValue = parseFloat(document.getElementById('tamValueHidden').value) || 0;
-            const tamMarketSize = parseFormattedNumber(document.getElementById('tamMarketSize').value);
-            const samPercentage = parseFloat(document.getElementById('samPercentage').value) || 0;
-            
-            const samValue = tamValue * (samPercentage / 100);
-            const samMarketSize = tamMarketSize * (samPercentage / 100);
-            
-            document.getElementById('samResult').textContent = formatCurrency(samValue);
-            document.getElementById('samValue').value = samValue;
-            document.getElementById('samMarketSize').value = samMarketSize; // Tidak dibulatkan agar presisi tetap terjaga
-            
-            // Update SAM reference data
-            updateSAMReference(samValue, samMarketSize, samPercentage);
-            
-            // Trigger SOM calculation
-            calculateSOM();
-        }
-
-        function calculateSOM() {
-            const samValue = parseFloat(document.getElementById('samValue').value) || 0;
-            const samMarketSize = parseFloat(document.getElementById('samMarketSize').value) || 0;
-            const somPercentage = parseFloat(document.getElementById('somPercentage').value) || 0;
-            
-            const somValue = samValue * (somPercentage / 100);
-            const somMarketSize = samMarketSize * (somPercentage / 100);
-            
-            document.getElementById('somResult').textContent = formatCurrency(somValue);
-            document.getElementById('somValue').value = somValue;
-            document.getElementById('somMarketSize').value = Math.round(somMarketSize);
-        }
-
-        function updateFinalSummary() {
-            if (currentStep === 5) {
-                const tamValue = parseFloat(document.getElementById('tamValueHidden').value) || 0;
-                const samValue = parseFloat(document.getElementById('samValue').value) || 0;
-                const somValue = parseFloat(document.getElementById('somValue').value) || 0;
-                
-                document.getElementById('finalTamValue').textContent = formatCurrency(tamValue);
-                document.getElementById('finalSamValue').textContent = formatCurrency(samValue);
-                document.getElementById('finalSomValue').textContent = formatCurrency(somValue);
-            }
-        }
-
-        function formatCurrency(value) {
-            return 'Rp ' + new Intl.NumberFormat('id-ID').format(value);
-        }
-
-        function addMarketAssumption() {
-            const container = document.getElementById('marketAssumptions');
-            const div = document.createElement('div');
-            div.className = 'dynamic-input-group';
-            div.innerHTML = `
-                <input type="text" name="market_assumptions[]" class="form-control" 
-                       placeholder="Masukkan asumsi pasar...">
-                <button type="button" class="btn-remove" onclick="removeInput(this)">×</button>
-            `;
-            container.appendChild(div);
-        }
-
-        function addGrowthProjection() {
-            const container = document.getElementById('growthProjections');
-            const div = document.createElement('div');
-            div.className = 'dynamic-input-group';
-            div.innerHTML = `
-                <input type="text" name="growth_projections[]" class="form-control" 
-                       placeholder="Masukkan proyeksi pertumbuhan...">
-                <button type="button" class="btn-remove" onclick="removeInput(this)">×</button>
-            `;
-            container.appendChild(div);
-        }
-
-        function removeInput(button) {
-            const container = button.parentElement.parentElement;
-            if (container.children.length > 1) {
-                button.parentElement.remove();
-            }
-        }
-
-        // Update TAM reference data
-        function updateTAMReference(marketSize, unitValue, tamValue) {
-            document.getElementById('tamReferenceValue').textContent = formatCurrency(tamValue);
-            document.getElementById('tamMarketSizeReference').textContent = formatNumber(marketSize) + ' unit';
-            document.getElementById('tamUnitValueReference').textContent = formatCurrency(unitValue);
-        }
-
-        // Update SAM reference data
-        function updateSAMReference(samValue, samMarketSize, samPercentage) {
-            document.getElementById('samReferenceValue').textContent = formatCurrency(samValue);
-            document.getElementById('samMarketSizeReference').textContent = formatNumber(samMarketSize) + ' unit';
-            document.getElementById('samPercentageReference').textContent = samPercentage.toFixed(1) + '%';
-        }
-
-        // Format number with thousand separators
-        function formatNumber(value) {
-            return new Intl.NumberFormat('id-ID').format(value);
-        }
-
-        // Format input with thousand separators
-        function formatInputWithSeparator(input) {
-            // Remove all non-numeric characters
-            let value = input.value.replace(/[^\d]/g, '');
-            
-            // Add thousand separators
-            if (value) {
-                value = parseInt(value).toLocaleString('id-ID');
-                input.value = value;
-            }
-        }
-
-        // Parse formatted number back to integer
-        function parseFormattedNumber(formattedValue) {
-            return parseInt(formattedValue.replace(/[^\d]/g, '')) || 0;
-        }
-
-        // Keyboard navigation
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' && e.ctrlKey) {
-                if (currentStep < totalSteps) {
-                    changeStep(1);
-                } else {
-                    document.getElementById('submitBtn').click();
-                }
-            }
-        });
-
-        // Show Industry Associations Modal
-        function showIndustryAssociations() {
-            const associations = [
-                { name: "Asosiasi E-commerce Indonesia (idEA)", url: "https://www.idea.or.id", description: "Data e-commerce dan digital economy", logo: "idEA", color: "#FF6B35" },
-                { name: "Asosiasi Fintech Indonesia (AFI)", url: "https://www.afi.or.id", description: "Data fintech dan financial services", logo: "AFI", color: "#4A90E2" },
-                { name: "Asosiasi Startup Indonesia (ASI)", url: "https://www.startupindonesia.id", description: "Data startup dan teknologi", logo: "ASI", color: "#2ECC71" },
-                { name: "Asosiasi Perusahaan Rintisan Indonesia (APRI)", url: "https://www.apri.or.id", description: "Data startup dan venture capital", logo: "APRI", color: "#9B59B6" },
-                { name: "Asosiasi Cloud Computing Indonesia (ACCI)", url: "https://www.acci.or.id", description: "Data cloud dan infrastructure", logo: "ACCI", color: "#3498DB" },
-                { name: "Asosiasi Game Indonesia (AGI)", url: "https://www.agi.or.id", description: "Data gaming dan entertainment", logo: "AGI", color: "#E74C3C" },
-                { name: "Asosiasi Media Digital Indonesia (AMDI)", url: "https://www.amdi.or.id", description: "Data media dan advertising", logo: "AMDI", color: "#F39C12" },
-                { name: "Asosiasi Logistik Indonesia (ALI)", url: "https://www.ali.or.id", description: "Data logistics dan supply chain", logo: "ALI", color: "#34495E" }
-            ];
-            
-            showModal('Asosiasi Industri Indonesia', associations);
-        }
-
-        // Show Survey Companies Modal
-        function showSurveyCompanies() {
-            const companies = [
-                { name: "Ipsos Indonesia", url: "https://www.ipsos.com/id", description: "Riset pasar dan survei konsumen", logo: "IP", color: "#FF6B35" },
-                { name: "Nielsen Indonesia", url: "https://www.nielsen.com/id", description: "Data konsumen dan media", logo: "NI", color: "#4A90E2" },
-                { name: "Roy Morgan Indonesia", url: "https://www.roymorgan.com", description: "Survei dan analisis konsumen", logo: "RM", color: "#2ECC71" },
-                { name: "MarkPlus Indonesia", url: "https://www.markplus.co.id", description: "Riset pasar dan strategi", logo: "MP", color: "#9B59B6" },
-                { name: "Jakpat", url: "https://www.jakpat.net", description: "Platform survei online Indonesia", logo: "JP", color: "#3498DB" },
-                { name: "Populix", url: "https://www.populix.co", description: "Platform riset konsumen digital", logo: "PX", color: "#E74C3C" },
-                { name: "Alvara Research", url: "https://www.alvara.id", description: "Riset digital dan teknologi", logo: "AR", color: "#F39C12" },
-                { name: "Kompas Research", url: "https://www.kompas.id", description: "Riset media dan komunikasi", logo: "KR", color: "#34495E" }
-            ];
-            
-            showModal('Lembaga Survei Indonesia', companies);
-        }
-
-        // Show Market Research Modal
-        function showMarketResearch() {
-            const research = [
-                { name: "Frost & Sullivan", url: "https://www.frost.com", description: "Laporan riset pasar global", logo: "FS", color: "#FF6B35" },
-                { name: "Gartner", url: "https://www.gartner.com", description: "Riset teknologi dan IT", logo: "GT", color: "#4A90E2" },
-                { name: "McKinsey Global Institute", url: "https://www.mckinsey.com/mgi", description: "Laporan ekonomi global", logo: "MCK", color: "#7c3aed" },
-                { name: "Boston Consulting Group", url: "https://www.bcg.com", description: "Strategi dan riset bisnis", logo: "BCG", color: "#2ECC71" },
-                { name: "Deloitte Insights", url: "https://www2.deloitte.com/insights", description: "Riset industri dan teknologi", logo: "DT", color: "#9B59B6" },
-                { name: "PwC Indonesia", url: "https://www.pwc.com/id", description: "Laporan ekonomi Indonesia", logo: "PwC", color: "#3498DB" },
-                { name: "EY Indonesia", url: "https://www.ey.com/id", description: "Riset bisnis dan teknologi", logo: "EY", color: "#E74C3C" },
-                { name: "KPMG Indonesia", url: "https://home.kpmg/id", description: "Laporan industri dan ekonomi", logo: "KP", color: "#F39C12" }
-            ];
-            
-            showModal('Lembaga Riset Pasar', research);
-        }
-
-        // Show Modal Function
-        function showModal(title, data) {
-            const modalHtml = `
-                <div class="modal fade" id="dataModal" tabindex="-1" aria-labelledby="dataModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header" style="background: #f8f9fa; border-bottom: 1px solid #e9ecef;">
-                                <h5 class="modal-title" id="dataModalLabel" style="color: #2d3748; font-weight: 600;">
-                                    <i class="fas fa-database me-2" style="color: #3182ce;"></i>${title}
-                                </h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body" style="padding: 1.5rem;">
-                                <div class="row">
-                                    ${data.map(item => `
-                                        <div class="col-md-6 mb-3">
-                                            <div class="card h-100" style="border: 1px solid #e2e8f0; border-radius: 6px;">
-                                                <div class="card-body" style="padding: 1rem;">
-                                                    <div class="d-flex align-items-center mb-2">
-                                                        <div style="width: 24px; height: 24px; margin-right: 0.5rem; border-radius: 3px; background: linear-gradient(135deg, ${item.color}, ${item.color}dd); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 10px;">${item.logo}</div>
-                                                        <h6 class="card-title mb-0" style="color: #2d3748; font-weight: 600; font-size: 0.9rem;">${item.name}</h6>
-                                                    </div>
-                                                    <p class="card-text small" style="color: #718096; font-size: 0.8rem; line-height: 1.4; margin-bottom: 0.75rem;">${item.description}</p>
-                                                    <a href="${item.url}" target="_blank" class="btn btn-sm" style="background: #3182ce; color: white; border: none; padding: 0.375rem 0.75rem; border-radius: 4px; font-size: 0.75rem; text-decoration: none;">
-                                                        Kunjungi
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    `).join('')}
-                                </div>
-                            </div>
-                            <div class="modal-footer" style="background: #f8f9fa; border-top: 1px solid #e9ecef;">
-                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" style="background: #6c757d; border: none; padding: 0.375rem 0.75rem; border-radius: 4px;">Tutup</button>
-                            </div>
+        <form method="POST" action="{{ route('tam-sam-som.store') }}" x-ref="wizardForm" @submit.prevent="handleSubmit">
+            @csrf
+            <div class="mv-card">
+                <div class="mv-card-header">
+                    <div class="mv-card-heading">
+                        <small x-text="'Langkah ' + current + ' dari ' + steps.length"></small>
+                        <h2 x-text="steps[current-1] ? steps[current-1].title : ''"></h2>
+                        <p x-text="steps[current-1] ? steps[current-1].subtitle : ''"></p>
+                    </div>
+                    <div class="mv-progress">
+                        <div class="mv-progress-label">
+                            <span x-text="progressLabel"></span>
+                        </div>
+                        <div class="mv-progress-track">
+                            <div class="mv-progress-bar" :style="{width: progressWidth, background: progressGradient}"></div>
                         </div>
                     </div>
                 </div>
-            `;
-            
-            // Remove existing modal if any
-            const existingModal = document.getElementById('dataModal');
-            if (existingModal) {
-                existingModal.remove();
+                <div class="mv-card-accent" :style="{background: accentColor}"></div>
+                @if ($errors->any())
+                    <div class="alert alert-danger mb-4">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                @if (session('error'))
+                    <div class="alert alert-danger mb-3">{{ session('error') }}</div>
+                @endif
+                @if (session('success'))
+                    <div class="alert alert-success mb-3">{{ session('success') }}</div>
+                @endif
+
+                <div class="alert alert-warning mb-3" x-cloak x-show="stepError" x-text="stepError"></div>
+
+                <div>
+                    <template x-if="current === 1">
+                        <div>
+                            <div class="mv-section-title">
+                                <i class="fa-solid fa-circle-info text-primary"></i>
+                                Informasi Bisnis
+                            </div>
+                            <p class="mv-section-subtitle">Mulai dengan informasi dasar tentang bisnis Anda sebelum menghitung potensi pasar.</p>
+                            <div class="mv-form-grid">
+                                <div class="mv-form-group">
+                                    <label for="business_name">Nama Bisnis</label>
+                                    <input type="text" id="business_name" name="business_name" class="form-control" placeholder="Contoh: EduTech Platform" x-model="business.name" required>
+                                </div>
+                                <div class="mv-form-group">
+                                    <label for="owner_name">Nama Pemilik</label>
+                                    <input type="text" id="owner_name" name="owner_name" class="form-control" placeholder="Contoh: Ahmad Rizki" x-model="business.owner" required>
+                                </div>
+                                <div class="mv-form-group">
+                                    <label for="industry">Industri</label>
+                                    <select name="industry" class="form-control" x-model="business.industry" required>
+                                        <option value="">Pilih Industri</option>
+                                        <option value="Technology">Technology</option>
+                                        <option value="Education Technology">Education Technology</option>
+                                        <option value="Healthcare">Healthcare</option>
+                                        <option value="Financial Services">Financial Services</option>
+                                        <option value="E-commerce">E-commerce</option>
+                                        <option value="Food & Beverage">Food & Beverage</option>
+                                        <option value="Retail">Retail</option>
+                                        <option value="Manufacturing">Manufacturing</option>
+                                        <option value="Real Estate">Real Estate</option>
+                                        <option value="Transportation & Logistics">Transportation & Logistics</option>
+                                        <option value="Entertainment & Media">Entertainment & Media</option>
+                                        <option value="Energy & Utilities">Energy & Utilities</option>
+                                        <option value="Agriculture">Agriculture</option>
+                                        <option value="Tourism & Hospitality">Tourism & Hospitality</option>
+                                        <option value="Professional Services">Professional Services</option>
+                                        <option value="Construction">Construction</option>
+                                        <option value="Automotive">Automotive</option>
+                                        <option value="Fashion & Beauty">Fashion & Beauty</option>
+                                        <option value="Sports & Fitness">Sports & Fitness</option>
+                                        <option value="Gaming">Gaming</option>
+                                        <option value="Social Media">Social Media</option>
+                                        <option value="Consulting">Consulting</option>
+                                        <option value="Non-profit">Non-profit</option>
+                                        <option value="Government">Government</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="mv-form-group">
+                                    <label for="location">Lokasi</label>
+                                    <input type="text" id="location" name="location" class="form-control" placeholder="Contoh: Jakarta, Indonesia" x-model="business.location" required>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                                        <template x-if="current === 2">
+                        <div>
+                            <div class="mv-section-title" style="color:#b91c1c;">
+                                <i class="fa-solid fa-chart-line"></i>
+                                TAM - Total Addressable Market
+                            </div>
+                            <p class="mv-section-subtitle">Berapa besar total pasar jika 100% target audience membeli produk Anda?</p>
+                            <div class="mv-knowledge">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <div>
+                                    <strong>Apa itu TAM?</strong>
+                                    <div>TAM adalah total ukuran pasar yang tersedia untuk produk atau layanan Anda jika Anda mencapai 100% pangsa pasar.</div>
+                                </div>
+                            </div>
+                            <h5 class="fw-semibold mb-3 text-uppercase" style="letter-spacing:0.08em;color:#b91c1c;">
+                                Sumber Data untuk TAM
+                            </h5>
+                            <div class="mv-data-grid">
+                                <template x-for="source in sources.tam" :key="source.title">
+                                    <div class="mv-data-card">
+                                        <div class="mv-data-icon" :style="{background: source.color}">
+                                            <i :class="source.icon"></i>
+                                        </div>
+                                        <h4 x-text="source.title"></h4>
+                                        <p x-text="source.description"></p>
+                                        <a :href="source.url" target="_blank" rel="noopener">
+                                            Kunjungi <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                        </a>
+                                    </div>
+                                </template>
+                            </div>
+                            <div class="mv-tip-box">
+                                <h5><i class="fa-solid fa-lightbulb"></i>Tips Menghitung TAM</h5>
+                                <ul>
+                                    <li>Identifikasi total populasi target pasar Anda secara menyeluruh.</li>
+                                    <li>Hitung nilai rata-rata per transaksi atau per pelanggan.</li>
+                                    <li>Kalkulasi jumlah pasar dengan nilai per unit untuk mendapatkan TAM.</li>
+                                    <li>Gunakan data historis dan laporan industri terbaru sebagai acuan.</li>
+                                </ul>
+                            </div>
+                            <div class="mv-form-grid">
+                                <div class="mv-form-group" style="grid-column: 1 / -1;">
+                                    <label for="tam_description">Deskripsi TAM</label>
+                                    <textarea id="tam_description" name="tam_description" class="form-control" placeholder="Jelaskan total pasar yang dapat dialamatkan..." x-model="tam.description" required></textarea>
+                                </div>
+                                <div class="mv-form-group">
+                                    <label for="tam_market_size">Jumlah Total Pasar</label>
+                                    <input type="text" inputmode="numeric" id="tam_market_size" name="tam_market_size_raw" class="form-control" placeholder="0" x-model="tam.qty" @input="calc" data-format-thousand required>
+                                </div>
+                                <div class="mv-form-group">
+                                    <label class="" for="tam_unit_value">Nilai per Unit</label>
+                                    <div class="mv-input-adornment-rp">
+                                        <span>Rp</span>
+                                        <input type="text" inputmode="numeric" id="tam_unit_value" name="tam_unit_value" placeholder="0" x-model="tam.unit" @input="calc" data-format-thousand required>
+                                    </div>
+                                </div>
+                                <div class="mv-form-group" style="grid-column: 1 / -1;">
+                                    <div class="mv-summary blue">
+                                        <span>Total Nilai TAM</span>
+                                        <strong x-text="formatCurrency(tam.total)"></strong>
+                                        <span>Jumlah Pasar x Nilai per Unit</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                    <template x-if="current === 3">
+                        <div>
+                            <div class="mv-section-title" style="color:#ea580c;">
+                                <i class="fa-solid fa-users"></i>
+                                SAM - Serviceable Available Market
+                            </div>
+                            <p class="mv-section-subtitle">Bagian dari TAM yang dapat Anda layani berdasarkan model bisnis, lokasi, dan kemampuan operasional.</p>
+                            <div class="mv-knowledge" style="background:linear-gradient(135deg,#fef3c7,#fde68a);border-color:#f59e0b;color:#92400e;">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <div>
+                                    <strong>Apa itu SAM?</strong>
+                                    <div>SAM adalah segmen dari TAM yang dapat Anda layani dengan efektif sesuai kapabilitas distribusi serta ruang lingkup bisnis saat ini.</div>
+                                </div>
+                            </div>
+                            <h5 class="fw-semibold mb-3 text-uppercase" style="letter-spacing:0.08em;color:#ea580c;">
+                                Sumber Data untuk SAM
+                            </h5>
+                            <div class="mv-data-grid">
+                                <template x-for="source in sources.sam" :key="source.title">
+                                    <div class="mv-data-card">
+                                        <div class="mv-data-icon" :style="{background: source.color}">
+                                            <i :class="source.icon"></i>
+                                        </div>
+                                        <h4 x-text="source.title"></h4>
+                                        <p x-text="source.description"></p>
+                                        <a :href="source.url" target="_blank" rel="noopener">
+                                            Kunjungi <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                        </a>
+                                    </div>
+                                </template>
+                            </div>
+                            <div class="mv-tip-box" style="border-color:#fed7aa;">
+                                <h5 style="color:#ea580c;"><i class="fa-solid fa-compass"></i>Tips Menentukan SAM</h5>
+                                <ul>
+                                    <li>Pertimbangkan jangkauan geografis operasional Anda saat ini.</li>
+                                    <li>Sesuaikan analisis demografi dengan produk atau layanan.</li>
+                                    <li>Evaluasi kapasitas produksi dan kemampuan distribusi.</li>
+                                    <li>Gunakan data penetrasi teknologi atau estimasi realistis sejenis.</li>
+                                </ul>
+                            </div>
+                            <div class="mv-reference">
+                                <div class="mv-reference-card">
+                                    <h6>Total Nilai TAM</h6>
+                                    <div x-text="formatCurrency(tam.total)"></div>
+                                </div>
+                                <div class="mv-reference-card">
+                                    <h6>Jumlah Pasar TAM</h6>
+                                    <div x-text="formatNumber(tam.qty) + ' unit'"></div>
+                                </div>
+                                <div class="mv-reference-card">
+                                    <h6>Nilai per Unit TAM</h6>
+                                    <div x-text="formatCurrency(tam.unit)"></div>
+                                </div>
+                            </div>
+                            <div class="mv-form-grid">
+                                <div class="mv-form-group" style="grid-column: 1 / -1;">
+                                    <label for="sam_description">Deskripsi SAM</label>
+                                    <textarea id="sam_description" name="sam_description" class="form-control" placeholder="Jelaskan target pasar yang dapat Anda layani..." x-model="sam.description" required></textarea>
+                                </div>
+                                <div class="mv-form-group">
+                                    <label for="sam_percentage">Persentase dari TAM</label>
+                                    <div class="mv-input-adornment m-right">
+                                        <input type="number" min="0" max="100" id="sam_percentage" name="sam_percentage" class="form-control" placeholder="0" x-model.number="sam.percentage" @input="calc" required>
+                                        <span>%</span>
+                                    </div>
+                                </div>
+                                <div class="mv-form-group" style="grid-column: 1 / -1;">
+                                    <div class="mv-summary orange">
+                                        <span>Total Nilai SAM</span>
+                                        <strong x-text="formatCurrency(sam.total)"></strong>
+                                        <span>TAM x Persentase SAM</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                    <template x-if="current === 4">
+                        <div>
+                            <div class="mv-section-title" style="color:#16a34a;">
+                                <i class="fa-solid fa-bullseye"></i>
+                                SOM - Serviceable Obtainable Market
+                            </div>
+                            <p class="mv-section-subtitle">Bagian dari SAM yang realistis dapat Anda raih dalam jangka waktu tertentu berdasarkan kompetisi dan strategi.</p>
+                            <div class="mv-knowledge" style="background:linear-gradient(135deg,#dcfce7,#bbf7d0);border-color:#22c55e;color:#065f46;">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <div>
+                                    <strong>Apa itu SOM?</strong>
+                                    <div>SOM adalah porsi realistis dari SAM yang dapat dicapai dalam jangka pendek menimbang kompetisi, anggaran, serta kapasitas eksekusi.</div>
+                                </div>
+                            </div>
+                            <h5 class="fw-semibold mb-3 text-uppercase" style="letter-spacing:0.08em;color:#16a34a;">
+                                Sumber Data untuk SOM
+                            </h5>
+                            <div class="mv-data-grid">
+                                <template x-for="source in sources.som" :key="source.title">
+                                    <div class="mv-data-card">
+                                        <div class="mv-data-icon" :style="{background: source.color}">
+                                            <i :class="source.icon"></i>
+                                        </div>
+                                        <h4 x-text="source.title"></h4>
+                                        <p x-text="source.description"></p>
+                                        <a :href="source.url" target="_blank" rel="noopener">
+                                            Kunjungi <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                        </a>
+                                    </div>
+                                </template>
+                            </div>
+                            <div class="mv-tip-box" style="border-color:#bbf7d0;">
+                                <h5 style="color:#16a34a;"><i class="fa-solid fa-leaf"></i>Tips Menentukan SOM</h5>
+                                <ul>
+                                    <li>Analisis market share kompetitor utama dan insight pelanggan.</li>
+                                    <li>Evaluasi kapasitas produksi, penjualan, dan channel distribusi.</li>
+                                    <li>Pertimbangkan budget marketing serta SLA layanan.</li>
+                                    <li>Gunakan data historis pertumbuhan startup sejenis sebagai pembanding.</li>
+                                </ul>
+                            </div>
+                            <div class="mv-reference">
+                                <div class="mv-reference-card">
+                                    <h6>Total Nilai SAM</h6>
+                                    <div x-text="formatCurrency(sam.total)"></div>
+                                </div>
+                                <div class="mv-reference-card">
+                                    <h6>Jumlah Pasar SAM</h6>
+                                    <div x-text="formatNumber(sam.marketSize) + ' unit'"></div>
+                                </div>
+                                <div class="mv-reference-card">
+                                    <h6>Persentase SAM</h6>
+                                    <div x-text="formatNumber(sam.percentage) + '%'"></div>
+                                </div>
+                            </div>
+                            <div class="mv-form-grid">
+                                <div class="mv-form-group" style="grid-column: 1 / -1;">
+                                    <label for="som_description">Deskripsi SOM</label>
+                                    <textarea id="som_description" name="som_description" class="form-control" placeholder="Jelaskan pasar realistis yang dapat Anda peroleh..." x-model="som.description" required></textarea>
+                                </div>
+                                <div class="mv-form-group">
+                                    <label for="som_percentage">Persentase dari SAM</label>
+                                    <div class="mv-input-adornment m-right">
+                                        <input type="number" min="0" max="100" id="som_percentage" name="som_percentage" class="form-control" placeholder="0" x-model.number="som.percentage" @input="calc" required>
+                                        <span>%</span>
+                                    </div>
+                                </div>
+                                <div class="mv-form-group" style="grid-column: 1 / -1;">
+                                    <div class="mv-summary green">
+                                        <span>Total Nilai SOM</span>
+                                        <strong x-text="formatCurrency(som.total)"></strong>
+                                        <span>SAM x Persentase SOM</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                    <template x-if="current === 5">
+                        <div>
+                            <div class="mv-section-title" style="color:#7c3aed;">
+                                <i class="fa-solid fa-clipboard-check"></i>
+                                Review &amp; Ringkasan
+                            </div>
+                            <p class="mv-section-subtitle">Tinjau kembali semua informasi yang telah Anda masukkan sebelum menyelesaikan analisis Market Validation.</p>
+                            <div class="mv-review-grid">
+                                <div class="mv-review-card">
+                                    <h4>Info Bisnis</h4>
+                                    <div class="mv-review-details">
+                                        <span><span>Nama:</span> <span x-text="business.name || '-'"></span></span>
+                                        <span><span>Pemilik:</span> <span x-text="business.owner || '-'"></span></span>
+                                        <span><span>Industri:</span> <span x-text="business.industry || '-'"></span></span>
+                                        <span><span>Lokasi:</span> <span x-text="business.location || '-'"></span></span>
+                                    </div>
+                                </div>
+                                <div class="mv-review-values">
+                                    <div class="mv-review-pill tam">
+                                        <span>TAM</span>
+                                        <strong x-text="formatCurrency(tam.total)"></strong>
+                                    </div>
+                                    <div class="mv-review-pill sam">
+                                        <span>SAM (<span x-text="formatNumber(sam.percentage)"></span>%)</span>
+                                        <strong x-text="formatCurrency(sam.total)"></strong>
+                                    </div>
+                                    <div class="mv-review-pill som">
+                                        <span>SOM (<span x-text="formatNumber(som.percentage)"></span>%)</span>
+                                        <strong x-text="formatCurrency(som.total)"></strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <div class="mv-footer">
+                    <small x-text="'Langkah ' + current + ' dari ' + steps.length"></small>
+                    <div class="mv-actions">
+                        <button type="button" class="mv-btn mv-btn-secondary" @click="prev" :disabled="current === 1">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </button>
+                        <button type="button" class="mv-btn mv-btn-primary" :style="{background: buttonGradient}" @click="next" x-show="current < steps.length">
+                            Selanjutnya <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                        <button type="submit" class="mv-btn mv-btn-primary" :style="{background: buttonGradient}" x-show="current === steps.length">
+                            Selesai <i class="fa-solid fa-check"></i>
+                        </button>
+                    </div>
+                </div>
+                <input type="hidden" name="tam_value" :value="tam.total || 0">
+                <input type="hidden" name="sam_market_size" :value="sam.marketSize || 0">
+                <input type="hidden" name="sam_value" :value="sam.total || 0">
+                <input type="hidden" name="som_market_size" :value="som.marketSize || 0">
+                <input type="hidden" name="som_value" :value="som.total || 0">
+            </div>
+        </form>
+    </div>
+</div>
+@endsection
+@section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+<script>
+    function mvWizard(defaults = {}) {
+        const toNumber = (value) => {
+            if (typeof value === 'number') {
+                return Number.isFinite(value) ? value : 0;
             }
-            
-            // Add modal to body
-            document.body.insertAdjacentHTML('beforeend', modalHtml);
-            
-            // Show modal
-            const modal = new bootstrap.Modal(document.getElementById('dataModal'));
-            modal.show();
-        }
-    </script>
-</body>
-</html>
+            if (typeof value === 'string') {
+                const trimmed = value.trim();
+                if (!trimmed) {
+                    return 0;
+                }
+                let normalized = trimmed.replace(/[^0-9,.-]/g, '');
+                const idThousandPattern = /^-?\d{1,3}(\.\d{3})*(,\d+)?$/;
+                const plainCommaDecimalPattern = /^-?\d+(,\d+)?$/;
+                if (idThousandPattern.test(normalized)) {
+                    normalized = normalized.replace(/\./g, '').replace(',', '.');
+                } else if (plainCommaDecimalPattern.test(normalized)) {
+                    normalized = normalized.replace(',', '.');
+                }
+                const number = Number(normalized);
+                return Number.isFinite(number) ? number : 0;
+            }
+            const number = Number(value);
+            return Number.isFinite(number) ? number : 0;
+        };
+
+        const clampPercentage = (value) => {
+            if (value === '' || value === null || (typeof value === 'string' && value.trim() === '')) {
+                return '';
+            }
+            const numeric = toNumber(value);
+            if (!Number.isFinite(numeric)) {
+                return 0;
+            }
+            if (numeric < 0) {
+                return 0;
+            }
+            if (numeric > 100) {
+                return 100;
+            }
+            return numeric;
+        };
+
+        const sanitizeArray = (value) => {
+            if (!Array.isArray(value)) {
+                return [''];
+            }
+            const mapped = value.map((item) => (item ?? '').toString());
+            return mapped.length ? mapped : [''];
+        };
+
+        const getString = (value) => (value ?? '').toString();
+        const trim = (value) => (value ?? '').toString().trim();
+
+        const businessDefaults = defaults.business || {};
+        const tamDefaults = defaults.tam || {};
+        const samDefaults = defaults.sam || {};
+        const somDefaults = defaults.som || {};
+
+        return {
+            current: toNumber(defaults.current) || 1,
+            steps: [
+                { id: 1, label: 'Info Bisnis', title: 'Langkah 1 dari 5 - Info Bisnis', subtitle: 'Mulai dengan informasi dasar tentang bisnis Anda.', icon: 'fa-solid fa-circle-info' },
+                { id: 2, label: 'TAM', title: 'Langkah 2 dari 5 - TAM', subtitle: 'Hitung total pasar potensial secara menyeluruh.', icon: 'fa-solid fa-chart-line' },
+                { id: 3, label: 'SAM', title: 'Langkah 3 dari 5 - SAM', subtitle: 'Identifikasi pasar yang dapat Anda layani saat ini.', icon: 'fa-solid fa-users' },
+                { id: 4, label: 'SOM', title: 'Langkah 4 dari 5 - SOM', subtitle: 'Persempit pada target realistis yang dapat dicapai.', icon: 'fa-solid fa-bullseye' },
+                { id: 5, label: 'Review', title: 'Langkah 5 dari 5 - Review', subtitle: 'Tinjau ulang semua input sebelum menyelesaikan.', icon: 'fa-solid fa-clipboard-check' }
+            ],
+            business: {
+                name: getString(businessDefaults.name),
+                owner: getString(businessDefaults.owner),
+                industry: getString(businessDefaults.industry),
+                location: getString(businessDefaults.location)
+            },
+            tam: {
+                description: getString(tamDefaults.description),
+                qty: toNumber(tamDefaults.qty),
+                unit: toNumber(tamDefaults.unit),
+                total: toNumber(tamDefaults.total)
+            },
+            sam: {
+                description: getString(samDefaults.description),
+                percentage: samDefaults.percentage === '' ? '' : toNumber(samDefaults.percentage),
+                marketSize: toNumber(samDefaults.marketSize),
+                total: toNumber(samDefaults.total)
+            },
+            som: {
+                description: getString(somDefaults.description),
+                percentage: somDefaults.percentage === '' ? '' : toNumber(somDefaults.percentage),
+                marketSize: toNumber(somDefaults.marketSize),
+                total: toNumber(somDefaults.total)
+            },
+            marketAssumptions: sanitizeArray(defaults.marketAssumptions),
+            growthProjections: sanitizeArray(defaults.growthProjections),
+            stepError: '',
+            sources: {
+                tam: [
+                    { title: 'BPS', description: 'Data demografi dan ekonomi nasional terbaru.', url: 'https://www.bps.go.id', color: 'linear-gradient(135deg,#2563eb,#3b82f6)', icon: 'fa-solid fa-building-columns' },
+                    { title: 'Kemenperin', description: 'Data sektor industri dan manufaktur Indonesia.', url: 'https://kemenperin.go.id', color: 'linear-gradient(135deg,#1d4ed8,#22d3ee)', icon: 'fa-solid fa-industry' },
+                    { title: 'Statista', description: 'Basis data statistik global dan riset pasar.', url: 'https://www.statista.com', color: 'linear-gradient(135deg,#db2777,#f97316)', icon: 'fa-solid fa-chart-pie' },
+                    { title: 'We Are Social', description: 'Laporan digital dan tren media sosial tahunan.', url: 'https://wearesocial.com', color: 'linear-gradient(135deg,#7c3aed,#c084fc)', icon: 'fa-solid fa-share-nodes' },
+                    { title: 'Google Trends', description: 'Analisis volume pencarian dan minat pasar.', url: 'https://trends.google.com', color: 'linear-gradient(135deg,#0f172a,#38bdf8)', icon: 'fa-solid fa-magnifying-glass-chart' },
+                    { title: 'Asosiasi Industri', description: 'Data khusus industri melalui asosiasi terkait.', url: 'https://kemenperin.go.id/daftar-api', color: 'linear-gradient(135deg,#ea580c,#f97316)', icon: 'fa-solid fa-network-wired' }
+                ],
+                sam: [
+                    { title: 'Data Geografis BPS', description: 'Populasi dan ekonomi per provinsi/kota.', url: 'https://www.bps.go.id', color: 'linear-gradient(135deg,#2563eb,#60a5fa)', icon: 'fa-solid fa-map-location-dot' },
+                    { title: 'APJII Internet Report', description: 'Penetrasi internet dan demografi digital.', url: 'https://apjii.or.id', color: 'linear-gradient(135deg,#059669,#34d399)', icon: 'fa-solid fa-wifi' },
+                    { title: 'E-commerce Indonesia', description: 'Perilaku belanja dan penetrasi e-commerce.', url: 'https://idn-media.com', color: 'linear-gradient(135deg,#f97316,#fb923c)', icon: 'fa-solid fa-cart-shopping' },
+                    { title: 'Data Pendidikan', description: 'Statistik pendidikan dan literasi digital.', url: 'https://pusdatin.kemdikbud.go.id', color: 'linear-gradient(135deg,#7c3aed,#a855f7)', icon: 'fa-solid fa-graduation-cap' },
+                    { title: 'McKinsey Indonesia', description: 'Laporan ekonomi dan konsumen Indonesia.', url: 'https://www.mckinsey.com/id', color: 'linear-gradient(135deg,#1e293b,#0ea5e9)', icon: 'fa-solid fa-briefcase' },
+                    { title: 'Survei Konsumen', description: 'Data Ipsos, Nielsen, dan Roy Morgan.', url: 'https://www.nielsen.com/id', color: 'linear-gradient(135deg,#b91c1c,#ef4444)', icon: 'fa-solid fa-person-circle-check' }
+                ],
+                som: [
+                    { title: 'Google Search Console', description: 'Analisis kompetitor dan kata kunci populer.', url: 'https://search.google.com/search-console', color: 'linear-gradient(135deg,#2563eb,#22d3ee)', icon: 'fa-solid fa-chart-column' },
+                    { title: 'SimilarWeb', description: 'Analisis traffic dan market share kompetitor.', url: 'https://www.similarweb.com', color: 'linear-gradient(135deg,#059669,#10b981)', icon: 'fa-solid fa-globe' },
+                    { title: 'Crunchbase', description: 'Database startup dan pendanaan kompetitor.', url: 'https://www.crunchbase.com', color: 'linear-gradient(135deg,#7c3aed,#c084fc)', icon: 'fa-solid fa-seedling' },
+                    { title: 'Tech in Asia', description: 'Berita industri dan perkembangan kompetitor.', url: 'https://www.techinasia.com', color: 'linear-gradient(135deg,#dc2626,#f97316)', icon: 'fa-solid fa-newspaper' },
+                    { title: 'Socialbakers', description: 'Analitik engagement dan audiens sosial.', url: 'https://www.socialbakers.com', color: 'linear-gradient(135deg,#4f46e5,#6366f1)', icon: 'fa-solid fa-users-gear' },
+                    { title: 'Market Research Reports', description: 'Laporan Frost & Sullivan, Gartner, lainnya.', url: 'https://www.gartner.com', color: 'linear-gradient(135deg,#0f172a,#3f6212)', icon: 'fa-solid fa-file-chart-column' }
+                ]
+            },
+            accentColors: {
+                1: '#3b82f6',
+                2: '#ef4444',
+                3: '#f97316',
+                4: '#22c55e',
+                5: '#8b5cf6'
+            },
+            buttonGradientsMap: {
+                1: 'linear-gradient(90deg,#2563eb,#38bdf8)',
+                2: 'linear-gradient(90deg,#ef4444,#f97316)',
+                3: 'linear-gradient(90deg,#f97316,#facc15)',
+                4: 'linear-gradient(90deg,#22c55e,#0ea5e9)',
+                5: 'linear-gradient(90deg,#8b5cf6,#ec4899)'
+            },
+            progressGradientMap: {
+                1: 'linear-gradient(90deg,#2563eb,#38bdf8)',
+                2: 'linear-gradient(90deg,#ef4444,#fb7185)',
+                3: 'linear-gradient(90deg,#f59e0b,#f97316)',
+                4: 'linear-gradient(90deg,#22c55e,#14b8a6)',
+                5: 'linear-gradient(90deg,#8b5cf6,#a855f7)'
+            },
+            init() {
+                if (this.current < 1) {
+                    this.current = 1;
+                }
+                if (this.current > this.steps.length) {
+                    this.current = this.steps.length;
+                }
+                this.calc();
+            },
+            next() {
+                this.calc();
+                if (!this.validateStep(this.current)) {
+                    return;
+                }
+                if (this.current < this.steps.length) {
+                    this.current += 1;
+                    this.stepError = '';
+                    this.scrollToCard();
+                }
+            },
+            prev() {
+                if (this.current > 1) {
+                    this.current -= 1;
+                    this.stepError = '';
+                    this.scrollToCard();
+                }
+            },
+            goTo(stepId) {
+                if (stepId === this.current || stepId < 1 || stepId > this.steps.length) {
+                    return;
+                }
+                this.calc();
+                if (stepId > this.current) {
+                    for (let step = this.current; step < stepId; step += 1) {
+                        if (!this.validateStep(step)) {
+                            return;
+                        }
+                    }
+                }
+                this.current = stepId;
+                this.stepError = '';
+                this.scrollToCard();
+            },
+            handleSubmit() {
+                this.calc();
+                for (let step = 1; step <= this.steps.length; step += 1) {
+                    if (!this.validateStep(step, true)) {
+                        this.current = step;
+                        this.scrollToCard();
+                        return;
+                    }
+                }
+                this.stepError = '';
+                this.$refs.wizardForm.submit();
+            },
+            calc() {
+                const qty = toNumber(this.tam.qty);
+                const unit = toNumber(this.tam.unit);
+                this.tam.total = qty > 0 && unit > 0 ? Math.round(qty * unit) : 0;
+
+                const samPct = clampPercentage(this.sam.percentage);
+                this.sam.percentage = samPct;
+                const samRatio = typeof samPct === 'number' ? samPct / 100 : 0;
+                this.sam.marketSize = qty > 0 ? Math.round(qty * samRatio) : 0;
+                this.sam.total = this.tam.total > 0 ? Math.round(this.tam.total * samRatio) : 0;
+
+                const somPct = clampPercentage(this.som.percentage);
+                this.som.percentage = somPct;
+                const somRatio = typeof somPct === 'number' ? somPct / 100 : 0;
+                this.som.marketSize = this.sam.marketSize > 0 ? Math.round(this.sam.marketSize * somRatio) : 0;
+                this.som.total = this.sam.total > 0 ? Math.round(this.sam.total * somRatio) : 0;
+            },
+            validateStep(step, silent = false) {
+                const errors = [];
+
+                switch (step) {
+                    case 1:
+                        if (!trim(this.business.name)) errors.push('Nama bisnis wajib diisi.');
+                        if (!trim(this.business.owner)) errors.push('Nama pemilik wajib diisi.');
+                        if (!trim(this.business.industry)) errors.push('Industri wajib diisi.');
+                        if (!trim(this.business.location)) errors.push('Lokasi wajib diisi.');
+                        break;
+                    case 2:
+                        if (!trim(this.tam.description)) errors.push('Deskripsi TAM wajib diisi.');
+                        if (toNumber(this.tam.qty) <= 0) errors.push('Jumlah total pasar harus lebih dari 0.');
+                        if (toNumber(this.tam.unit) <= 0) errors.push('Nilai per unit TAM harus lebih dari 0.');
+                        break;
+                    case 3:
+                        if (!trim(this.sam.description)) errors.push('Deskripsi SAM wajib diisi.');
+                        if (this.tam.total <= 0) errors.push('Lengkapi data TAM terlebih dahulu.');
+                        if (this.sam.percentage === '' || this.sam.percentage === null) {
+                            errors.push('Persentase SAM wajib diisi.');
+                        } else {
+                            const samPctValue = toNumber(this.sam.percentage);
+                            if (samPctValue < 0 || samPctValue > 100) {
+                                errors.push('Persentase SAM harus berada di antara 0 hingga 100.');
+                            }
+                        }
+                        break;
+                    case 4:
+                        if (!trim(this.som.description)) errors.push('Deskripsi SOM wajib diisi.');
+                        if (this.sam.total <= 0) errors.push('Lengkapi data SAM terlebih dahulu.');
+                        if (this.som.percentage === '' || this.som.percentage === null) {
+                            errors.push('Persentase SOM wajib diisi.');
+                        } else {
+                            const somPctValue = toNumber(this.som.percentage);
+                            if (somPctValue < 0 || somPctValue > 100) {
+                                errors.push('Persentase SOM harus berada di antara 0 hingga 100.');
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+
+                if (errors.length) {
+                    if (!silent || step === this.current) {
+                        this.stepError = errors[0];
+                    }
+                    return false;
+                }
+
+                if (!silent && step === this.current) {
+                    this.stepError = '';
+                }
+
+                return true;
+            },
+            addAssumption() {
+                this.marketAssumptions.push('');
+            },
+            removeAssumption(index) {
+                if (this.marketAssumptions.length > 1) {
+                    this.marketAssumptions.splice(index, 1);
+                } else {
+                    this.marketAssumptions[0] = '';
+                }
+            },
+            addGrowth() {
+                this.growthProjections.push('');
+            },
+            removeGrowth(index) {
+                if (this.growthProjections.length > 1) {
+                    this.growthProjections.splice(index, 1);
+                } else {
+                    this.growthProjections[0] = '';
+                }
+            },
+            formatCurrency(value) {
+                const number = toNumber(value);
+                return 'Rp ' + number.toLocaleString('id-ID');
+            },
+            formatNumber(value) {
+                const number = toNumber(value);
+                return number.toLocaleString('id-ID');
+            },
+            get progressLabel() {
+                return Math.round((this.current / this.steps.length) * 100) + '%';
+            },
+            get progressWidth() {
+                return (this.current / this.steps.length) * 100 + '%';
+            },
+            get accentColor() {
+                return this.accentColors[this.current] || '#6366f1';
+            },
+            get buttonGradient() {
+                return this.buttonGradientsMap[this.current] || this.buttonGradientsMap[1];
+            },
+            get progressGradient() {
+                return this.progressGradientMap[this.current] || this.progressGradientMap[1];
+            },
+            scrollToCard() {
+                const top = document.querySelector('.mv-card');
+                if (top) {
+                    top.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        };
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+    const formatter = new Intl.NumberFormat('id-ID');
+
+    document.querySelectorAll('[data-format-thousand]').forEach((input) => {
+        const setCaret = (el, digitIndex) => {
+            if (!el.setSelectionRange) return;
+            if (digitIndex <= 0) {
+                el.setSelectionRange(0, 0);
+                return;
+            }
+            let caret = 0;
+            let digitsSeen = 0;
+            while (caret < el.value.length) {
+                if (/\d/.test(el.value[caret])) {
+                    digitsSeen += 1;
+                    if (digitsSeen === digitIndex) {
+                        caret += 1;
+                        break;
+                    }
+                }
+                caret += 1;
+            }
+            el.setSelectionRange(caret, caret);
+        };
+
+        const formatValue = (el) => {
+            const selectionStart = el.selectionStart ?? el.value.length;
+            const digitsLeft = el.value.slice(0, selectionStart).replace(/\D/g, '').length;
+            const numeric = el.value.replace(/\D/g, '');
+
+            if (!numeric) {
+                el.value = '';
+                return setCaret(el, 0);
+            }
+
+            el.value = formatter.format(Number(numeric));
+            setCaret(el, digitsLeft);
+        };
+
+        input.addEventListener('input', () => formatValue(input));
+        input.addEventListener('blur', () => formatValue(input));
+
+        input.form?.addEventListener('submit', () => {
+            input.value = input.value.replace(/\D/g, '');
+        });
+
+        formatValue(input);
+    });
+});
+</script>
+@endsection
