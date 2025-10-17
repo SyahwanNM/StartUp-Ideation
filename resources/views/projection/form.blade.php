@@ -47,201 +47,236 @@
         }
 
         body {
-            background: var(--gray-50);
+            margin: 0;
             min-height: 100vh;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', 'Inter', sans-serif;
             line-height: 1.6;
             color: var(--gray-800);
-            font-size: 14px;
+            font-size: 16px;
+            background: linear-gradient(160deg, #4f46e5 0%, #7c3aed 45%, #a855f7 100%);
         }
 
-        .main-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
+        button,
+        input,
+        select,
+        textarea {
+            font-family: inherit;
         }
 
-        /* Header Section */
-        .page-header {
-            text-align: center;
-            margin-bottom: 3rem;
+        .fp-page {
             position: relative;
+            min-height: 100vh;
+            padding: 3.5rem 0 4.5rem;
         }
 
-        .page-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--gray-900);
-            margin-bottom: 1rem;
-            letter-spacing: -0.025em;
-        }
-
-        .page-subtitle {
-            font-size: 1.125rem;
-            color: var(--gray-600);
-            font-weight: 400;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        /* Progress Indicator */
-        .progress-container {
-            background: white;
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--gray-200);
-        }
-
-        .progress-steps {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-        }
-
-        .progress-step {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        .step-circle {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 0.875rem;
-            margin-bottom: 0.5rem;
-            transition: var(--transition);
-        }
-
-        .step-circle.active {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-        }
-
-        .step-circle.completed {
-            background: var(--success);
-            color: white;
-        }
-
-        .step-circle.pending {
-            background: var(--gray-200);
-            color: var(--gray-500);
-        }
-
-        .step-label {
-            font-size: 0.75rem;
-            font-weight: 500;
-            color: var(--gray-600);
-            text-align: center;
-        }
-
-        .progress-line {
+        .fp-page::before {
+            content: '';
             position: absolute;
-            top: 20px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--gray-200);
-            z-index: 1;
+            inset: 0;
+            background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.18), transparent 55%),
+                        radial-gradient(circle at 80% 10%, rgba(79,70,229,0.25), transparent 60%);
+            opacity: 0.85;
+            pointer-events: none;
         }
 
-        .progress-fill {
-            height: 100%;
-            background: var(--primary);
-            transition: width 0.3s ease;
+        .fp-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .fp-hero {
+            text-align: center;
+            color: #f8fafc;
+            max-width: 760px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .fp-hero span {
+            display: inline-block;
+            font-size: 0.9rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(226, 232, 240, 0.85);
+        }
+
+        .fp-hero h1 {
+            font-size: 2.75rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin: 1.1rem 0 0.6rem;
+        }
+
+        .fp-hero p {
+            margin: 0;
+            font-size: 1.05rem;
+            color: rgba(226, 232, 240, 0.85);
+        }
+
+        .fp-shell {
+            background: rgba(248, 250, 252, 0.96);
+            border-radius: 32px;
+            padding: 3rem 3.25rem;
+            box-shadow: 0 34px 60px rgba(15, 23, 42, 0.28);
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
         }
 
         /* Form Sections */
         .form-section {
-            background: white;
-            border-radius: var(--radius-lg);
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--gray-200);
-            transition: var(--transition);
+            position: relative;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.92));
+            border-radius: 26px;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            border: 1px solid rgba(148, 163, 184, 0.16);
+            box-shadow: 0 24px 44px rgba(15, 23, 42, 0.18);
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            z-index: 0;
         }
 
         .form-section:hover {
-            box-shadow: var(--shadow-md);
+            transform: translateY(-3px);
+            box-shadow: 0 28px 50px rgba(15, 23, 42, 0.22);
         }
 
         .form-section::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--primary);
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.12), transparent 55%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .form-section > * {
+            position: relative;
+            z-index: 1;
         }
 
         .section-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--gray-900);
-            margin-bottom: 1.5rem;
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 1.75rem;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 1rem;
+            position: relative;
+            z-index: 1;
         }
 
         .section-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: var(--radius);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            color: white;
+            width: 52px;
+            height: 52px;
+            border-radius: 18px;
+            display: grid;
+            place-items: center;
+            font-size: 1.25rem;
+            color: #1f2937;
+            background: rgba(99, 102, 241, 0.15);
+            box-shadow: 0 16px 28px rgba(99, 102, 241, 0.18);
         }
 
-        .section-icon.business { background: var(--primary); }
-        .section-icon.products { background: var(--info); }
-        .section-icon.costs { background: var(--warning); }
-        .section-icon.employees { background: var(--success); }
-        .section-icon.assets { background: var(--danger); }
-        .section-icon.funding { background: var(--secondary); }
+        .section-icon.business {
+            background: rgba(59, 130, 246, 0.18);
+            color: #1d4ed8;
+        }
+
+        .section-icon.assets {
+            background: rgba(248, 113, 113, 0.18);
+            color: #b91c1c;
+        }
+
+        .section-icon.funding {
+            background: rgba(45, 212, 191, 0.18);
+            color: #0f766e;
+        }
+
+        .section-icon.products {
+            background: rgba(14, 165, 233, 0.18);
+            color: #0369a1;
+        }
+
+        .section-icon.costs {
+            background: rgba(249, 115, 22, 0.2);
+            color: #b45309;
+        }
+
+        .section-icon.employees {
+            background: rgba(139, 92, 246, 0.2);
+            color: #5b21b6;
+        }
 
         /* Form Controls */
         .form-group {
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.6rem;
         }
 
         .form-label {
-            font-weight: 500;
-            color: var(--gray-700);
-            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.55rem;
             display: block;
-            font-size: 0.875rem;
+            font-size: 0.95rem;
         }
 
-        .form-control {
-            border: 1px solid var(--gray-300);
-            border-radius: var(--radius);
-            padding: 0.75rem 1rem;
-            font-size: 0.875rem;
-            transition: var(--transition);
-            background: white;
+        .form-control,
+        .form-select {
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            border-radius: 18px;
+            padding: 0.85rem 1.1rem;
+            font-size: 0.95rem;
+            min-height: 52px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            background: rgba(255, 255, 255, 0.95);
+            color: #1f2937;
         }
 
-        .form-control:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-            background: white;
+        .form-select {
+            appearance: none;
+            background-image: linear-gradient(45deg, transparent 50%, #6366f1 50%), linear-gradient(135deg, #6366f1 50%, transparent 50%);
+            background-position: calc(100% - 22px) calc(50% - 5px), calc(100% - 17px) calc(50% - 5px);
+            background-size: 7px 7px, 7px 7px;
+            background-repeat: no-repeat;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
+            background: rgba(255, 255, 255, 0.98);
             outline: none;
+        }
+
+        .input-group-text {
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            background: rgba(244, 247, 254, 0.9);
+            border-radius: 16px;
+            padding: 0.85rem 1rem;
+            min-height: 52px;
+            font-weight: 600;
+            color: #4338ca;
+        }
+
+        .input-group .form-control {
+            border-left: 0;
+            border-radius: 0 18px 18px 0;
+            min-height: 52px;
+        }
+
+        .input-group .input-group-text:first-child {
+            border-right: 0;
+            border-radius: 18px 0 0 18px;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: rgba(71, 85, 105, 0.85);
         }
 
         .form-control.is-invalid {
@@ -257,17 +292,49 @@
 
         /* Dynamic Fields */
         .dynamic-field {
-            background: var(--gray-50);
-            border: 1px dashed var(--gray-300);
-            border-radius: var(--radius);
-            padding: 1.25rem;
-            margin-bottom: 1rem;
-            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.94);
+            border: 1px solid rgba(148, 163, 184, 0.28);
+            border-radius: 22px;
+            padding: 1.65rem;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 18px 32px rgba(15, 23, 42, 0.12);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
         }
 
         .dynamic-field:hover {
-            border-color: var(--gray-400);
-            background: var(--gray-100);
+            transform: translateY(-2px);
+            box-shadow: 0 22px 38px rgba(15, 23, 42, 0.18);
+        }
+
+        .asset-card {
+            background: linear-gradient(135deg, rgba(255, 248, 237, 0.95), rgba(254, 243, 199, 0.85));
+            border-color: rgba(249, 115, 22, 0.35);
+        }
+
+        .funding-card {
+            background: linear-gradient(135deg, rgba(236, 254, 255, 0.96), rgba(207, 250, 254, 0.85));
+            border-color: rgba(14, 165, 233, 0.35);
+        }
+
+        .product-card {
+            background: linear-gradient(135deg, rgba(239, 246, 255, 0.96), rgba(221, 239, 255, 0.85));
+            border-color: rgba(59, 130, 246, 0.35);
+        }
+
+        .fixed-cost-card {
+            background: linear-gradient(135deg, rgba(255, 247, 237, 0.95), rgba(255, 229, 204, 0.82));
+            border-color: rgba(249, 115, 22, 0.32);
+        }
+
+        .variable-cost-card {
+            background: linear-gradient(135deg, rgba(236, 255, 250, 0.95), rgba(209, 250, 229, 0.82));
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .employee-card {
+            background: linear-gradient(135deg, rgba(243, 232, 255, 0.95), rgba(233, 213, 255, 0.82));
+            border-color: rgba(147, 51, 234, 0.28);
         }
 
         .dynamic-field-header {
@@ -278,190 +345,235 @@
         }
 
         .field-number {
-            background: var(--primary);
-            color: white;
-            width: 24px;
-            height: 24px;
+            background: rgba(99, 102, 241, 0.18);
+            color: #4338ca;
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: grid;
+            place-items: center;
             font-weight: 600;
-            font-size: 0.75rem;
+            font-size: 0.9rem;
+        }
+
+        .product-card .field-number {
+            background: rgba(37, 99, 235, 0.22);
+            color: #1d4ed8;
         }
 
         .btn-remove {
-            background: var(--danger);
-            color: white;
+            background: rgba(239, 68, 68, 0.12);
+            color: #b91c1c;
             border: none;
-            border-radius: var(--radius);
-            padding: 0.5rem 0.75rem;
-            font-size: 0.75rem;
-            font-weight: 500;
-            transition: var(--transition);
+            border-radius: 14px;
+            padding: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: background 0.2s ease, transform 0.2s ease;
             cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
         }
 
         .btn-remove:hover {
-            background: #dc2626;
+            background: rgba(220, 38, 38, 0.18);
             transform: translateY(-1px);
+        }
+
+        .dynamic-field small.text-muted {
+            display: inline-block;
+            margin-top: 0.45rem;
+            color: rgba(71, 85, 105, 0.8) !important;
+        }
+
+        .fp-empty-state {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.9rem 1.15rem;
+            background: rgba(226, 232, 240, 0.45);
+            border: 1px dashed rgba(148, 163, 184, 0.5);
+            border-radius: 16px;
+            color: rgba(71, 85, 105, 0.9);
+            font-size: 0.92rem;
+        }
+
+        .fp-empty-state i {
+            color: #6366f1;
         }
 
         /* Buttons */
         .btn {
-            border-radius: var(--radius);
-            padding: 0.75rem 1.5rem;
-            font-weight: 500;
-            font-size: 0.875rem;
-            transition: var(--transition);
+            border-radius: 999px;
+            padding: 0.8rem 1.6rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            min-height: 3rem;
             border: none;
             cursor: pointer;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.55rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
         }
 
         .btn-primary {
-            background: var(--primary);
-            color: white;
-            box-shadow: var(--shadow-sm);
+            background: linear-gradient(135deg, #6366f1, #4338ca);
+            color: #f8fafc;
+            box-shadow: 0 18px 30px rgba(99, 102, 241, 0.35);
         }
 
         .btn-primary:hover {
-            background: var(--primary-dark);
-            box-shadow: var(--shadow-md);
-            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 22px 36px rgba(79, 70, 229, 0.42);
+            color: #f8fafc;
         }
 
         .btn-success {
-            background: var(--success);
-            color: white;
-            box-shadow: var(--shadow-sm);
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: #ecfdf5;
+            box-shadow: 0 16px 26px rgba(34, 197, 94, 0.32);
         }
 
         .btn-success:hover {
-            background: #059669;
-            box-shadow: var(--shadow-md);
-            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 20px 30px rgba(22, 163, 74, 0.38);
+            color: #ecfdf5;
         }
 
         .btn-warning {
-            background: var(--warning);
-            color: white;
-            box-shadow: var(--shadow-sm);
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            color: #fff7ed;
+            box-shadow: 0 16px 26px rgba(234, 88, 12, 0.28);
         }
 
         .btn-warning:hover {
-            background: #d97706;
-            box-shadow: var(--shadow-md);
-            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 20px 30px rgba(234, 88, 12, 0.35);
+            color: #fff7ed;
         }
 
         .btn-info {
-            background: var(--info);
-            color: white;
-            box-shadow: var(--shadow-sm);
+            background: linear-gradient(135deg, #14b8a6, #0d9488);
+            color: #ecfeff;
+            box-shadow: 0 16px 26px rgba(20, 184, 166, 0.28);
         }
 
         .btn-info:hover {
-            background: #0891b2;
-            box-shadow: var(--shadow-md);
-            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 20px 30px rgba(13, 148, 136, 0.36);
+            color: #ecfeff;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: #fef2f2;
+            box-shadow: 0 16px 26px rgba(239, 68, 68, 0.28);
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 32px rgba(220, 38, 38, 0.36);
+            color: #fef2f2;
         }
 
         /* Product Distribution */
         .distribution-preview {
-            background: var(--gray-50);
-            border: 1px solid var(--info);
-            border-radius: var(--radius);
-            padding: 1rem;
-            margin-top: 1rem;
+            background: linear-gradient(135deg, rgba(236, 254, 255, 0.9), rgba(219, 244, 255, 0.85));
+            border: 1px solid rgba(14, 165, 233, 0.28);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-top: 1.75rem;
+            box-shadow: 0 18px 34px rgba(14, 165, 233, 0.22);
         }
 
         .distribution-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #e0f2fe;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid rgba(14, 165, 233, 0.12);
         }
 
         .distribution-item:last-child {
             border-bottom: none;
         }
 
+        .distribution-item span {
+            font-size: 0.9rem;
+            color: rgba(30, 64, 175, 0.78);
+        }
+
         .distribution-total {
             font-weight: 700;
-            color: #0369a1;
-            border-top: 2px solid #0ea5e9;
-            padding-top: 0.5rem;
-            margin-top: 0.5rem;
+            color: #1d4ed8;
+            padding-top: 0.75rem;
+            margin-top: 0.75rem;
+            text-align: right;
         }
 
         /* Responsive Design */
         @media (max-width: 1200px) {
-            .form-section {
-                padding: 1.5rem;
+            .fp-shell {
+                padding: 2.5rem;
             }
-            
-            .form-group {
-                margin-bottom: 1rem;
+
+            .form-section {
+                padding: 2rem;
+                margin-bottom: 2rem;
             }
         }
 
         @media (max-width: 768px) {
-            .main-container {
-                padding: 1rem 0.5rem;
+            .fp-page {
+                padding: 2.5rem 0 3rem;
             }
 
-            .page-header {
-                padding: 1rem 0;
-                text-align: center;
+            .fp-container {
+                padding: 0 1rem;
             }
 
-            .page-title {
-                font-size: 1.75rem;
+            .fp-hero h1 {
+                font-size: 2.25rem;
             }
 
-            .page-subtitle {
-                font-size: 1rem;
+            .fp-hero p {
+                font-size: 0.95rem;
+            }
+
+            .fp-shell {
+                padding: 2rem;
+                border-radius: 26px;
             }
 
             .form-section {
-                padding: 1rem;
-                margin-bottom: 1rem;
+                padding: 1.6rem;
+                margin-bottom: 1.75rem;
             }
 
             .section-title {
                 font-size: 1.25rem;
             }
 
-            .progress-steps {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .progress-line {
-                display: none;
-            }
-
             .form-group {
-                margin-bottom: 1rem;
+                margin-bottom: 1.1rem;
             }
 
-            .form-control {
-                font-size: 0.875rem;
-                padding: 0.75rem;
+            .form-control,
+            .form-select {
+                font-size: 0.9rem;
+                padding: 0.75rem 1rem;
             }
 
             .btn {
-                padding: 0.75rem 1.5rem;
-                font-size: 0.875rem;
+                padding: 0.75rem 1.45rem;
+                font-size: 0.85rem;
             }
 
             .dynamic-field {
-                padding: 1rem;
+                padding: 1.25rem;
             }
 
             .navbar-nav {
@@ -474,42 +586,53 @@
         }
 
         @media (max-width: 576px) {
-            .main-container {
-                padding: 0.5rem;
+            .fp-container {
+                padding: 0 0.75rem;
             }
 
-            .page-title {
-                font-size: 1.5rem;
+            .fp-hero h1 {
+                font-size: 1.9rem;
+            }
+
+            .fp-hero p {
+                font-size: 0.9rem;
+            }
+
+            .fp-shell {
+                padding: 1.65rem;
+                border-radius: 22px;
             }
 
             .form-section {
-                padding: 0.75rem;
+                padding: 1.2rem;
+                margin-bottom: 1.25rem;
             }
 
             .section-title {
-                font-size: 1.125rem;
+                font-size: 1.1rem;
             }
 
-            .form-control {
-                font-size: 0.8rem;
-                padding: 0.625rem;
+            .form-control,
+            .form-select {
+                font-size: 0.85rem;
+                padding: 0.7rem 0.9rem;
             }
 
             .btn {
-                padding: 0.625rem 1rem;
-                font-size: 0.8rem;
+                padding: 0.65rem 1.2rem;
+                font-size: 0.82rem;
             }
 
             .dynamic-field {
-                padding: 0.75rem;
+                padding: 1rem;
             }
 
             .form-label {
-                font-size: 0.875rem;
+                font-size: 0.85rem;
             }
 
             .invalid-feedback {
-                font-size: 0.75rem;
+                font-size: 0.72rem;
             }
         }
 
@@ -521,7 +644,7 @@
         /* Navigation Styles */
         .navbar {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
             border: none;
         }
 
@@ -534,17 +657,17 @@
         .navbar-nav .nav-link {
             color: white !important;
             font-weight: 500;
-            transition: var(--transition);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             padding: 0.5rem 1rem;
         }
 
         .navbar-nav .nav-link:hover {
-            color: var(--primary-light) !important;
+            color: #a5b4fc !important;
             transform: translateY(-1px);
         }
 
         .navbar-nav .nav-link.active {
-            color: var(--primary-light) !important;
+            color: #a5b4fc !important;
             font-weight: 600;
         }
 
@@ -604,43 +727,20 @@
         </div>
     </nav>
 
-    <div class="main-container">
-        <!-- Header -->
-        <div class="page-header fade-in-up">
-            <h1 class="page-title">Financial Projection Berbasis Unit</h1>
-            <p class="page-subtitle">Buat Financial Projection yang realistis berdasarkan penjualan produk dan bahan baku</p>
-        </div>
-
-        <!-- Progress Indicator -->
-        <div class="progress-container fade-in-up">
-            <div class="progress-steps">
-                <div class="progress-step">
-                    <div class="step-circle active" id="step-1">1</div>
-                    <div class="step-label">Info Bisnis</div>
-                </div>
-                <div class="progress-step">
-                    <div class="step-circle pending" id="step-2">2</div>
-                    <div class="step-label">Aset & Pendanaan</div>
-                </div>
-                <div class="progress-step">
-                    <div class="step-circle pending" id="step-3">3</div>
-                    <div class="step-label">Produk & Bahan Baku</div>
-                </div>
-                <div class="progress-step">
-                    <div class="step-circle pending" id="step-4">4</div>
-                    <div class="step-label">Biaya & Karyawan</div>
-                </div>
-                <div class="progress-line">
-                    <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
-                </div>
+    <div class="fp-page">
+        <div class="fp-container">
+            <div class="fp-hero fade-in-up">
+                <span>Financial Projection</span>
+                <h1>Financial Projection Berbasis Unit</h1>
+                <p>Buat Financial Projection yang realistis berdasarkan penjualan produk dan bahan baku.</p>
             </div>
-        </div>
 
-        <form action="{{ route('projection.store') }}" method="POST" id="projectionForm">
+            <div class="fp-shell fade-in-up">
+                <form action="{{ route('projection.store') }}" method="POST" id="projectionForm">
             @csrf
             
             <!-- Step 1: Business Information -->
-            <div class="form-section fade-in-up" id="section-1">
+            <div class="form-section fade-in-up fp-section fp-business" id="section-1">
                 <h2 class="section-title">
                     <div class="section-icon business">
                         <i class="fas fa-building"></i>
@@ -729,7 +829,7 @@
             </div>
 
             <!-- Step 2: Assets and Funding -->
-            <div class="form-section fade-in-up" id="section-2">
+            <div class="form-section fade-in-up fp-section fp-assets" id="section-2">
                 <h2 class="section-title">
                     <div class="section-icon assets">
                         <i class="fas fa-tools"></i>
@@ -763,7 +863,7 @@
             </div>
 
             <!-- Step 3: Products and Raw Materials -->
-            <div class="form-section fade-in-up" id="section-3">
+            <div class="form-section fade-in-up fp-section fp-products" id="section-3">
                 <h2 class="section-title">
                     <div class="section-icon products">
                         <i class="fas fa-box"></i>
@@ -789,7 +889,7 @@
             </div>
 
             <!-- Step 4: Costs and Employees -->
-            <div class="form-section fade-in-up" id="section-4">
+            <div class="form-section fade-in-up fp-section fp-costs" id="section-4">
                 <h2 class="section-title">
                     <div class="section-icon costs">
                         <i class="fas fa-calculator"></i>
@@ -813,7 +913,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-1">
-                                    <button type="button" class="btn btn-danger btn-sm btn-remove" onclick="removeFixedCost(0)">
+                                    <button type="button" class="btn-remove" onclick="removeFixedCost(0)">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
@@ -859,7 +959,9 @@
                     Generate Financial Projection
                 </button>
             </div>
-        </form>
+                </form>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -960,7 +1062,7 @@
         function addVariableCost() {
             const container = document.getElementById('variable_costs_container');
             const costDiv = document.createElement('div');
-            costDiv.className = 'dynamic-field';
+            costDiv.className = 'dynamic-field variable-cost-card';
             costDiv.innerHTML = `
                 <div class="row">
                     <div class="col-md-6">
@@ -973,7 +1075,7 @@
                         </div>
                     </div>
                     <div class="col-md-1">
-                        <button type="button" class="btn btn-danger btn-sm btn-remove" onclick="removeVariableCost(${variableCostCounter})">
+                        <button type="button" class="btn-remove" onclick="removeVariableCost(${variableCostCounter})">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
@@ -995,7 +1097,7 @@
         function addEmployee() {
             const container = document.getElementById('employees_container');
             const employeeDiv = document.createElement('div');
-            employeeDiv.className = 'dynamic-field';
+            employeeDiv.className = 'dynamic-field employee-card';
             employeeDiv.innerHTML = `
                 <div class="row">
                     <div class="col-md-3">
@@ -1007,14 +1109,14 @@
                             <input type="text" name="employees[${employeeCounter}][salary]" class="form-control" placeholder="Gaji" min="0" step="1000" oninput="formatCurrencyInput(this)">
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <input type="number" name="employees[${employeeCounter}][start_month]" class="form-control" placeholder="Mulai Bulan" min="1">
                     </div>
                     <div class="col-md-2">
                         <input type="number" name="employees[${employeeCounter}][end_month]" class="form-control" placeholder="Selesai Bulan" min="1">
                     </div>
                     <div class="col-md-1">
-                        <button type="button" class="btn btn-danger btn-sm btn-remove" onclick="removeEmployee(${employeeCounter})">
+                        <button type="button" class="btn-remove" onclick="removeEmployee(${employeeCounter})">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
@@ -1034,7 +1136,6 @@
 
         // Initialize form
         document.addEventListener('DOMContentLoaded', function() {
-            updateProgress();
             generateYearlyGrowthRates();
             addAsset();
             addFundingSource();
@@ -1054,47 +1155,13 @@
             document.getElementById('add_asset').addEventListener('click', addAsset);
             document.getElementById('add_funding_source').addEventListener('click', addFundingSource);
         });
-
-        // Update progress indicator
-        function updateProgress() {
-            const currentStep = getCurrentStep();
-            const progressFill = document.getElementById('progress-fill');
-            const progressPercentage = (currentStep / 4) * 100;
-            
-            progressFill.style.width = progressPercentage + '%';
-            
-            // Update step circles
-            for (let i = 1; i <= 4; i++) {
-                const stepCircle = document.getElementById(`step-${i}`);
-                if (i < currentStep) {
-                    stepCircle.className = 'step-circle completed';
-                } else if (i === currentStep) {
-                    stepCircle.className = 'step-circle active';
-                } else {
-                    stepCircle.className = 'step-circle pending';
-                }
-            }
-        }
-
-        function getCurrentStep() {
-            const sections = ['section-1', 'section-2', 'section-3', 'section-4'];
-            for (let i = 0; i < sections.length; i++) {
-                const section = document.getElementById(sections[i]);
-                const rect = section.getBoundingClientRect();
-                if (rect.top > window.innerHeight / 2) {
-                    return i + 1;
-                }
-            }
-            return 4;
-        }
-
         // Generate yearly growth rate inputs
         function generateYearlyGrowthRates() {
             const projectionYears = document.getElementById('projection_years').value;
             const container = document.getElementById('yearly_growth_rates');
             
             if (!projectionYears) {
-                container.innerHTML = '<p class="text-muted">Pilih durasi proyeksi terlebih dahulu</p>';
+                container.innerHTML = '<div class="fp-empty-state"><i class="fas fa-info-circle"></i><span>Pilih durasi proyeksi terlebih dahulu untuk menentukan growth rate tahunan.</span></div>';
                 return;
             }
 
@@ -1117,7 +1184,7 @@
         function addProduct() {
             const container = document.getElementById('products_container');
             const productDiv = document.createElement('div');
-            productDiv.className = 'dynamic-field';
+            productDiv.className = 'dynamic-field product-card';
             productDiv.id = `product-${productCounter}`;
             
             productDiv.innerHTML = `
@@ -1300,7 +1367,7 @@
                         </div>
                     </div>
                     <div class="col-md-1">
-                        <button type="button" class="btn btn-danger btn-sm btn-remove" onclick="removeFixedCost(${fixedCostCounter})">
+                        <button type="button" class="btn-remove" onclick="removeFixedCost(${fixedCostCounter})">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
@@ -1322,7 +1389,7 @@
         function addAsset() {
             const container = document.getElementById('assets_container');
             const assetDiv = document.createElement('div');
-            assetDiv.className = 'dynamic-field';
+            assetDiv.className = 'dynamic-field asset-card';
             assetDiv.innerHTML = `
                 <div class="row">
                     <div class="col-md-4">
@@ -1338,7 +1405,7 @@
                         <input type="date" name="assets[${assetCounter}][purchase_date]" class="form-control" required>
                     </div>
                     <div class="col-md-1">
-                        <button type="button" class="btn btn-danger btn-sm btn-remove" onclick="removeAsset(${assetCounter})">
+                        <button type="button" class="btn-remove" onclick="removeAsset(${assetCounter})">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
@@ -1368,7 +1435,7 @@
         function addFundingSource() {
             const container = document.getElementById('funding_sources_container');
             const fundingDiv = document.createElement('div');
-            fundingDiv.className = 'dynamic-field';
+            fundingDiv.className = 'dynamic-field funding-card';
             fundingDiv.innerHTML = `
                 <div class="row">
                     <div class="col-md-3">
@@ -1392,7 +1459,7 @@
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <button type="button" class="btn btn-danger btn-sm btn-remove" onclick="removeFundingSource(${fundingSourceCounter})">
+                        <button type="button" class="btn-remove" onclick="removeFundingSource(${fundingSourceCounter})">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
@@ -1418,8 +1485,6 @@
 
         // Form validation
         document.getElementById('projectionForm').addEventListener('submit', function(e) {
-            console.log('Form submission started...');
-            
             // Clean currency inputs before validation
             cleanCurrencyInputs();
             
@@ -1427,19 +1492,14 @@
             let totalPercentage = 0;
             let emptyFields = [];
             
-            console.log('Found percentage fields:', percentages.length);
-            
             percentages.forEach((input, index) => {
                 let value = parseFloat(input.value) || 0;
                 totalPercentage += value;
-                console.log(`Field ${index + 1}: ${input.value} (parsed: ${value})`);
                 
                 if (!input.value || input.value.trim() === '') {
                     emptyFields.push(`Produk ${index + 1}`);
                 }
             });
-            
-            console.log('Total percentage:', totalPercentage);
             
             // Check for empty fields
             if (emptyFields.length > 0) {
@@ -1498,11 +1558,7 @@
                 return false;
             }
             
-            console.log('Form validation passed, submitting...');
         });
-
-        // Scroll to sections
-        window.addEventListener('scroll', updateProgress);
     </script>
 </body>
 </html>

@@ -4,513 +4,510 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buat Business Model Canvas - Ideation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
             --primary: #6366f1;
-            --primary-dark: #4f46e5;
+            --primary-dark: #4338ca;
             --primary-light: #a5b4fc;
-            --secondary: #64748b;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --info: #06b6d4;
-            --light: #f8fafc;
-            --dark: #1e293b;
-            --gray-50: #f9fafb;
-            --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb;
-            --gray-300: #d1d5db;
-            --gray-400: #9ca3af;
-            --gray-500: #6b7280;
-            --gray-600: #4b5563;
-            --gray-700: #374151;
-            --gray-800: #1f2937;
-            --gray-900: #111827;
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-            --radius: 0.5rem;
-            --radius-lg: 0.75rem;
-            --radius-xl: 1rem;
-            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --green-start: #22c55e;
+            --green-end: #16a34a;
+            --slate-50: #f8fafc;
+            --slate-100: #f1f5f9;
+            --slate-200: #e2e8f0;
+            --slate-400: #94a3b8;
+            --slate-500: #64748b;
+            --slate-600: #475569;
+            --slate-700: #334155;
+            --shadow-card: 0 34px 60px rgba(15, 23, 42, 0.28);
+            --shadow-component: 0 20px 36px rgba(79, 70, 229, 0.16);
+            --radius-xl: 32px;
+            --radius-lg: 24px;
+            --radius-md: 18px;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
         }
 
         body {
-            background: var(--gray-50);
+            margin: 0;
             min-height: 100vh;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: var(--gray-800);
-            font-size: 14px;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            line-height: 1.5;
+            background: linear-gradient(160deg, #4f46e5 0%, #7c3aed 45%, #a855f7 100%);
+            color: #0f172a;
         }
-        
-        .main-container {
-            max-width: 1200px;
+
+        button, input, select, textarea {
+            font-family: inherit;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .bmc-page {
+            position: relative;
+            min-height: 100vh;
+            padding: 3.5rem 0 4.5rem;
+        }
+
+        .bmc-page::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.18), transparent 55%),
+                        radial-gradient(circle at 80% 15%, rgba(79, 70, 229, 0.25), transparent 60%);
+            opacity: 0.85;
+            pointer-events: none;
+        }
+
+        .bmc-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 2rem 1rem;
+            padding: 0 1.5rem;
         }
-        
-        .page-header {
+
+        .bmc-hero {
             text-align: center;
+            color: #f8fafc;
+            max-width: 760px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .bmc-hero span {
+            display: inline-block;
+            font-size: 0.9rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(226, 232, 240, 0.85);
+        }
+
+        .bmc-hero h1 {
+            font-size: 2.75rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin: 1.1rem 0 0.6rem;
+        }
+
+        .bmc-hero p {
+            margin: 0;
+            font-size: 1.05rem;
+            color: rgba(226, 232, 240, 0.8);
+        }
+
+        .bmc-shell {
+            background: rgba(248, 250, 252, 0.96);
+            border-radius: var(--radius-xl);
+            padding: 3rem 3.25rem;
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        .bmc-section {
             margin-bottom: 3rem;
         }
-        
-        .page-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--gray-900);
-            margin-bottom: 1rem;
-            letter-spacing: -0.025em;
+
+        .bmc-section:last-of-type {
+            margin-bottom: 0;
         }
 
-        .page-subtitle {
-            font-size: 1.125rem;
-            color: var(--gray-600);
-            font-weight: 400;
-            line-height: 1.6;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .form-section {
-            background: white;
-            border-radius: var(--radius-xl);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--gray-200);
-        }
-
-        /* BMC Grid Layout */
-        .bmc-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-template-rows: 1fr 1fr 1fr;
+        .bmc-section-header {
+            display: flex;
+            align-items: center;
             gap: 1rem;
-            margin: 2rem 0;
-            max-width: 1000px;
-            margin-left: auto;
-            margin-right: auto;
+            margin-bottom: 1.75rem;
         }
 
-        .bmc-component {
-            background: white;
-            border: 2px solid var(--gray-200);
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            min-height: 200px;
+        .bmc-section-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-md);
+            display: grid;
+            place-items: center;
+            font-size: 1.4rem;
+            color: #4338ca;
+            background: linear-gradient(145deg, rgba(99, 102, 241, 0.15), rgba(129, 140, 248, 0.28));
+            box-shadow: 0 20px 32px rgba(79, 70, 229, 0.25);
+        }
+
+        .bmc-section-icon.business {
+            color: #1d4ed8;
+            background: linear-gradient(145deg, rgba(59, 130, 246, 0.15), rgba(147, 197, 253, 0.35));
+            box-shadow: 0 18px 28px rgba(59, 130, 246, 0.22);
+        }
+
+        .bmc-section-title {
+            margin: 0;
+            font-size: 1.55rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .bmc-section-subtitle {
+            margin: 0.35rem 0 0;
+            color: #64748b;
+            font-size: 0.97rem;
+        }
+
+        .bmc-info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+
+        .bmc-field {
             display: flex;
             flex-direction: column;
         }
 
-        .bmc-component:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
+        .bmc-field label {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.55rem;
         }
 
-        .bmc-component::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--primary);
+        .bmc-field input,
+        .bmc-field select,
+        .bmc-field textarea {
+            width: 100%;
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.92);
+            padding: 0.9rem 1.1rem;
+            font-size: 0.97rem;
+            color: #1f2937;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
-        /* Specific component colors */
-        .bmc-customer-segments {
-            border-color: var(--danger);
-            background: var(--gray-50);
-        }
-        .bmc-customer-segments::before {
-            background: var(--danger);
+        .bmc-field textarea {
+            min-height: 120px;
+            resize: none;
         }
 
-        .bmc-value-propositions {
-            border-color: var(--warning);
-            background: var(--gray-50);
-        }
-        .bmc-value-propositions::before {
-            background: var(--warning);
-        }
-
-        .bmc-channels {
-            border-color: var(--success);
-            background: var(--gray-50);
-        }
-        .bmc-channels::before {
-            background: var(--success);
+        .bmc-field input:focus,
+        .bmc-field select:focus,
+        .bmc-field textarea:focus {
+            outline: none;
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
         }
 
-        .bmc-customer-relationships {
-            border-color: var(--primary);
-            background: var(--gray-50);
-        }
-        .bmc-customer-relationships::before {
-            background: var(--primary);
-        }
-
-        .bmc-revenue-streams {
-            border-color: var(--info);
-            background: var(--gray-50);
-        }
-        .bmc-revenue-streams::before {
-            background: var(--info);
+        .bmc-field select {
+            appearance: none;
+            background-position: calc(100% - 22px) calc(50% - 4px), calc(100% - 17px) calc(50% - 4px);
+            background-size: 6px 6px, 6px 6px;
+            background-repeat: no-repeat;
         }
 
-        .bmc-key-resources {
-            border-color: var(--warning);
-            background: var(--gray-50);
-        }
-        .bmc-key-resources::before {
-            background: var(--warning);
+        .bmc-field--full {
+            grid-column: span 2;
         }
 
-        .bmc-key-activities {
-            border-color: var(--success);
-            background: var(--gray-50);
-        }
-        .bmc-key-activities::before {
-            background: var(--success);
+        .bmc-divider {
+            height: 1px;
+            background: rgba(148, 163, 184, 0.38);
+            margin: 2.75rem 0;
         }
 
-        .bmc-key-partnerships {
-            border-color: var(--secondary);
-            background: var(--gray-50);
-        }
-        .bmc-key-partnerships::before {
-            background: var(--secondary);
+        .bmc-components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
         }
 
-        .bmc-cost-structure {
-            border-color: var(--danger);
-            background: var(--gray-50);
-        }
-        .bmc-cost-structure::before {
-            background: var(--danger);
+        .bmc-component {
+            position: relative;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.88));
+            border-radius: var(--radius-lg);
+            padding: 1.75rem;
+            border: 2px solid rgba(99, 102, 241, 0.1);
+            box-shadow: var(--shadow-component);
+            display: flex;
+            flex-direction: column;
+            gap: 1.15rem;
+            min-height: 260px;
         }
 
         .bmc-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--gray-900);
-            margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.9rem;
+        }
+
+        .bmc-title-icon {
+            width: 55px;
+            height: 44px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            font-size: 1.25rem;
+            background: rgba(99, 102, 241, 0.12);
+            color: #4338ca;
+        }
+
+        .bmc-title-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1f2937;
         }
 
         .bmc-description {
-            font-size: 0.75rem;
-            color: var(--gray-600);
-            margin-bottom: 1rem;
-            line-height: 1.4;
+            margin: 0.3rem 0 0;
+            font-size: 0.92rem;
+            color: rgba(71, 85, 105, 0.9);
+        }
+
+        .bmc-hint {
+            margin: 0;
+            font-size: 0.85rem;
+            color: rgba(71, 85, 105, 0.75);
+            background: rgba(148, 163, 184, 0.12);
+            padding: 0.65rem 0.85rem;
+            border-radius: 14px;
         }
 
         .bmc-inputs {
-            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
         }
 
         .bmc-input-item {
-            background: white;
-            border: 1px solid var(--gray-300);
-            border-radius: var(--radius);
-            padding: 0.5rem 0.75rem;
-            margin-bottom: 0.5rem;
-            transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-        }
-
-        .bmc-input-item:hover {
-            border-color: var(--primary);
-            background: white;
+            gap: 0.75rem;
         }
 
         .bmc-input-item input {
-            border: none;
-            background: transparent;
+            width: 100%;
+            border: 1px solid rgba(148, 163, 184, 0.35);
             flex: 1;
-            font-size: 0.875rem;
-            padding: 0.25rem;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 0.85rem 1.05rem;
+            font-size: 0.95rem;
+            color: #1f2937;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
         .bmc-input-item input:focus {
+            border-color: rgba(99, 102, 241, 0.45);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
             outline: none;
         }
 
-        .bmc-add-btn {
-            background: var(--primary);
-            border: none;
-            color: white;
-            padding: 0.5rem 0.75rem;
-            border-radius: var(--radius);
-            font-size: 0.75rem;
-            font-weight: 500;
-            transition: var(--transition);
-            width: 100%;
-            margin-top: 0.5rem;
-        }
-
-        .bmc-add-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-md);
+        .bmc-input-item input::placeholder {
+            color: rgba(100, 116, 139, 0.65);
         }
 
         .bmc-remove-btn {
-            background: var(--danger);
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            background: rgba(99, 102, 241, 0.12);
+            color: #4338ca;
             border: none;
-            color: white;
-            padding: 0.25rem 0.5rem;
-            border-radius: 50%;
-            font-size: 0.7rem;
-            transition: var(--transition);
-            width: 24px;
-            height: 24px;
-            display: flex;
+            display: none;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: background 0.2s ease, transform 0.2s ease;
         }
 
         .bmc-remove-btn:hover {
-            background: #dc2626;
-            transform: scale(1.05);
-        }
-
-        /* Grid positioning for BMC components */
-        .bmc-customer-segments { grid-column: 1; grid-row: 1; }
-        .bmc-value-propositions { grid-column: 2; grid-row: 1; }
-        .bmc-channels { grid-column: 3; grid-row: 1; }
-        .bmc-customer-relationships { grid-column: 1; grid-row: 2; }
-        .bmc-revenue-streams { grid-column: 2; grid-row: 2; }
-        .bmc-key-resources { grid-column: 3; grid-row: 2; }
-        .bmc-key-activities { grid-column: 1; grid-row: 3; }
-        .bmc-key-partnerships { grid-column: 2; grid-row: 3; }
-        .bmc-cost-structure { grid-column: 3; grid-row: 3; }
-
-        /* Responsive design */
-        @media (max-width: 992px) {
-            .bmc-grid {
-                grid-template-columns: 1fr 1fr;
-                grid-template-rows: repeat(5, 1fr);
-            }
-            
-            .bmc-customer-segments { grid-column: 1; grid-row: 1; }
-            .bmc-value-propositions { grid-column: 2; grid-row: 1; }
-            .bmc-channels { grid-column: 1; grid-row: 2; }
-            .bmc-customer-relationships { grid-column: 2; grid-row: 2; }
-            .bmc-revenue-streams { grid-column: 1; grid-row: 3; }
-            .bmc-key-resources { grid-column: 2; grid-row: 3; }
-            .bmc-key-activities { grid-column: 1; grid-row: 4; }
-            .bmc-key-partnerships { grid-column: 2; grid-row: 4; }
-            .bmc-cost-structure { grid-column: 1; grid-row: 5; }
-        }
-
-        @media (max-width: 768px) {
-            .main-container {
-                padding: 1rem 0.5rem;
-            }
-            
-            .page-header {
-                padding: 1rem 0;
-                text-align: center;
-            }
-            
-            .page-title {
-                font-size: 1.75rem;
-            }
-            
-            .page-subtitle {
-                font-size: 1rem;
-            }
-            
-            .bmc-grid {
-                grid-template-columns: 1fr;
-                grid-template-rows: repeat(9, 1fr);
-                gap: 1rem;
-            }
-            
-            .bmc-customer-segments { grid-column: 1; grid-row: 1; }
-            .bmc-value-propositions { grid-column: 1; grid-row: 2; }
-            .bmc-channels { grid-column: 1; grid-row: 3; }
-            .bmc-customer-relationships { grid-column: 1; grid-row: 4; }
-            .bmc-revenue-streams { grid-column: 1; grid-row: 5; }
-            .bmc-key-resources { grid-column: 1; grid-row: 6; }
-            .bmc-key-activities { grid-column: 1; grid-row: 7; }
-            .bmc-key-partnerships { grid-column: 1; grid-row: 8; }
-            .bmc-cost-structure { grid-column: 1; grid-row: 9; }
-        }
-        
-        .section-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--gray-900);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .section-title::after {
-            content: '';
-            flex: 1;
-            height: 2px;
-            background: var(--primary);
-            margin-left: 1rem;
-        }
-        
-        .form-label {
-            font-weight: 600;
-            color: #495057;
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
-        }
-        
-        .form-control {
-            border: 2px solid #e9ecef;
-            border-radius: 12px;
-            padding: 0.75rem 1rem;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            background: #fafbfc;
-        }
-        
-        .form-control:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.15);
-            background: white;
-        }
-        
-        .bmc-input {
-            border: 2px solid #e9ecef;
-            border-radius: 12px;
-            padding: 0.75rem 1rem;
-            margin-bottom: 0.75rem;
-            transition: all 0.3s ease;
-            background: #fafbfc;
-            font-size: 0.9rem;
-        }
-        
-        .bmc-input:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.15);
-            background: white;
-        }
-        
-        .add-item-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            color: white;
-            padding: 0.5rem 1.5rem;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-        }
-        
-        .add-item-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-        }
-        
-        .remove-item-btn {
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-            border: none;
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        .remove-item-btn:hover {
+            background: rgba(79, 70, 229, 0.22);
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
         }
-        
-        .submit-btn {
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+
+        .bmc-add-btn {
+            align-self: flex-start;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.7rem 1.4rem;
+            border-radius: 999px;
             border: none;
-            color: white;
-            padding: 1rem 3rem;
-            border-radius: 50px;
+            cursor: pointer;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #f8fafc;
+            font-size: 0.93rem;
             font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
-            width: 100%;
-            max-width: 300px;
+            box-shadow: 0 16px 30px rgba(79, 70, 229, 0.24);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        
-        .submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
+
+        .bmc-add-btn i {
+            font-size: 0.9rem;
         }
-        
-        .back-btn {
-            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
-            border: none;
-            color: white;
-            padding: 0.75rem 2rem;
-            border-radius: 25px;
-            font-weight: 500;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
-        }
-        
-        .back-btn:hover {
+
+        .bmc-add-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
-            color: white;
-            text-decoration: none;
+            box-shadow: 0 18px 34px rgba(79, 70, 229, 0.28);
         }
-        
-        .item-container {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 1rem;
-            margin-bottom: 0.75rem;
-            border: 1px solid #e9ecef;
-            transition: all 0.3s ease;
+
+        .bmc-customer-segments {
+            border-color: rgba(236, 72, 153, 0.45);
+            box-shadow: 0 20px 35px rgba(236, 72, 153, 0.16);
         }
-        
-        .item-container:hover {
-            background: #e9ecef;
-            border-color: #667eea;
+
+        .bmc-customer-segments .bmc-title-icon {
+            background: rgba(236, 72, 153, 0.16);
+            color: #be185d;
         }
-        
+
+        .bmc-value-propositions {
+            border-color: rgba(250, 204, 21, 0.55);
+            box-shadow: 0 20px 35px rgba(250, 204, 21, 0.18);
+        }
+
+        .bmc-value-propositions .bmc-title-icon {
+            background: rgba(250, 204, 21, 0.18);
+            color: #b45309;
+        }
+
+        .bmc-channels {
+            border-color: rgba(34, 197, 94, 0.55);
+            box-shadow: 0 20px 35px rgba(34, 197, 94, 0.18);
+        }
+
+        .bmc-channels .bmc-title-icon {
+            background: rgba(34, 197, 94, 0.18);
+            color: #15803d;
+        }
+
+        .bmc-customer-relationships {
+            border-color: rgba(129, 140, 248, 0.55);
+            box-shadow: 0 20px 35px rgba(129, 140, 248, 0.2);
+        }
+
+        .bmc-customer-relationships .bmc-title-icon {
+            background: rgba(129, 140, 248, 0.18);
+            color: #4f46e5;
+        }
+
+        .bmc-revenue-streams {
+            border-color: rgba(6, 182, 212, 0.55);
+            box-shadow: 0 20px 35px rgba(6, 182, 212, 0.18);
+        }
+
+        .bmc-revenue-streams .bmc-title-icon {
+            background: rgba(6, 182, 212, 0.18);
+            color: #0e7490;
+        }
+
+        .bmc-key-resources {
+            border-color: rgba(245, 158, 11, 0.55);
+            box-shadow: 0 20px 35px rgba(245, 158, 11, 0.17);
+        }
+
+        .bmc-key-resources .bmc-title-icon {
+            background: rgba(245, 158, 11, 0.18);
+            color: #b45309;
+        }
+
+        .bmc-key-activities {
+            border-color: rgba(34, 197, 94, 0.55);
+            box-shadow: 0 20px 35px rgba(34, 197, 94, 0.18);
+        }
+
+        .bmc-key-activities .bmc-title-icon {
+            background: rgba(34, 197, 94, 0.18);
+            color: #15803d;
+        }
+
+        .bmc-key-partnerships {
+            border-color: rgba(59, 130, 246, 0.55);
+            box-shadow: 0 20px 35px rgba(59, 130, 246, 0.18);
+        }
+
+        .bmc-key-partnerships .bmc-title-icon {
+            background: rgba(59, 130, 246, 0.18);
+            color: #1d4ed8;
+        }
+
+        .bmc-cost-structure {
+            border-color: rgba(248, 113, 113, 0.55);
+            box-shadow: 0 20px 35px rgba(248, 113, 113, 0.18);
+        }
+
+        .bmc-cost-structure .bmc-title-icon {
+            background: rgba(248, 113, 113, 0.18);
+            color: #b91c1c;
+        }
+
         .btn-container {
             display: flex;
+            justify-content: space-between;
+            align-items: center;
             gap: 1rem;
-            justify-content: center;
-            margin-top: 2rem;
+            margin-top: 3rem;
         }
 
-        /* Navigation Styles */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.85rem 1.8rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            background: rgba(255, 255, 255, 0.95);
+            color: #475569;
+            font-weight: 600;
+            transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+        }
+
+        .back-btn:hover {
+            border-color: rgba(99, 102, 241, 0.45);
+            color: #4338ca;
+            transform: translateY(-1px);
+        }
+
+        .submit-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 0.95rem 2.6rem;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.98rem;
+            color: #f8fafc;
+            background: linear-gradient(135deg, var(--green-start), var(--green-end));
+            box-shadow: 0 24px 38px rgba(34, 197, 94, 0.28);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 26px 42px rgba(16, 185, 129, 0.32);
+        }
+
+/* Navigation Styles */
         .navbar {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
             box-shadow: var(--shadow-sm);
             border: none;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         .navbar-brand {
             font-weight: 700;
             font-size: 1.5rem;
             color: white !important;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         .navbar-nav .nav-link {
@@ -518,6 +515,7 @@
             font-weight: 500;
             transition: var(--transition);
             padding: 0.5rem 1rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         .navbar-nav .nav-link:hover {
@@ -529,77 +527,64 @@
             color: var(--primary-light) !important;
             font-weight: 600;
         }
-        
-        @media (max-width: 768px) {
-            .page-title {
-                font-size: 2rem;
-            }
-            
-            .form-section {
-                padding: 1.5rem;
-                margin-bottom: 1.5rem;
-            }
-            
-            .section-title {
-                font-size: 1.25rem;
-            }
-            
-            .btn-container {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .submit-btn, .back-btn {
-                width: 100%;
-                max-width: none;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .main-container {
-                padding: 0.5rem;
-            }
-            
-            .page-title {
-                font-size: 1.5rem;
-            }
-            
-            .page-subtitle {
-                font-size: 0.875rem;
-            }
-            
-            .form-section {
-                padding: 0.75rem;
-            }
-            
-            .section-title {
-                font-size: 1.125rem;
-            }
-            
-            .bmc-component {
-                padding: 0.75rem;
-            }
-            
-            .bmc-title {
-                font-size: 0.875rem;
-            }
-            
-            .bmc-input {
-                font-size: 0.8rem;
-                padding: 0.5rem;
-            }
-            
-            .btn {
-                padding: 0.625rem 1rem;
-                font-size: 0.8rem;
-            }
-            
+
+        @media (max-width: 992px) {
             .navbar-nav {
                 text-align: center;
             }
-            
+
             .navbar-nav .nav-link {
                 padding: 0.75rem 1rem;
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            .bmc-shell {
+                padding: 2.25rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .bmc-page {
+                padding: 2.5rem 0 3rem;
+            }
+
+            .bmc-shell {
+                padding: 2rem;
+                border-radius: 26px;
+            }
+
+            .bmc-info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bmc-field--full {
+                grid-column: span 1;
+            }
+
+            .bmc-components-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .back-btn,
+            .submit-btn {
+                justify-content: center;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 540px) {
+            .bmc-container {
+                padding: 0 1rem;
+            }
+
+            .bmc-shell {
+                padding: 1.65rem;
             }
         }
     </style>
@@ -632,270 +617,310 @@
             </div>
         </div>
     </nav>
+    <div class="bmc-page">
+        <div class="bmc-container">
+            <div class="bmc-hero">
+                <span>Business Model Canvas</span>
+                <h1>Buat Business Model Canvas</h1>
+                <p>Isi informasi bisnis dan BMC Anda dengan lengkap untuk mendapatkan analisis yang akurat.</p>
+            </div>
 
-    <div class="main-container">
-        <div class="page-header">
-            <h1 class="page-title">Buat Business Model Canvas</h1>
-            <p class="page-subtitle">Isi informasi bisnis dan BMC Anda dengan lengkap untuk mendapatkan analisis yang akurat</p>
+            <div class="bmc-shell">
+                <form action="{{ route('bmc.store') }}" method="POST">
+                    @csrf
+
+                    <div class="bmc-section">
+                        <div class="bmc-section-header">
+                            <div class="bmc-section-icon business">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div>
+                                <h2 class="bmc-section-title">Informasi Bisnis</h2>
+                                <p class="bmc-section-subtitle">Masukkan detail dasar usaha untuk memulai Business Model Canvas Anda.</p>
+                            </div>
+                        </div>
+
+                        <div class="bmc-info-grid">
+                            <div class="bmc-field">
+                                <label for="owner_name">Nama Pemilik Usaha</label>
+                                <input type="text" id="owner_name" name="owner_name" required>
+                            </div>
+                            <div class="bmc-field">
+                                <label for="business_name">Nama Usaha</label>
+                                <input type="text" id="business_name" name="business_name" required>
+                            </div>
+                            <div class="bmc-field bmc-field--full">
+                                <label for="business_description">Deskripsi Usaha</label>
+                                <textarea id="business_description" name="business_description" rows="3" required></textarea>
+                            </div>
+                            <div class="bmc-field">
+                                <label for="industry">Industri</label>
+                                <select id="industry" name="industry" required>
+                                    <option value="">Pilih Industri</option>
+                                    <option value="Food &amp; Beverage">Food &amp; Beverage</option>
+                                    <option value="Technology">Technology</option>
+                                    <option value="Fashion">Fashion</option>
+                                    <option value="Healthcare">Healthcare</option>
+                                    <option value="Education">Education</option>
+                                    <option value="Finance">Finance</option>
+                                    <option value="Manufacturing">Manufacturing</option>
+                                    <option value="Retail">Retail</option>
+                                    <option value="Services">Services</option>
+                                    <option value="Agriculture">Agriculture</option>
+                                    <option value="Transportation">Transportation</option>
+                                    <option value="Real Estate">Real Estate</option>
+                                    <option value="Entertainment">Entertainment</option>
+                                    <option value="Energy">Energy</option>
+                                    <option value="Other">Lainnya</option>
+                                </select>
+                            </div>
+                            <div class="bmc-field">
+                                <label for="location">Lokasi</label>
+                                <input type="text" id="location" name="location" required>
+                            </div>
+                            <div class="bmc-field">
+                                <label for="phone_number">No. Telepon</label>
+                                <input type="tel" id="phone_number" name="phone_number" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bmc-divider"></div>
+
+                    <div class="bmc-section">
+                        <div class="bmc-section-header">
+                            <div class="bmc-section-icon">
+                                <i class="fas fa-layer-group"></i>
+                            </div>
+                            <div>
+                                <h2 class="bmc-section-title">Business Model Canvas Components</h2>
+                                <p class="bmc-section-subtitle">Susun setiap blok BMC agar model bisnis terlihat menyeluruh dan terstruktur.</p>
+                            </div>
+                        </div>
+
+                        <div class="bmc-components-grid">
+                            <div class="bmc-component bmc-customer-segments">
+                                <div class="bmc-title">
+                                    <span class="bmc-title-icon"><i class="fas fa-users"></i></span>
+                                    <div>
+                                        <div class="bmc-title-text">Customer Segments</div>
+                                        <div class="bmc-description">Siapa pelanggan target Anda?</div>
+                                    </div>
+                                </div>
+                                <p class="bmc-hint">Contoh: Orang yang sedang diet sehat atau komunitas gym.</p>
+                                <div class="bmc-inputs" id="customer_segments">
+                                    <div class="bmc-input-item">
+                                        <input type="text" name="customer_segments[]" placeholder="Contoh: Orang yang sedang diet">
+                                        <button type="button" class="bmc-remove-btn" onclick="removeBmcItem(this)" style="display: none;">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <button type="button" class="bmc-add-btn" onclick="addBmcItem('customer_segments')">
+                                    <i class="fas fa-plus"></i>
+                                    Tambah
+                                </button>
+                            </div>
+
+                            <div class="bmc-component bmc-value-propositions">
+                                <div class="bmc-title">
+                                    <span class="bmc-title-icon"><i class="fas fa-gem"></i></span>
+                                    <div>
+                                        <div class="bmc-title-text">Value Propositions</div>
+                                        <div class="bmc-description">Nilai unik apa yang Anda tawarkan?</div>
+                                    </div>
+                                </div>
+                                <p class="bmc-hint">Contoh: Produk sehat &amp; rendah gula tanpa mengorbankan rasa.</p>
+                                <div class="bmc-inputs" id="value_propositions">
+                                    <div class="bmc-input-item">
+                                        <input type="text" name="value_propositions[]" placeholder="Contoh: Produk sehat & rendah gula">
+                                        <button type="button" class="bmc-remove-btn" onclick="removeBmcItem(this)" style="display: none;">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <button type="button" class="bmc-add-btn" onclick="addBmcItem('value_propositions')">
+                                    <i class="fas fa-plus"></i>
+                                    Tambah
+                                </button>
+                            </div>
+
+                            <div class="bmc-component bmc-channels">
+                                <div class="bmc-title">
+                                    <span class="bmc-title-icon"><i class="fas fa-broadcast-tower"></i></span>
+                                    <div>
+                                        <div class="bmc-title-text">Channels</div>
+                                        <div class="bmc-description">Bagaimana Anda menjangkau pelanggan?</div>
+                                    </div>
+                                </div>
+                                <p class="bmc-hint">Contoh: Media sosial, marketplace, dan event komunitas.</p>
+                                <div class="bmc-inputs" id="channels">
+                                    <div class="bmc-input-item">
+                                        <input type="text" name="channels[]" placeholder="Contoh: Media sosial (Instagram & TikTok)">
+                                        <button type="button" class="bmc-remove-btn" onclick="removeBmcItem(this)" style="display: none;">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <button type="button" class="bmc-add-btn" onclick="addBmcItem('channels')">
+                                    <i class="fas fa-plus"></i>
+                                    Tambah
+                                </button>
+                            </div>
+
+                            <div class="bmc-component bmc-customer-relationships">
+                                <div class="bmc-title">
+                                    <span class="bmc-title-icon"><i class="fas fa-heart"></i></span>
+                                    <div>
+                                        <div class="bmc-title-text">Customer Relationships</div>
+                                        <div class="bmc-description">Bagaimana Anda menjaga hubungan pelanggan?</div>
+                                    </div>
+                                </div>
+                                <p class="bmc-hint">Contoh: Layanan personal, program loyalitas, atau support 24/7.</p>
+                                <div class="bmc-inputs" id="customer_relationships">
+                                    <div class="bmc-input-item">
+                                        <input type="text" name="customer_relationships[]" placeholder="Contoh: Layanan personal untuk custom order">
+                                        <button type="button" class="bmc-remove-btn" onclick="removeBmcItem(this)" style="display: none;">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <button type="button" class="bmc-add-btn" onclick="addBmcItem('customer_relationships')">
+                                    <i class="fas fa-plus"></i>
+                                    Tambah
+                                </button>
+                            </div>
+
+                            <div class="bmc-component bmc-revenue-streams">
+                                <div class="bmc-title">
+                                    <span class="bmc-title-icon"><i class="fas fa-coins"></i></span>
+                                    <div>
+                                        <div class="bmc-title-text">Revenue Streams</div>
+                                        <div class="bmc-description">Bagaimana bisnis Anda mendapatkan pendapatan?</div>
+                                    </div>
+                                </div>
+                                <p class="bmc-hint">Contoh: Penjualan langsung, subscription, atau lisensi.</p>
+                                <div class="bmc-inputs" id="revenue_streams">
+                                    <div class="bmc-input-item">
+                                        <input type="text" name="revenue_streams[]" placeholder="Contoh: Penjualan langsung ke konsumen">
+                                        <button type="button" class="bmc-remove-btn" onclick="removeBmcItem(this)" style="display: none;">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <button type="button" class="bmc-add-btn" onclick="addBmcItem('revenue_streams')">
+                                    <i class="fas fa-plus"></i>
+                                    Tambah
+                                </button>
+                            </div>
+
+                            <div class="bmc-component bmc-key-resources">
+                                <div class="bmc-title">
+                                    <span class="bmc-title-icon"><i class="fas fa-cubes"></i></span>
+                                    <div>
+                                        <div class="bmc-title-text">Key Resources</div>
+                                        <div class="bmc-description">Sumber daya penting apa yang Anda miliki?</div>
+                                    </div>
+                                </div>
+                                <p class="bmc-hint">Contoh: Tim ahli, teknologi, atau fasilitas produksi.</p>
+                                <div class="bmc-inputs" id="key_resources">
+                                    <div class="bmc-input-item">
+                                        <input type="text" name="key_resources[]" placeholder="Contoh: Dapur produksi & alat baking premium">
+                                        <button type="button" class="bmc-remove-btn" onclick="removeBmcItem(this)" style="display: none;">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <button type="button" class="bmc-add-btn" onclick="addBmcItem('key_resources')">
+                                    <i class="fas fa-plus"></i>
+                                    Tambah
+                                </button>
+                            </div>
+
+                            <div class="bmc-component bmc-key-activities">
+                                <div class="bmc-title">
+                                    <span class="bmc-title-icon"><i class="fas fa-tasks"></i></span>
+                                    <div>
+                                        <div class="bmc-title-text">Key Activities</div>
+                                        <div class="bmc-description">Aktivitas utama apa yang harus dilakukan?</div>
+                                    </div>
+                                </div>
+                                <p class="bmc-hint">Contoh: Produksi, pemasaran digital, atau riset pasar.</p>
+                                <div class="bmc-inputs" id="key_activities">
+                                    <div class="bmc-input-item">
+                                        <input type="text" name="key_activities[]" placeholder="Contoh: Produksi macaron rendah gula">
+                                        <button type="button" class="bmc-remove-btn" onclick="removeBmcItem(this)" style="display: none;">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <button type="button" class="bmc-add-btn" onclick="addBmcItem('key_activities')">
+                                    <i class="fas fa-plus"></i>
+                                    Tambah
+                                </button>
+                            </div>
+
+                            <div class="bmc-component bmc-key-partnerships">
+                                <div class="bmc-title">
+                                    <span class="bmc-title-icon"><i class="fas fa-handshake"></i></span>
+                                    <div>
+                                        <div class="bmc-title-text">Key Partnerships</div>
+                                        <div class="bmc-description">Siapa mitra strategis Anda?</div>
+                                    </div>
+                                </div>
+                                <p class="bmc-hint">Contoh: Supplier bahan baku, jasa logistik, atau mitra distribusi.</p>
+                                <div class="bmc-inputs" id="key_partnerships">
+                                    <div class="bmc-input-item">
+                                        <input type="text" name="key_partnerships[]" placeholder="Contoh: Supplier bahan baku">
+                                        <button type="button" class="bmc-remove-btn" onclick="removeBmcItem(this)" style="display: none;">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <button type="button" class="bmc-add-btn" onclick="addBmcItem('key_partnerships')">
+                                    <i class="fas fa-plus"></i>
+                                    Tambah
+                                </button>
+                            </div>
+
+                            <div class="bmc-component bmc-cost-structure">
+                                <div class="bmc-title">
+                                    <span class="bmc-title-icon"><i class="fas fa-calculator"></i></span>
+                                    <div>
+                                        <div class="bmc-title-text">Cost Structure</div>
+                                        <div class="bmc-description">Biaya utama apa yang dikeluarkan?</div>
+                                    </div>
+                                </div>
+                                <p class="bmc-hint">Contoh: Biaya bahan baku, sewa lokasi, atau gaji tim.</p>
+                                <div class="bmc-inputs" id="cost_structure">
+                                    <div class="bmc-input-item">
+                                        <input type="text" name="cost_structure[]" placeholder="Contoh: Biaya bahan baku premium">
+                                        <button type="button" class="bmc-remove-btn" onclick="removeBmcItem(this)" style="display: none;">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <button type="button" class="bmc-add-btn" onclick="addBmcItem('cost_structure')">
+                                    <i class="fas fa-plus"></i>
+                                    Tambah
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="btn-container">
+                        <a href="{{ route('bmc.landing') }}" class="back-btn">
+                            <i class="fas fa-arrow-left"></i>
+                            Kembali
+                        </a>
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-save"></i>
+                            Buat Business Model Canvas
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
-
-        <form action="{{ route('bmc.store') }}" method="POST">
-            @csrf
-                    
-            <!-- Business Information Section -->
-            <div class="form-section">
-                <h3 class="section-title">
-                    <i class="fas fa-building"></i>Informasi Bisnis
-                </h3>
-                        
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="owner_name" class="form-label">Nama Pemilik Usaha</label>
-                        <input type="text" class="form-control" id="owner_name" name="owner_name" required>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="business_name" class="form-label">Nama Usaha</label>
-                        <input type="text" class="form-control" id="business_name" name="business_name" required>
-                    </div>
-                </div>
-                        
-                <div class="mb-3">
-                    <label for="business_description" class="form-label">Deskripsi Usaha</label>
-                    <textarea class="form-control" id="business_description" name="business_description" rows="3" required></textarea>
-                </div>
-                
-                <div class="mb-3">
-                    <label for="industry" class="form-label">Industri</label>
-                    <select class="form-select" id="industry" name="industry" required>
-                        <option value="">Pilih Industri</option>
-                        <option value="Food & Beverage">Food & Beverage</option>
-                        <option value="Technology">Technology</option>
-                        <option value="Fashion">Fashion</option>
-                        <option value="Healthcare">Healthcare</option>
-                        <option value="Education">Education</option>
-                        <option value="Finance">Finance</option>
-                        <option value="Manufacturing">Manufacturing</option>
-                        <option value="Retail">Retail</option>
-                        <option value="Services">Services</option>
-                        <option value="Agriculture">Agriculture</option>
-                        <option value="Transportation">Transportation</option>
-                        <option value="Real Estate">Real Estate</option>
-                        <option value="Entertainment">Entertainment</option>
-                        <option value="Energy">Energy</option>
-                        <option value="Other">Lainnya</option>
-                    </select>
-                </div>
-                        
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="location" class="form-label">Lokasi</label>
-                        <input type="text" class="form-control" id="location" name="location" required>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="phone_number" class="form-label">No. Telepon</label>
-                        <input type="tel" class="form-control" id="phone_number" name="phone_number" required>
-                    </div>
-                </div>
-                    </div>
-
-            <!-- BMC Components -->
-            <div class="form-section">
-                <h3 class="section-title">
-                    <i class="fas fa-chart-line"></i>Business Model Canvas Components
-                </h3>
-
-                <div class="bmc-grid">
-                    <!-- Customer Segments -->
-                    <div class="bmc-component bmc-customer-segments">
-                        <div class="bmc-title">
-                            <i class="fas fa-users"></i>
-                            Customer Segments
-                        </div>
-                        <div class="bmc-description">Siapa pelanggan target Anda?</div>
-                        <div class="bmc-inputs" id="customer_segments">
-                            <div class="bmc-input-item">
-                                <input type="text" name="customer_segments[]" placeholder="Contoh: Orang yang sedang diet">
-                                <button type="button" class="bmc-remove-btn" onclick="removeBmcItem(this)" style="display: none;">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <button type="button" class="bmc-add-btn" onclick="addBmcItem('customer_segments')">
-                            <i class="fas fa-plus me-1"></i>Tambah
-                        </button>
-                    </div>
-
-                    <!-- Value Propositions -->
-                    <div class="bmc-component bmc-value-propositions">
-                        <div class="bmc-title">
-                            <i class="fas fa-gem"></i>
-                            Value Propositions
-                        </div>
-                        <div class="bmc-description">Nilai unik apa yang Anda tawarkan?</div>
-                        <div class="bmc-inputs" id="value_propositions">
-                            <div class="bmc-input-item">
-                                <input type="text" name="value_propositions[]" placeholder="Contoh: Produk sehat & rendah gula">
-                                <button type="button" class="bmc-remove-btn" onclick="removeBmcItem(this)" style="display: none;">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <button type="button" class="bmc-add-btn" onclick="addBmcItem('value_propositions')">
-                            <i class="fas fa-plus me-1"></i>Tambah
-                        </button>
-                    </div>
-
-                    <!-- Channels -->
-                    <div class="bmc-component bmc-channels">
-                        <div class="bmc-title">
-                            <i class="fas fa-broadcast-tower"></i>
-                            Channels
-                        </div>
-                        <div class="bmc-description">Bagaimana Anda menjangkau pelanggan?</div>
-                        <div class="bmc-inputs" id="channels">
-                            <div class="bmc-input-item">
-                                <input type="text" name="channels[]" placeholder="Contoh: Media sosial (Instagram & TikTok)">
-                                <button type="button" class="bmc-remove-btn" onclick="removeBmcItem(this)" style="display: none;">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <button type="button" class="bmc-add-btn" onclick="addBmcItem('channels')">
-                            <i class="fas fa-plus me-1"></i>Tambah
-                        </button>
-                    </div>
-
-                    <!-- Customer Relationships -->
-                    <div class="bmc-component bmc-customer-relationships">
-                        <div class="bmc-title">
-                            <i class="fas fa-handshake"></i>
-                            Customer Relationships
-                        </div>
-                        <div class="bmc-description">Jenis hubungan apa yang Anda bangun?</div>
-                        <div class="bmc-inputs" id="customer_relationships">
-                            <div class="bmc-input-item">
-                                <input type="text" name="customer_relationships[]" placeholder="Contoh: Layanan personal untuk custom order">
-                                <button type="button" class="bmc-remove-btn" onclick="removeBmcItem(this)" style="display: none;">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <button type="button" class="bmc-add-btn" onclick="addBmcItem('customer_relationships')">
-                            <i class="fas fa-plus me-1"></i>Tambah
-                        </button>
-                    </div>
-
-                    <!-- Revenue Streams -->
-                    <div class="bmc-component bmc-revenue-streams">
-                        <div class="bmc-title">
-                            <i class="fas fa-dollar-sign"></i>
-                            Revenue Streams
-                        </div>
-                        <div class="bmc-description">Bagaimana bisnis Anda menghasilkan uang?</div>
-                        <div class="bmc-inputs" id="revenue_streams">
-                            <div class="bmc-input-item">
-                                <input type="text" name="revenue_streams[]" placeholder="Contoh: Penjualan langsung ke konsumen">
-                                <button type="button" class="bmc-remove-btn" onclick="removeBmcItem(this)" style="display: none;">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <button type="button" class="bmc-add-btn" onclick="addBmcItem('revenue_streams')">
-                            <i class="fas fa-plus me-1"></i>Tambah
-                        </button>
-                    </div>
-
-                    <!-- Key Resources -->
-                    <div class="bmc-component bmc-key-resources">
-                        <div class="bmc-title">
-                            <i class="fas fa-tools"></i>
-                            Key Resources
-                        </div>
-                        <div class="bmc-description">Sumber daya apa yang dibutuhkan?</div>
-                        <div class="bmc-inputs" id="key_resources">
-                            <div class="bmc-input-item">
-                                <input type="text" name="key_resources[]" placeholder="Contoh: Dapur produksi & alat baking premium">
-                                <button type="button" class="bmc-remove-btn" onclick="removeBmcItem(this)" style="display: none;">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <button type="button" class="bmc-add-btn" onclick="addBmcItem('key_resources')">
-                            <i class="fas fa-plus me-1"></i>Tambah
-                        </button>
-                    </div>
-
-                    <!-- Key Activities -->
-                    <div class="bmc-component bmc-key-activities">
-                        <div class="bmc-title">
-                            <i class="fas fa-cogs"></i>
-                            Key Activities
-                        </div>
-                        <div class="bmc-description">Aktivitas apa yang harus dilakukan?</div>
-                        <div class="bmc-inputs" id="key_activities">
-                            <div class="bmc-input-item">
-                                <input type="text" name="key_activities[]" placeholder="Contoh: Produksi macaron rendah gula">
-                                <button type="button" class="bmc-remove-btn" onclick="removeBmcItem(this)" style="display: none;">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <button type="button" class="bmc-add-btn" onclick="addBmcItem('key_activities')">
-                            <i class="fas fa-plus me-1"></i>Tambah
-                        </button>
-                    </div>
-
-                    <!-- Key Partnerships -->
-                    <div class="bmc-component bmc-key-partnerships">
-                        <div class="bmc-title">
-                            <i class="fas fa-handshake"></i>
-                            Key Partnerships
-                        </div>
-                        <div class="bmc-description">Siapa mitra strategis Anda?</div>
-                        <div class="bmc-inputs" id="key_partnerships">
-                            <div class="bmc-input-item">
-                                <input type="text" name="key_partnerships[]" placeholder="Contoh: Supplier bahan baku">
-                                <button type="button" class="bmc-remove-btn" onclick="removeBmcItem(this)" style="display: none;">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <button type="button" class="bmc-add-btn" onclick="addBmcItem('key_partnerships')">
-                            <i class="fas fa-plus me-1"></i>Tambah
-                        </button>
-                    </div>
-
-                    <!-- Cost Structure -->
-                    <div class="bmc-component bmc-cost-structure">
-                        <div class="bmc-title">
-                            <i class="fas fa-calculator"></i>
-                            Cost Structure
-                        </div>
-                        <div class="bmc-description">Biaya apa saja yang diperlukan?</div>
-                        <div class="bmc-inputs" id="cost_structure">
-                            <div class="bmc-input-item">
-                                <input type="text" name="cost_structure[]" placeholder="Contoh: Biaya bahan baku premium">
-                                <button type="button" class="bmc-remove-btn" onclick="removeBmcItem(this)" style="display: none;">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <button type="button" class="bmc-add-btn" onclick="addBmcItem('cost_structure')">
-                            <i class="fas fa-plus me-1"></i>Tambah
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="btn-container">
-                <a href="{{ route('bmc.landing') }}" class="back-btn">
-                    <i class="fas fa-arrow-left"></i> Kembali
-                </a>
-                <button type="submit" class="submit-btn">
-                    <i class="fas fa-save"></i> Buat Business Model Canvas
-                </button>
-            </div>
-        </form>
     </div>
 
     <script>
@@ -910,8 +935,6 @@
                 </button>
             `;
             container.appendChild(newItem);
-            
-            // Show remove buttons for all items in this container
             updateRemoveButtons(containerId);
         }
 
@@ -919,16 +942,13 @@
             const container = button.closest('.bmc-inputs');
             const containerId = container.id;
             button.closest('.bmc-input-item').remove();
-            
-            // Update remove buttons visibility
             updateRemoveButtons(containerId);
         }
 
         function updateRemoveButtons(containerId) {
             const container = document.getElementById(containerId);
             const items = container.querySelectorAll('.bmc-input-item');
-            
-            items.forEach((item, index) => {
+            items.forEach((item) => {
                 const removeBtn = item.querySelector('.bmc-remove-btn');
                 if (items.length > 1) {
                     removeBtn.style.display = 'flex';
@@ -938,18 +958,22 @@
             });
         }
 
-        // Initialize remove buttons on page load
         document.addEventListener('DOMContentLoaded', function() {
-            const containers = ['customer_segments', 'value_propositions', 'channels', 'customer_relationships', 
-                              'revenue_streams', 'key_resources', 'key_activities', 'key_partnerships', 'cost_structure'];
-            
-            containers.forEach(containerId => {
-                updateRemoveButtons(containerId);
-            });
+            const containers = [
+                'customer_segments',
+                'value_propositions',
+                'channels',
+                'customer_relationships',
+                'revenue_streams',
+                'key_resources',
+                'key_activities',
+                'key_partnerships',
+                'cost_structure'
+            ];
+
+            containers.forEach(updateRemoveButtons);
         });
     </script>
-    
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -619,7 +619,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('bmc.landing') }}">Beranda</a>
+                        <a class="nav-link active" href="{{ route('bmc.landing') }}">Beranda</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('bmc.create') }}">BMC</a>
