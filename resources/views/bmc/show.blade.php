@@ -4,652 +4,699 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Business Model Canvas - {{ $business->business_name }} | Ideation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- html2canvas with fallback -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
-            onerror="this.onerror=null;this.src='{{ asset('assets/js/html2canvas.min.js') }}';"></script>
-    
-    <!-- jsPDF with fallback -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"
-            onerror="this.onerror=null;this.src='{{ asset('assets/js/jspdf.umd.min.js') }}';"></script>
-    <style>
-        /* Print Styles */
-        @media print {
-            /* Reset all styles for print */
-            * {
-                -webkit-print-color-adjust: exact !important;
-                color-adjust: exact !important;
-            }
-            body { 
-                margin: 0; 
-                padding: 5mm;
-                font-size: 10px;
-                line-height: 1.2;
-            }
-            .no-print { display: none !important; }
-            .download-buttons { display: none !important; }
-            .btn { display: none !important; }
-            
-            /* Add header like PDF */
-            body::before {
-                content: "💡 Ideation - Business Model Canvas Generator";
-                display: block;
-                text-align: center;
-                background: #667eea;
-                color: white;
-                padding: 8mm;
-                margin-bottom: 5mm;
-                font-size: 14px;
-                font-weight: bold;
-            }
-            
-            /* Business Info Print Styles */
-            .business-info {
-                padding: 8mm !important;
-                margin-bottom: 5mm !important;
-                font-size: 10px !important;
-            }
-            .business-info h3 {
-                font-size: 14px !important;
-                margin-bottom: 3mm !important;
-            }
-            .business-info p {
-                margin: 1.5mm 0 !important;
-                font-size: 9px !important;
-            }
-            
-            /* BMC Container Print Styles */
-            .bmc-container {
-                margin: 0 !important;
-                box-shadow: none !important;
-                border-radius: 0 !important;
-            }
-            
-            /* BMC Header Print Styles */
-            .bmc-header {
-                padding: 6mm !important;
-                font-size: 11px !important;
-            }
-            .bmc-header h2 {
-                font-size: 14px !important;
-                margin: 0 !important;
-            }
-            .bmc-header p {
-                font-size: 10px !important;
-                margin: 1mm 0 0 0 !important;
-            }
-            
-            /* BMC Grid Print Styles */
-            .bmc-grid {
-                display: grid !important;
-                grid-template-columns: 1fr 1fr 1fr !important;
-                grid-template-rows: 1fr 1fr 1fr !important;
-                gap: 2px !important;
-                padding: 2px !important;
-                background: #333 !important;
-                border: 2px solid #333 !important;
-                width: 100% !important;
-                height: auto !important;
-            }
-            
-            /* BMC Box Print Styles */
-            .bmc-box {
-                padding: 4mm !important;
-                min-height: 28mm !important;
-                font-size: 8px !important;
-                border: 1px solid #333 !important;
-                background: white !important;
-                position: relative !important;
-            }
-            
-            .bmc-box::before {
-                content: '' !important;
-                position: absolute !important;
-                top: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                height: 2px !important;
-                background: #333 !important;
-            }
-            
-            .bmc-box h6 {
-                font-size: 10px !important;
-                margin-bottom: 3mm !important;
-                padding-bottom: 2mm !important;
-                border-bottom: 1px solid #ddd !important;
-                color: #2c3e50 !important;
-                font-weight: bold !important;
-            }
-            .bmc-box li {
-                padding: 1.5mm 2mm !important;
-                margin: 1mm 0 !important;
-                font-size: 7px !important;
-                border-bottom: 0.5px solid #eee !important;
-                position: relative !important;
-                background: #f8f9fa !important;
-                border-radius: 0 !important;
-                color: #495057 !important;
-                border-left: 2px solid #ddd !important;
-            }
-            .bmc-box li:last-child {
-                border-bottom: none !important;
-            }
-            
-            /* Force print styles to override regular styles */
-            .bmc-box {
-                padding: 4mm !important;
-                min-height: 28mm !important;
-                font-size: 8px !important;
-                border: 1px solid #333 !important;
-                background: white !important;
-                display: flex !important;
-                flex-direction: column !important;
-            }
-            
-            .bmc-box h6 {
-                font-size: 10px !important;
-                margin-bottom: 3mm !important;
-                padding-bottom: 2mm !important;
-                border-bottom: 1px solid #ddd !important;
-                color: #495057 !important;
-                font-weight: bold !important;
-            }
-            
-            .bmc-box li {
-                padding: 1.5mm 2mm !important;
-                margin: 1mm 0 !important;
-                font-size: 7px !important;
-                border-bottom: 0.5px solid #eee !important;
-                position: relative !important;
-                background: #f8f9fa !important;
-                border-radius: 0 !important;
-                color: #495057 !important;
-            }
-            
-            /* Ensure grid layout is preserved */
-            .bmc-container {
-                width: 100% !important;
-                max-width: none !important;
-            }
-            
-            /* Make sure each box is properly sized */
-            .bmc-box:nth-child(1) { grid-column: 1; grid-row: 1; }
-            .bmc-box:nth-child(2) { grid-column: 2; grid-row: 1; }
-            .bmc-box:nth-child(3) { grid-column: 3; grid-row: 1; }
-            .bmc-box:nth-child(4) { grid-column: 1; grid-row: 2; }
-            .bmc-box:nth-child(5) { grid-column: 2; grid-row: 2; }
-            .bmc-box:nth-child(6) { grid-column: 3; grid-row: 2; }
-            .bmc-box:nth-child(7) { grid-column: 1; grid-row: 3; }
-            .bmc-box:nth-child(8) { grid-column: 2; grid-row: 3; }
-            .bmc-box:nth-child(9) { grid-column: 3; grid-row: 3; }
-            
-            /* Add footer like PDF */
-            body::after {
-                content: "Generated on " attr(data-date) " | Professional Business Model Canvas";
-                display: block;
-                text-align: center;
-                background: #f8f9fa;
-                color: #666;
-                padding: 4mm;
-                margin-top: 5mm;
-                font-size: 8px;
-                border: 1px solid #ddd;
-            }
-            
-            /* Force single page */
-            @page {
-                size: A4;
-                margin: 5mm;
-            }
-            
-            /* Override any conflicting styles */
-            * {
-                -webkit-print-color-adjust: exact !important;
-                color-adjust: exact !important;
-            }
-            
-            /* Ensure print styles take precedence */
-            .bmc-box h6 {
-                font-size: 10px !important;
-                margin-bottom: 3mm !important;
-                padding-bottom: 2mm !important;
-                border-bottom: 1px solid #ddd !important;
-                color: #495057 !important;
-                font-weight: bold !important;
-            }
-            
-            .bmc-box ul {
-                list-style: none !important;
-                padding: 0 !important;
-                margin: 0 !important;
-            }
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 1200px) {
-            .bmc-grid {
-                gap: 10px;
-                margin: 1.5rem;
-            }
-            .bmc-box {
-                padding: 1.25rem;
-                min-height: 180px;
-            }
-        }
-        
-        @media (max-width: 992px) {
-            .bmc-grid {
-                grid-template-columns: 1fr 1fr;
-                grid-template-rows: repeat(5, 1fr);
-                gap: 10px;
-            }
-            
-            .bmc-box:nth-child(1) { grid-column: 1; grid-row: 1; }
-            .bmc-box:nth-child(2) { grid-column: 2; grid-row: 1; }
-            .bmc-box:nth-child(3) { grid-column: 1; grid-row: 2; }
-            .bmc-box:nth-child(4) { grid-column: 2; grid-row: 2; }
-            .bmc-box:nth-child(5) { grid-column: 1; grid-row: 3; }
-            .bmc-box:nth-child(6) { grid-column: 2; grid-row: 3; }
-            .bmc-box:nth-child(7) { grid-column: 1; grid-row: 4; }
-            .bmc-box:nth-child(8) { grid-column: 2; grid-row: 4; }
-            .bmc-box:nth-child(9) { grid-column: 1; grid-row: 5; }
-            
-            .bmc-box {
-                min-height: 160px;
-                padding: 1rem;
-            }
-            .bmc-box h6 {
-                font-size: 1rem;
-                margin-bottom: 0.75rem;
-            }
-            .bmc-box li {
-                font-size: 0.85rem;
-                padding: 0.4rem 0.6rem;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 15px;
-            }
-            
-            .bmc-header {
-                padding: 20px;
-            }
-            
-            .bmc-header h2 {
-                font-size: 1.5rem;
-            }
-            
-            .bmc-header p {
-                font-size: 0.9rem;
-            }
-            
-            .business-info {
-                padding: 15px;
-                margin-bottom: 20px;
-            }
-            
-            .business-info h3 {
-                font-size: 1.2rem;
-            }
-            
-            .business-info p {
-                font-size: 0.9rem;
-            }
-            
-            .bmc-grid {
-                grid-template-columns: 1fr;
-                grid-template-rows: repeat(9, 1fr);
-                gap: 10px;
-                margin: 1rem;
-            }
-            
-            .bmc-box:nth-child(1) { grid-column: 1; grid-row: 1; }
-            .bmc-box:nth-child(2) { grid-column: 1; grid-row: 2; }
-            .bmc-box:nth-child(3) { grid-column: 1; grid-row: 3; }
-            .bmc-box:nth-child(4) { grid-column: 1; grid-row: 4; }
-            .bmc-box:nth-child(5) { grid-column: 1; grid-row: 5; }
-            .bmc-box:nth-child(6) { grid-column: 1; grid-row: 6; }
-            .bmc-box:nth-child(7) { grid-column: 1; grid-row: 7; }
-            .bmc-box:nth-child(8) { grid-column: 1; grid-row: 8; }
-            .bmc-box:nth-child(9) { grid-column: 1; grid-row: 9; }
-            
-            .bmc-box {
-                min-height: 140px;
-                padding: 1rem;
-            }
-            
-            .bmc-box h6 {
-                font-size: 0.9rem;
-                margin-bottom: 0.5rem;
-            }
-            
-            .bmc-box li {
-                font-size: 0.8rem;
-                padding: 0.4rem 0.6rem;
-                margin: 0.25rem 0;
-            }
-            
-            .download-buttons {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .btn {
-                width: 100%;
-                margin-bottom: 10px;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .bmc-header {
-                padding: 15px;
-            }
-            
-            .bmc-header h2 {
-                font-size: 1.3rem;
-            }
-            
-            .bmc-header p {
-                font-size: 0.8rem;
-            }
-            
-            .business-info {
-                padding: 12px;
-            }
-            
-            .business-info h3 {
-                font-size: 1.1rem;
-            }
-            
-            .business-info p {
-                font-size: 0.85rem;
-            }
-            
-            .bmc-grid {
-                margin: 0.5rem;
-                gap: 8px;
-            }
-            
-            .bmc-box {
-                min-height: 120px;
-                padding: 0.75rem;
-            }
-            
-            .bmc-box h6 {
-                font-size: 0.85rem;
-                margin-bottom: 0.4rem;
-            }
-            
-            .bmc-box li {
-                font-size: 0.75rem;
-                padding: 0.3rem 0.5rem;
-                margin: 0.2rem 0;
-            }
-            
-            .btn {
-                padding: 8px 16px;
-                font-size: 0.9rem;
-            }
-        }
-        
-        .bmc-container {
-            background: white;
-            border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-sm);
-            overflow: hidden;
-            border: 1px solid var(--gray-200);
-        }
-        .bmc-header {
-            background: var(--primary);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-        }
-        
-        /* BMC Grid Layout */
-        .bmc-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-template-rows: 1fr 1fr 1fr;
-            gap: 1rem;
-            margin: 2rem;
-            max-width: 1000px;
-            margin-left: auto;
-            margin-right: auto;
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" onerror="this.onerror=null;this.src='{{ asset('assets/js/html2canvas.min.js') }}';"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" onerror="this.onerror=null;this.src='{{ asset('assets/js/jspdf.umd.min.js') }}';"></script>
+    <style id="bmc-style">
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4338ca;
+            --primary-light: #a5b4fc;
+            --green-start: #22c55e;
+            --green-end: #16a34a;
+            --teal: #0e7490;
+            --slate-50: #f8fafc;
+            --slate-100: #f1f5f9;
+            --slate-200: #e2e8f0;
+            --slate-400: #94a3b8;
+            --slate-500: #64748b;
+            --slate-600: #475569;
+            --slate-700: #334155;
+            --shadow-card: 0 34px 60px rgba(15, 23, 42, 0.28);
+            --shadow-component: 0 20px 36px rgba(79, 70, 229, 0.16);
+            --shadow-md: 0 18px 28px rgba(15, 23, 42, 0.16);
+            --radius-xl: 32px;
+            --radius-lg: 24px;
+            --radius-md: 18px;
+            --radius-sm: 14px;
         }
 
-        .bmc-box {
-            background: white;
-            border: 2px solid var(--gray-200);
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            transition: var(--transition);
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            line-height: 1.5;
+            background: linear-gradient(160deg, #4f46e5 0%, #7c3aed 45%, #a855f7 100%);
+            color: #0f172a;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .bmc-page {
             position: relative;
-            overflow: hidden;
-            min-height: 200px;
-            display: flex;
-            flex-direction: column;
+            min-height: 100vh;
+            padding: 3.5rem 0 4.5rem;
         }
 
-        .bmc-box:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-        }
-
-        .bmc-box::before {
+        .bmc-page::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--primary);
+            inset: 0;
+            background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.18), transparent 55%),
+                        radial-gradient(circle at 80% 15%, rgba(79, 70, 229, 0.25), transparent 60%);
+            opacity: 0.85;
+            pointer-events: none;
         }
 
-        /* Specific component colors */
-        .bmc-box:nth-child(1) {
-            border-color: var(--danger);
-            background: var(--gray-50);
-        }
-        .bmc-box:nth-child(1)::before {
-            background: var(--danger);
-        }
-
-        .bmc-box:nth-child(2) {
-            border-color: var(--warning);
-            background: var(--gray-50);
-        }
-        .bmc-box:nth-child(2)::before {
-            background: var(--warning);
+        .page-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 1480px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
         }
 
-        .bmc-box:nth-child(3) {
-            border-color: var(--success);
-            background: var(--gray-50);
-        }
-        .bmc-box:nth-child(3)::before {
-            background: var(--success);
-        }
-
-        .bmc-box:nth-child(4) {
-            border-color: var(--primary);
-            background: var(--gray-50);
-        }
-        .bmc-box:nth-child(4)::before {
-            background: var(--primary);
+        .bmc-hero {
+            text-align: center;
+            color: #f8fafc;
+            max-width: 760px;
+            margin: 0 auto 2.5rem;
         }
 
-        .bmc-box:nth-child(5) {
-            border-color: var(--info);
-            background: var(--gray-50);
-        }
-        .bmc-box:nth-child(5)::before {
-            background: var(--info);
-        }
-
-        .bmc-box:nth-child(6) {
-            border-color: var(--warning);
-            background: var(--gray-50);
-        }
-        .bmc-box:nth-child(6)::before {
-            background: var(--warning);
+        .bmc-hero span {
+            display: inline-block;
+            font-size: 0.9rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(226, 232, 240, 0.85);
         }
 
-        .bmc-box:nth-child(7) {
-            border-color: var(--success);
-            background: var(--gray-50);
-        }
-        .bmc-box:nth-child(7)::before {
-            background: var(--success);
-        }
-
-        .bmc-box:nth-child(8) {
-            border-color: var(--secondary);
-            background: var(--gray-50);
-        }
-        .bmc-box:nth-child(8)::before {
-            background: var(--secondary);
+        .bmc-hero h1 {
+            font-size: 2.75rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin: 1.1rem 0 0.6rem;
         }
 
-        .bmc-box:nth-child(9) {
-            border-color: var(--danger);
-            background: var(--gray-50);
-        }
-        .bmc-box:nth-child(9)::before {
-            background: var(--danger);
+        .bmc-hero p {
+            margin: 0;
+            font-size: 1.05rem;
+            color: rgba(226, 232, 240, 0.8);
         }
 
-        .bmc-box h6 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--gray-900);
-            margin-bottom: 0.5rem;
+        .global-alert {
+            position: relative;
+            z-index: 2;
+            max-width: 560px;
+            margin: 0 auto 1.5rem;
+            padding: 0.9rem 1.15rem;
+            border-radius: var(--radius-sm);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-        }
-
-        .bmc-box ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            flex: 1;
-        }
-
-        .bmc-box li {
-            background: white;
-            border: 1px solid var(--gray-300);
-            border-radius: var(--radius);
-            padding: 0.5rem 0.75rem;
-            margin-bottom: 0.5rem;
-            transition: var(--transition);
-            font-size: 0.875rem;
-            color: var(--gray-700);
-        }
-
-        .bmc-box li:hover {
-            border-color: var(--primary);
-            background: white;
-            transform: translateX(2px);
-        }
-        .business-info {
-            background: var(--gray-50);
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            border: 1px solid var(--gray-200);
-        }
-        .download-buttons {
-            text-align: center;
-            margin: 2rem 0;
-        }
-        .download-btn {
-            background: var(--success);
-            border: none;
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: var(--radius);
-            margin: 0 0.5rem;
-            text-decoration: none;
-            display: inline-block;
-            transition: var(--transition);
-            font-size: 0.875rem;
+            gap: 0.65rem;
             font-weight: 500;
-        }
-        .download-btn:hover {
-            background: #059669;
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-md);
-            color: white;
-        }
-        .download-btn.pdf {
-            background: var(--danger);
-        }
-        .download-btn.jpg {
-            background: var(--success);
-        }
-        .download-btn.png {
-            background: var(--warning);
-        }
-        .download-btn.print {
-            background: var(--secondary);
-        }
-        
-        /* Footer Styles */
-        .footer {
-            background: var(--gray-900);
-            color: white;
-            padding: 2rem 0;
-            margin-top: 3rem;
-            border-top: 3px solid var(--primary);
-        }
-        
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-        
-        .footer-brand {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-        
-        .footer-brand h4 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--primary);
-        }
-        
-        .footer-brand p {
-            color: var(--gray-400);
-            font-size: 0.875rem;
+            background: rgba(34, 197, 94, 0.18);
+            color: #14532d;
+            border: 1px solid rgba(34, 197, 94, 0.35);
+            box-shadow: var(--shadow-component);
         }
 
-        /* Page Header */
-        .page-header {
-            text-align: center;
+        .global-alert.success i {
+            color: #16a34a;
+        }
+
+        .bmc-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2.75rem;
+        }
+
+        .bmc-action-btn {
+            border: none;
+            background: linear-gradient(135deg, var(--btn-start, var(--primary)) 0%, var(--btn-end, var(--primary-dark)) 100%);
+            color: #ffffff;
+            padding: 0.85rem 1.6rem;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-component);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+            letter-spacing: 0.01em;
+        }
+
+        .bmc-action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-card);
+            filter: brightness(1.03);
+        }
+
+        .bmc-action-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .bmc-action-btn--jpg {
+            --btn-start: #6366f1;
+            --btn-end: #4338ca;
+        }
+
+        .bmc-action-btn--png {
+            --btn-start: #22c55e;
+            --btn-end: #16a34a;
+        }
+
+        .bmc-action-btn--pdf {
+            --btn-start: #f97316;
+            --btn-end: #ea580c;
+        }
+
+        .bmc-action-btn--print {
+            --btn-start: #0ea5e9;
+            --btn-end: #0284c7;
+        }
+
+        .bmc-action-btn .spinner-border {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .bmc-shell {
+            background: rgba(248, 250, 252, 0.96);
+            border-radius: var(--radius-xl);
+            padding: 3rem 3.25rem;
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        .bmc-section {
             margin-bottom: 3rem;
         }
 
-        .page-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--gray-900);
-            margin-bottom: 1rem;
-            letter-spacing: -0.025em;
+        .bmc-section:last-of-type {
+            margin-bottom: 0;
         }
 
-        .page-subtitle {
-            font-size: 1.125rem;
-            color: var(--gray-600);
-            max-width: 600px;
-            margin: 0 auto;
+        .bmc-section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .bmc-section-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 18px;
+            background: rgba(99, 102, 241, 0.18);
+            color: var(--primary-dark);
+            display: grid;
+            place-items: center;
+            font-size: 1.4rem;
+        }
+
+        .bmc-section-title {
+            font-size: 1.45rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin: 0;
+            color: #0f172a;
+        }
+
+        .bmc-section-description {
+            margin: 0.25rem 0 0;
+            font-size: 0.97rem;
+            color: rgba(71, 85, 105, 0.85);
+        }
+
+        .business-info {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(241, 245, 249, 0.92));
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(148, 163, 184, 0.32);
+            padding: 2.2rem;
+            box-shadow: var(--shadow-component);
+            display: flex;
+            flex-direction: column;
+            gap: 1.75rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 20px;
+            border: 1px solid rgba(148, 163, 184, 0.25);
+            padding: 1.3rem 1.4rem;
+            box-shadow: 0 16px 32px rgba(15, 23, 42, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+
+        .info-label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--slate-500);
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .info-value {
+            margin: 0;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .info-link {
+            color: var(--primary);
+        }
+
+        .info-link:hover {
+            text-decoration: underline;
+        }
+
+        .info-description {
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 20px;
+            border: 1px solid rgba(148, 163, 184, 0.25);
+            padding: 1.5rem 1.75rem;
+            box-shadow: 0 16px 32px rgba(15, 23, 42, 0.08);
+        }
+
+        .info-description p {
+            margin: 0;
+            color: var(--slate-600);
+            font-size: 0.98rem;
             line-height: 1.6;
+        }
+
+        .bmc-canvas {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(148, 163, 184, 0.25);
+            padding: 2rem;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+        }
+
+        .bmc-components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.25rem;
+            align-items: stretch;
+        }
+
+        @media (min-width: 992px) and (max-width: 1199px) {
+            .bmc-components-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .bmc-components-grid {
+                grid-template-columns: repeat(12, minmax(0, 1fr));
+                grid-auto-rows: minmax(270px, auto);
+            }
+
+            .bmc-key-partnerships {
+                grid-column: 1 / span 2;
+                grid-row: 1 / span 2;
+            }
+
+            .bmc-key-activities {
+                grid-column: 3 / span 2;
+                grid-row: 1 / span 1;
+            }
+
+            .bmc-key-resources {
+                grid-column: 3 / span 2;
+                grid-row: 2 / span 1;
+            }
+
+            .bmc-value-propositions {
+                grid-column: 5 / span 4;
+                grid-row: 1 / span 2;
+            }
+
+            .bmc-customer-relationships {
+                grid-column: 9 / span 2;
+                grid-row: 1 / span 1;
+            }
+
+            .bmc-channels {
+                grid-column: 9 / span 2;
+                grid-row: 2 / span 1;
+            }
+
+            .bmc-customer-segments {
+                grid-column: 11 / span 2;
+                grid-row: 1 / span 2;
+            }
+
+            .bmc-cost-structure {
+                grid-column: 1 / span 6;
+                grid-row: 3 / span 1;
+            }
+
+            .bmc-revenue-streams {
+                grid-column: 7 / span 6;
+                grid-row: 3 / span 1;
+            }
+        }
+
+        .bmc-component {
+            --accent: #6366f1;
+            --accent-soft: rgba(99, 102, 241, 0.18);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.88));
+            border-radius: var(--radius-lg);
+            padding: 1.75rem;
+            border: 2px solid rgba(99, 102, 241, 0.12);
+            box-shadow: var(--shadow-component);
+            display: flex;
+            flex-direction: column;
+            gap: 1.15rem;
+            min-height: 260px;
+            height: 100%;
+            position: relative;
+        }
+
+        .bmc-title {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+        }
+
+        .bmc-title-icon {
+            width: 55px;
+            height: 44px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            font-size: 1.25rem;
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .bmc-title-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .bmc-description {
+            margin: 0.3rem 0 0;
+            font-size: 0.9rem;
+            color: rgba(71, 85, 105, 0.85);
+        }
+
+        .bmc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .bmc-list li {
+            background: rgba(15, 23, 42, 0.02);
+            border: 1px solid rgba(148, 163, 184, 0.24);
+            border-left: 4px solid var(--accent);
+            border-radius: 18px;
+            padding: 0.85rem 1rem 0.85rem 1.75rem;
+            color: #1f2937;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            position: relative;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .bmc-list li::before {
+            content: '';
+            position: absolute;
+            top: 1rem;
+            left: 0.9rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.08);
+        }
+
+        .bmc-list li:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+        }
+
+        .bmc-list li.bmc-empty {
+            justify-content: center;
+            text-align: center;
+            font-weight: 500;
+            color: var(--slate-500);
+            background: rgba(148, 163, 184, 0.12);
+        }
+
+        .bmc-list li.bmc-empty::before {
+            display: none;
+        }
+
+        .bmc-customer-segments {
+            --accent: #ec4899;
+            --accent-soft: rgba(236, 72, 153, 0.16);
+            border-color: rgba(236, 72, 153, 0.45);
+            box-shadow: 0 20px 35px rgba(236, 72, 153, 0.16);
+        }
+
+        .bmc-value-propositions {
+            --accent: #facc15;
+            --accent-soft: rgba(250, 204, 21, 0.18);
+            border-color: rgba(250, 204, 21, 0.55);
+            box-shadow: 0 20px 35px rgba(250, 204, 21, 0.18);
+        }
+
+        .bmc-channels {
+            --accent: #22c55e;
+            --accent-soft: rgba(34, 197, 94, 0.18);
+            border-color: rgba(34, 197, 94, 0.55);
+            box-shadow: 0 20px 35px rgba(34, 197, 94, 0.18);
+        }
+
+        .bmc-customer-relationships {
+            --accent: #4f46e5;
+            --accent-soft: rgba(129, 140, 248, 0.18);
+            border-color: rgba(129, 140, 248, 0.55);
+            box-shadow: 0 20px 35px rgba(129, 140, 248, 0.2);
+        }
+
+        .bmc-revenue-streams {
+            --accent: #06b6d4;
+            --accent-soft: rgba(6, 182, 212, 0.18);
+            border-color: rgba(6, 182, 212, 0.55);
+            box-shadow: 0 20px 35px rgba(6, 182, 212, 0.18);
+        }
+
+        .bmc-key-resources {
+            --accent: #f59e0b;
+            --accent-soft: rgba(245, 158, 11, 0.18);
+            border-color: rgba(245, 158, 11, 0.55);
+            box-shadow: 0 20px 35px rgba(245, 158, 11, 0.17);
+        }
+
+        .bmc-key-activities {
+            --accent: #16a34a;
+            --accent-soft: rgba(34, 197, 94, 0.18);
+            border-color: rgba(34, 197, 94, 0.55);
+            box-shadow: 0 20px 35px rgba(34, 197, 94, 0.18);
+        }
+
+        .bmc-key-partnerships {
+            --accent: #3b82f6;
+            --accent-soft: rgba(59, 130, 246, 0.18);
+            border-color: rgba(59, 130, 246, 0.55);
+            box-shadow: 0 20px 35px rgba(59, 130, 246, 0.18);
+        }
+
+        .bmc-cost-structure {
+            --accent: #f87171;
+            --accent-soft: rgba(248, 113, 113, 0.18);
+            border-color: rgba(248, 113, 113, 0.55);
+            box-shadow: 0 20px 35px rgba(248, 113, 113, 0.18);
+        }
+
+        .bmc-footer-actions {
+            margin-top: 3rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .action-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.85rem 1.65rem;
+            border-radius: 16px;
+            font-weight: 600;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        .action-link i {
+            font-size: 1rem;
+        }
+
+        .action-link--edit {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            color: #ffffff;
+            box-shadow: var(--shadow-component);
+        }
+
+        .action-link--duplicate {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: #ffffff;
+            box-shadow: var(--shadow-component);
+        }
+
+        .action-link--back {
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            background: rgba(255, 255, 255, 0.95);
+            color: #475569;
+            box-shadow: none;
+        }
+
+        .action-link--back:hover {
+            border-color: rgba(99, 102, 241, 0.45);
+            color: #4338ca;
+        }
+
+        .action-link:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-card);
+        }
+
+        .notification {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 9999;
+            padding: 0.85rem 1.25rem;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            color: #ffffff;
+            background: linear-gradient(135deg, #4338ca 0%, #6366f1 100%);
+            box-shadow: var(--shadow-md);
+            animation: slideIn 0.3s ease forwards;
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%);
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, #dc2626 0%, #f87171 100%);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .bmc-shell {
+                padding: 2.5rem 2.25rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .bmc-page {
+                padding: 2.5rem 0 3.25rem;
+            }
+
+            .bmc-hero h1 {
+                font-size: 2.3rem;
+            }
+
+            .bmc-actions {
+                flex-direction: column;
+            }
+
+            .bmc-action-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .bmc-shell {
+                padding: 2.1rem 1.85rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bmc-components-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bmc-footer-actions {
+                flex-direction: column;
+            }
+
+            .action-link {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .page-wrapper {
+                padding: 0 1rem;
+            }
+
+            .bmc-shell {
+                padding: 1.75rem 1.5rem;
+            }
+
+            .bmc-section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .bmc-section-title {
+                font-size: 1.3rem;
+            }
+
+            .bmc-hero span {
+                font-size: 0.8rem;
+            }
+
+            .bmc-hero h1 {
+                font-size: 2rem;
+            }
+
+            .notification {
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+            }
         }
 
         /* Navigation Styles */
@@ -657,12 +704,14 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
             box-shadow: var(--shadow-sm);
             border: none;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         .navbar-brand {
             font-weight: 700;
             font-size: 1.5rem;
             color: white !important;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         .navbar-nav .nav-link {
@@ -670,6 +719,7 @@
             font-weight: 500;
             transition: var(--transition);
             padding: 0.5rem 1rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         .navbar-nav .nav-link:hover {
@@ -681,241 +731,12 @@
             color: var(--primary-light) !important;
             font-weight: 600;
         }
-        
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-        
-        .footer-links a {
-            color: #bdc3c7;
-            text-decoration: none;
-            transition: color 0.3s ease;
-            font-size: 0.9rem;
-        }
-        
-        .footer-links a:hover {
-            color: #3498db;
-        }
-        
-        .footer-bottom {
-            text-align: center;
-            padding-top: 1rem;
-            border-top: 1px solid #34495e;
-            color: #95a5a6;
-            font-size: 0.85rem;
-        }
-        
-        /* Professional Elements */
-        .professional-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .professional-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            opacity: 0.3;
-        }
-        
-        .professional-header-content {
-            position: relative;
-            z-index: 1;
-        }
-        
-        .professional-logo {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .professional-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-        }
-        
-        .professional-subtitle {
-            font-size: 1rem;
-            opacity: 0.9;
-            margin-bottom: 1rem;
-        }
-        
-        .professional-meta {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-        
-        .professional-meta span {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .watermark {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            color: rgba(0,0,0,0.1);
-            font-size: 0.8rem;
-            font-weight: 600;
-            transform: rotate(-45deg);
-            pointer-events: none;
-            z-index: 1;
-        }
-        
-        .bmc-container {
-            position: relative;
-        }
-        
-        .bmc-container::after {
-            content: 'Generated by Ideation - Professional Business Model Canvas';
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            font-size: 0.7rem;
-            color: rgba(0,0,0,0.3);
-            font-weight: 500;
-            pointer-events: none;
-        }
-        
-        /* Download Enhancement */
-        .download-section {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem 0;
-            text-align: center;
-            border: 1px solid #dee2e6;
-        }
-        
-        .download-section h4 {
-            color: #2c3e50;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-        
-        .download-section p {
-            color: #6c757d;
-            margin-bottom: 1.5rem;
-        }
-        
-        .download-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        
-        .download-btn {
-            min-width: 150px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .download-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .download-btn:hover::before {
-            left: 100%;
-        }
-        
-        /* Print Professional Styles */
-        @media print {
-            .footer {
-                display: none !important;
-            }
-            
-            .professional-header {
-                background: #2c3e50 !important;
-                color: white !important;
-                padding: 15mm !important;
-                margin: -15mm -15mm 10mm -15mm !important;
-            }
-            
-            .professional-logo {
-                font-size: 24px !important;
-            }
-            
-            .professional-title {
-                font-size: 20px !important;
-            }
-            
-            .professional-subtitle {
-                font-size: 12px !important;
-            }
-            
-            .professional-meta {
-                font-size: 10px !important;
-            }
-            
-            .watermark {
-                position: fixed !important;
-                bottom: 10mm !important;
-                right: 10mm !important;
-                font-size: 8px !important;
-                color: rgba(0,0,0,0.2) !important;
-            }
-            
-            .bmc-container::after {
-                content: 'Generated by Ideation - Professional Business Model Canvas' !important;
-                position: fixed !important;
-                bottom: 5mm !important;
-                right: 5mm !important;
-                font-size: 6px !important;
-                color: rgba(0,0,0,0.3) !important;
-            }
-        }
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            padding: 15px 25px;
-            border-radius: 25px;
-            color: white;
-            font-weight: 600;
-            animation: slideIn 0.3s ease;
-        }
-        .notification.success {
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-        }
-        .notification.error {
-            background: linear-gradient(135deg, #dc3545 0%, #e74c3c 100%);
-        }
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
+
     </style>
 </head>
-<body data-date="{{ now()->format('d M Y H:i') }}">
-    <!-- Navigation -->
+<body>
+
+<!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
         <div class="container">
             <a class="navbar-brand fw-bold fs-3" href="{{ route('bmc.landing') }}">
@@ -942,560 +763,495 @@
             </div>
         </div>
     </nav>
-
-    <div class="container py-5">
-        <!-- Page Header -->
-        <div class="page-header">
-            <h1 class="page-title">Business Model Canvas</h1>
-            <p class="page-subtitle">{{ $business->business_name }}</p>
-        </div>
-
-        <!-- Business Information -->
-        <div class="business-info">
-            <h3 class="text-primary mb-3">
-                <i class="fas fa-building me-2"></i>Informasi Bisnis
-            </h3>
-            <div class="row">
-                <div class="col-md-8">
-                    <p><strong>Nama Pemilik:</strong> {{ $business->owner_name }}</p>
-                    <p><strong>Nama Usaha:</strong> {{ $business->business_name }}</p>
-                    <p><strong>Deskripsi:</strong> {{ $business->business_description }}</p>
-                </div>
-                <div class="col-md-4">
-                    <p><strong>Lokasi:</strong> {{ $business->location }}</p>
-                    <p><strong>Telepon:</strong> {{ $business->phone_number }}</p>
-                </div>
+    
+    @php
+        $bmcData = $business->bmcData;
+        $phoneForLink = preg_replace('/[^0-9+]/', '', $business->phone_number ?? '');
+    @endphp
+    <div class="bmc-page">
+        @if (session('success'))
+            <div class="global-alert success">
+                <i class="fas fa-check-circle"></i>
+                <span>{{ session('success') }}</span>
             </div>
-        </div>
+        @endif
 
-        <!-- BMC Canvas -->
-        <div class="bmc-container">
-            <div class="professional-header">
-                <div class="professional-header-content">
-                    <div class="professional-logo">💡</div>
-                    <h2 class="professional-title">Business Model Canvas</h2>
-                    <p class="professional-subtitle">{{ $business->business_name }}</p>
-                    <div class="professional-meta">
-                        <span><i class="fas fa-calendar"></i> {{ now()->format('d M Y') }}</span>
-                        <span><i class="fas fa-user"></i> {{ $business->owner_name }}</span>
-                        <span><i class="fas fa-map-marker-alt"></i> {{ $business->location }}</span>
+        <div class="page-wrapper">
+            <div class="bmc-hero">
+                <span>Business Model Canvas</span>
+                <h1>{{ $business->business_name }}</h1>
+                <p>Visualisasi kanvas bisnis untuk {{ $business->owner_name }}</p>
+            </div>
+
+            <div class="bmc-actions">
+                <button type="button" class="bmc-action-btn bmc-action-btn--jpg" onclick="downloadAsImage(this, 'jpg')">
+                    <i class="fas fa-camera-retro"></i>
+                    <span>Download JPG</span>
+                </button>
+                <button type="button" class="bmc-action-btn bmc-action-btn--png" onclick="downloadAsImage(this, 'png')">
+                    <i class="fas fa-image"></i>
+                    <span>Download PNG</span>
+                </button>
+                <button type="button" class="bmc-action-btn bmc-action-btn--pdf" onclick="downloadAsPDF(this)">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>Download PDF</span>
+                </button>
+                <button type="button" class="bmc-action-btn bmc-action-btn--print" onclick="printBMC(this)">
+                    <i class="fas fa-print"></i>
+                    <span>Print BMC</span>
+                </button>
+            </div>
+
+            <div class="bmc-shell">
+                <section class="bmc-section">
+                    <div class="bmc-section-header">
+                        <span class="bmc-section-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </span>
+                        <div>
+                            <h2 class="bmc-section-title">Informasi Bisnis</h2>
+                            <p class="bmc-section-description">Detail singkat mengenai profil usaha Anda.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="watermark">IDEATION</div>
+
+                    <div class="business-info">
+                        <div class="info-grid">
+                            <div class="info-card">
+                                <span class="info-label">Nama Pemilik Usaha</span>
+                                <p class="info-value">{{ $business->owner_name }}</p>
+                            </div>
+                            <div class="info-card">
+                                <span class="info-label">Nama Bisnis</span>
+                                <p class="info-value">{{ $business->business_name }}</p>
+                            </div>
+                            <div class="info-card">
+                                <span class="info-label">Industri</span>
+                                <p class="info-value">{{ $business->industry }}</p>
+                            </div>
+                            <div class="info-card">
+                                <span class="info-label">Lokasi</span>
+                                <p class="info-value">{{ $business->location }}</p>
+                            </div>
+                            <div class="info-card">
+                                <span class="info-label">Kontak</span>
+                                <p class="info-value">
+                                    @if ($phoneForLink)
+                                        <a href="tel:{{ $phoneForLink }}" class="info-link">{{ $business->phone_number }}</a>
+                                    @else
+                                        {{ $business->phone_number ?? '-' }}
+                                    @endif
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="info-description">
+                            <span class="info-label">Deskripsi Bisnis</span>
+                            <p>{!! nl2br(e($business->business_description)) !!}</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bmc-section">
+                    <div class="bmc-section-header">
+                        <span class="bmc-section-icon">
+                            <i class="fas fa-th-large"></i>
+                        </span>
+                        <div>
+                            <h2 class="bmc-section-title">Business Model Canvas</h2>
+                            <p class="bmc-section-description">Sembilan blok kanvas yang merepresentasikan model bisnis Anda.</p>
+                        </div>
+                    </div>
+
+                    <div class="bmc-canvas">
+                        <div class="bmc-components-grid">
+                            @php
+                                $components = [
+                                    [
+                                        'key' => 'key_partnerships',
+                                        'title' => 'Key Partnerships',
+                                        'class' => 'bmc-key-partnerships',
+                                        'icon' => 'fas fa-handshake',
+                                        'description' => 'Siapa mitra strategis Anda?'
+                                    ],
+                                    [
+                                        'key' => 'key_activities',
+                                        'title' => 'Key Activities',
+                                        'class' => 'bmc-key-activities',
+                                        'icon' => 'fas fa-tasks',
+                                        'description' => 'Aktivitas utama apa yang harus dilakukan?'
+                                    ],
+                                    [
+                                        'key' => 'key_resources',
+                                        'title' => 'Key Resources',
+                                        'class' => 'bmc-key-resources',
+                                        'icon' => 'fas fa-box-open',
+                                        'description' => 'Sumber daya utama apa yang dibutuhkan?'
+                                    ],
+                                    [
+                                        'key' => 'value_propositions',
+                                        'title' => 'Value Propositions',
+                                        'class' => 'bmc-value-propositions',
+                                        'icon' => 'fas fa-gem',
+                                        'description' => 'Nilai apa yang Anda tawarkan kepada pelanggan?'
+                                    ],
+                                    [
+                                        'key' => 'customer_relationships',
+                                        'title' => 'Customer Relationships',
+                                        'class' => 'bmc-customer-relationships',
+                                        'icon' => 'fas fa-heart',
+                                        'description' => 'Bagaimana Anda membangun hubungan dengan pelanggan?'
+                                    ],
+                                    [
+                                        'key' => 'channels',
+                                        'title' => 'Channels',
+                                        'class' => 'bmc-channels',
+                                        'icon' => 'fas fa-share-alt',
+                                        'description' => 'Saluran apa yang digunakan untuk menjangkau pelanggan?'
+                                    ],
+                                    [
+                                        'key' => 'customer_segments',
+                                        'title' => 'Customer Segments',
+                                        'class' => 'bmc-customer-segments',
+                                        'icon' => 'fas fa-users',
+                                        'description' => 'Siapa pelanggan utama Anda?'
+                                    ],
+                                    [
+                                        'key' => 'cost_structure',
+                                        'title' => 'Cost Structure',
+                                        'class' => 'bmc-cost-structure',
+                                        'icon' => 'fas fa-calculator',
+                                        'description' => 'Biaya utama apa yang diperlukan?'
+                                    ],
+                                    [
+                                        'key' => 'revenue_streams',
+                                        'title' => 'Revenue Streams',
+                                        'class' => 'bmc-revenue-streams',
+                                        'icon' => 'fas fa-coins',
+                                        'description' => 'Bagaimana bisnis menghasilkan pendapatan?'
+                                    ],
+                                ];
+                            @endphp
+
+                            @foreach ($components as $component)
+                                @php
+                                    $items = collect(data_get($bmcData, $component['key'], []))
+                                        ->filter(function ($item) {
+                                            if (is_string($item)) {
+                                                return trim($item) !== '';
+                                            }
+                                            return !is_null($item);
+                                        })
+                                        ->values();
+                                @endphp
+                                <div class="bmc-component {{ $component['class'] }}">
+                                    <div class="bmc-title">
+                                        <span class="bmc-title-icon">
+                                            <i class="{{ $component['icon'] }}"></i>
+                                        </span>
+                                        <div>
+                                            <div class="bmc-title-text">{{ $component['title'] }}</div>
+                                            <div class="bmc-description">{{ $component['description'] }}</div>
+                                        </div>
+                                    </div>
+
+                                    <ul class="bmc-list">
+                                        @forelse ($items as $item)
+                                            <li>{{ $item }}</li>
+                                        @empty
+                                            <li class="bmc-empty">Belum ada data yang ditambahkan.</li>
+                                        @endforelse
+                                    </ul>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </section>
             </div>
-            
-            <div class="bmc-grid">
-                <!-- Row 1 -->
-                <div class="bmc-box">
-                    <h6><i class="fas fa-users text-primary me-2"></i>Customer Segments</h6>
-                    <ul>
-                        @foreach($business->bmcData->customer_segments as $segment)
-                            <li>{{ $segment }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                
-                <div class="bmc-box">
-                    <h6><i class="fas fa-gem text-warning me-2"></i>Value Propositions</h6>
-                    <ul>
-                        @foreach($business->bmcData->value_propositions as $value)
-                            <li>{{ $value }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                
-                <div class="bmc-box">
-                    <h6><i class="fas fa-broadcast-tower text-info me-2"></i>Channels</h6>
-                    <ul>
-                        @foreach($business->bmcData->channels as $channel)
-                            <li>{{ $channel }}</li>
-                        @endforeach
-                    </ul>
-                </div>
 
-                <!-- Row 2 -->
-                <div class="bmc-box">
-                    <h6><i class="fas fa-handshake text-success me-2"></i>Customer Relationships</h6>
-                    <ul>
-                        @foreach($business->bmcData->customer_relationships as $relationship)
-                            <li>{{ $relationship }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                
-                <div class="bmc-box">
-                    <h6><i class="fas fa-dollar-sign text-success me-2"></i>Revenue Streams</h6>
-                    <ul>
-                        @foreach($business->bmcData->revenue_streams as $revenue)
-                            <li>{{ $revenue }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                
-                <div class="bmc-box">
-                    <h6><i class="fas fa-key text-purple me-2"></i>Key Resources</h6>
-                    <ul>
-                        @foreach($business->bmcData->key_resources as $resource)
-                            <li>{{ $resource }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-
-                <!-- Row 3 -->
-                <div class="bmc-box">
-                    <h6><i class="fas fa-tasks text-info me-2"></i>Key Activities</h6>
-                    <ul>
-                        @foreach($business->bmcData->key_activities as $activity)
-                            <li>{{ $activity }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                
-                <div class="bmc-box">
-                    <h6><i class="fas fa-handshake text-warning me-2"></i>Key Partnerships</h6>
-                    <ul>
-                        @foreach($business->bmcData->key_partnerships as $partnership)
-                            <li>{{ $partnership }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                
-                <div class="bmc-box">
-                    <h6><i class="fas fa-calculator text-danger me-2"></i>Cost Structure</h6>
-                    <ul>
-                        @foreach($business->bmcData->cost_structure as $cost)
-                            <li>{{ $cost }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+            <div class="bmc-footer-actions">
+                <a href="{{ route('bmc.edit', $business->id) }}" class="action-link action-link--edit">
+                    <i class="fas fa-edit"></i>
+                    <span>Edit BMC</span>
+                </a>
+                <a href="{{ route('bmc.duplicate', $business->id) }}" class="action-link action-link--duplicate">
+                    <i class="fas fa-copy"></i>
+                    <span>Duplicate BMC</span>
+                </a>
+                <a href="{{ route('bmc.landing') }}" class="action-link action-link--back">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Kembali ke Beranda</span>
+                </a>
             </div>
-        </div>
-
-        <!-- Download Section -->
-        <div class="download-section">
-            <h4><i class="fas fa-download me-2"></i>Download Business Model Canvas</h4>
-            <p>Download BMC Anda dalam berbagai format untuk presentasi, dokumentasi, atau berbagi dengan tim</p>
-            <div class="download-buttons">
-                <button onclick="downloadAsImage('jpg')" class="download-btn jpg">
-                    <i class="fas fa-camera me-2"></i>Download JPG
-                </button>
-                <button onclick="downloadAsImage('png')" class="download-btn png">
-                    <i class="fas fa-image me-2"></i>Download PNG
-                </button>
-                <button onclick="downloadAsPDF()" class="download-btn pdf">
-                    <i class="fas fa-file-pdf me-2"></i>Download PDF
-                </button>
-                <button onclick="printBMC(); return false;" class="download-btn print">
-                    <i class="fas fa-print me-2"></i>Print BMC
-                </button>
-            </div>
-        </div>
-
-        <!-- Action Buttons -->
-        <div class="text-center">
-            <a href="{{ route('bmc.edit', $business->id) }}" class="btn btn-warning me-3">
-                <i class="fas fa-edit me-2"></i>Edit BMC
-            </a>
-            <a href="{{ route('bmc.duplicate', $business->id) }}" class="btn btn-info me-3">
-                <i class="fas fa-copy me-2"></i>Duplicate BMC
-            </a>
-            <a href="{{ route('bmc.landing') }}" class="btn btn-outline-primary">
-                <i class="fas fa-arrow-left me-2"></i>Kembali ke Beranda
-            </a>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <h4><i class="fas fa-lightbulb me-2"></i>Ideation</h4>
-                <p>Platform profesional untuk mengembangkan ide bisnis Anda dengan Business Model Canvas</p>
-            </div>
-            <div class="footer-links">
-                <a href="{{ route('bmc.landing') }}">Beranda</a>
-                <a href="{{ route('bmc.create') }}">Buat BMC</a>
-                <a href="{{ route('tam-sam-som.create') }}">Market Validation</a>
-                <a href="{{ route('projection.create') }}">Financial Projection</a>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; {{ date('Y') }} Ideation. Dibuat dengan ❤️ untuk pengusaha Indonesia</p>
-            </div>
-        </div>
-    </footer>
+    @php
+        $businessMeta = [
+            'name' => $business->business_name,
+            'owner' => $business->owner_name,
+            'location' => $business->location ?? '-',
+        ];
+    @endphp
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
     <script>
-        // Function to download BMC as PDF
-        function downloadAsPDF() {
-            // Include both business info and BMC container
-            const businessInfo = document.querySelector('.business-info');
-            const bmcContainer = document.querySelector('.bmc-container');
-            const businessName = '{{ $business->business_name }}';
-            
-            // Create a wrapper element to include both sections
-            const wrapper = document.createElement('div');
-            wrapper.style.cssText = `
-                background: white;
-                padding: 20px;
-                max-width: 1200px;
-                margin: 0 auto;
-                position: relative;
-            `;
-            
-            // Add professional header
-            const professionalHeader = document.createElement('div');
-            professionalHeader.style.cssText = `
-                background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-                color: white;
-                padding: 20px;
-                text-align: center;
-                margin-bottom: 20px;
-                border-radius: 10px;
-                position: relative;
-                overflow: hidden;
-            `;
-            professionalHeader.innerHTML = `
-                <div style="font-size: 24px; margin-bottom: 10px;">💡</div>
-                <h2 style="font-size: 20px; font-weight: bold; margin-bottom: 5px;">Business Model Canvas</h2>
-                <p style="font-size: 14px; margin-bottom: 15px; opacity: 0.9;">${businessName}</p>
-                <div style="display: flex; justify-content: center; gap: 20px; font-size: 12px; opacity: 0.8;">
-                    <span>📅 ${new Date().toLocaleDateString('id-ID')}</span>
-                    <span>👤 {{ $business->owner_name }}</span>
-                    <span>📍 {{ $business->location }}</span>
-                </div>
-                <div style="position: absolute; bottom: 10px; right: 10px; font-size: 10px; opacity: 0.3; transform: rotate(-45deg);">IDEATION</div>
-            `;
-            wrapper.appendChild(professionalHeader);
-            
-            // Clone and append business info
-            const businessInfoCloneImg = businessInfo.cloneNode(true);
-            wrapper.appendChild(businessInfoCloneImg);
-            
-            // Clone and append BMC container
-            const bmcContainerCloneImg = bmcContainer.cloneNode(true);
-            wrapper.appendChild(bmcContainerCloneImg);
-            
-            // Add professional footer
-            const professionalFooter = document.createElement('div');
-            professionalFooter.style.cssText = `
-                text-align: center;
-                margin-top: 20px;
-                padding: 15px;
-                background: #f8f9fa;
-                border-radius: 10px;
-                font-size: 12px;
-                color: #6c757d;
-                border-top: 2px solid #3498db;
-            `;
-            professionalFooter.innerHTML = `
-                <p style="margin: 0; font-weight: 600;">Generated by Ideation - Professional Business Model Canvas</p>
-                <p style="margin: 5px 0 0 0; font-size: 10px;">Platform profesional untuk mengembangkan ide bisnis Anda</p>
-            `;
-            wrapper.appendChild(professionalFooter);
-            
-            // Temporarily add to body for rendering
-            wrapper.style.position = 'absolute';
-            wrapper.style.left = '-9999px';
-            wrapper.style.top = '0';
-            document.body.appendChild(wrapper);
-            
-            // Debug: Check if wrapper has content
-            console.log('Wrapper content:', wrapper.innerHTML);
-            console.log('Wrapper dimensions:', wrapper.offsetWidth, 'x', wrapper.offsetHeight);
-            
-            // Show loading state
-            const button = event.target;
-            const originalText = button.innerHTML;
-            button.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Generating PDF...';
-            button.disabled = true;
-            
-            // Apply compact styling to wrapper (don't override position)
-            wrapper.style.background = 'white';
-            wrapper.style.padding = '10px';
-            wrapper.style.maxWidth = '1000px';
-            wrapper.style.margin = '0 auto';
-            wrapper.style.fontSize = '12px';
-            
-            // Make business info more compact
-            const businessInfoElement = wrapper.querySelector('.business-info');
-            if (businessInfoElement) {
-                businessInfoElement.style.padding = '10px';
-                businessInfoElement.style.marginBottom = '10px';
-                businessInfoElement.style.fontSize = '10px';
-            }
-            
-            // Make BMC container more compact
-            const bmcContainerElement = wrapper.querySelector('.bmc-container');
-            if (bmcContainerElement) {
-                bmcContainerElement.style.maxWidth = '100%';
-                bmcContainerElement.style.margin = '0';
-            }
-            
-            // Make BMC grid more compact
-            const bmcGrid = wrapper.querySelector('.bmc-grid');
-            if (bmcGrid) {
-                bmcGrid.style.gap = '1px';
-                bmcGrid.style.padding = '1px';
-            }
-            
-            // Make BMC boxes more compact
-            const bmcBoxes = wrapper.querySelectorAll('.bmc-box');
-            bmcBoxes.forEach(box => {
-                box.style.padding = '8px';
-                box.style.minHeight = '80px';
-                box.style.fontSize = '9px';
-            });
-            
-            // Make BMC box headers more compact
-            const bmcHeaders = wrapper.querySelectorAll('.bmc-box h6');
-            bmcHeaders.forEach(header => {
-                header.style.fontSize = '10px';
-                header.style.marginBottom = '5px';
-                header.style.paddingBottom = '3px';
-            });
-            
-            // Make BMC box lists more compact
-            const bmcLists = wrapper.querySelectorAll('.bmc-box li');
-            bmcLists.forEach(li => {
-                li.style.padding = '3px 6px';
-                li.style.margin = '2px 0';
-                li.style.fontSize = '8px';
-            });
+        const businessMeta = {!! json_encode($businessMeta, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) !!};
 
-            // Wait a bit for styling to apply
-            setTimeout(() => {
-                console.log('Starting html2canvas with wrapper:', wrapper);
-                console.log('Wrapper dimensions after styling:', wrapper.offsetWidth, 'x', wrapper.offsetHeight);
-                
-                html2canvas(wrapper, {
-                    backgroundColor: '#ffffff',
-                    scale: 1.5, // Reduced scale for stability
-                    useCORS: true,
-                    allowTaint: true,
-                    logging: true,
-                    width: wrapper.offsetWidth,
-                    height: wrapper.offsetHeight,
-                    scrollX: 0,
-                    scrollY: 0,
-                    dpi: 300,
-                    foreignObjectRendering: false, // Disable for stability
-                    imageTimeout: 5000,
-                    removeContainer: true
-                }).then(canvas => {
-                // Create PDF using jsPDF
-                const { jsPDF } = window.jspdf;
-                const pdf = new jsPDF('landscape', 'mm', 'a4');
-                
-                // A4 dimensions in mm
-                const pageWidth = 297; // A4 width
-                const pageHeight = 210; // A4 height
-                
-                // Calculate image dimensions to fit entire page
-                const imgWidth = pageWidth - 10; // 5mm margin on each side
-                const imgHeight = (canvas.height * imgWidth) / canvas.width;
-                
-                // Force fit to single page
-                let finalWidth = imgWidth;
-                let finalHeight = imgHeight;
-                
-                // If too tall, scale down proportionally
-                if (imgHeight > pageHeight - 10) {
-                    const scaleFactor = (pageHeight - 10) / imgHeight;
-                    finalWidth = imgWidth * scaleFactor;
-                    finalHeight = imgHeight * scaleFactor;
-                }
-                
-                // Center the image
-                const xOffset = (pageWidth - finalWidth) / 2;
-                const yOffset = (pageHeight - finalHeight) / 2;
-                
-                const imgData = canvas.toDataURL('image/png');
-                pdf.addImage(imgData, 'PNG', xOffset, yOffset, finalWidth, finalHeight);
-                
-                // Download PDF
-                pdf.save(`BMC_${businessName.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`);
-                
-                // Reset button
-                button.innerHTML = originalText;
-                button.disabled = false;
-                
-                // Clean up wrapper
-                document.body.removeChild(wrapper);
-                
-                // Show success message
-                showNotification('✅ PDF berhasil diunduh!', 'success');
-            }).catch(error => {
-                console.error('Error generating PDF:', error);
-                button.innerHTML = originalText;
-                button.disabled = false;
-                
-                // Clean up wrapper on error
-                if (document.body.contains(wrapper)) {
-                    document.body.removeChild(wrapper);
-                }
-                
-                // Show detailed error message
-                let errorMessage = '❌ Gagal mengunduh PDF';
-                if (error.message) {
-                    errorMessage += ': ' + error.message;
-                }
-                showNotification(errorMessage, 'error');
-            });
-            }, 100); // 100ms delay for styling to apply
+        const styleSource = document.getElementById('bmc-style');
+
+        function slugify(value) {
+            return value
+                .toString()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/[^a-zA-Z0-9]+/g, '_')
+                .replace(/^_+|_+$/g, '')
+                .toLowerCase();
         }
 
-        // Function to download BMC as image
-        function downloadAsImage(format) {
-            // Include both business info and BMC container
-            const businessInfo = document.querySelector('.business-info');
-            const bmcContainer = document.querySelector('.bmc-container');
-            const businessName = '{{ $business->business_name }}';
-            
-            // Create a wrapper element to include both sections
-            const wrapper = document.createElement('div');
-            wrapper.style.cssText = `
-                background: white;
-                padding: 20px;
-                max-width: 1200px;
-                margin: 0 auto;
-                position: relative;
-            `;
-            
-            // Add professional header
-            const professionalHeader = document.createElement('div');
-            professionalHeader.style.cssText = `
-                background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-                color: white;
-                padding: 20px;
-                text-align: center;
-                margin-bottom: 20px;
-                border-radius: 10px;
-                position: relative;
-                overflow: hidden;
-            `;
-            professionalHeader.innerHTML = `
-                <div style="font-size: 24px; margin-bottom: 10px;">💡</div>
-                <h2 style="font-size: 20px; font-weight: bold; margin-bottom: 5px;">Business Model Canvas</h2>
-                <p style="font-size: 14px; margin-bottom: 15px; opacity: 0.9;">${businessName}</p>
-                <div style="display: flex; justify-content: center; gap: 20px; font-size: 12px; opacity: 0.8;">
-                    <span>📅 ${new Date().toLocaleDateString('id-ID')}</span>
-                    <span>👤 {{ $business->owner_name }}</span>
-                    <span>📍 {{ $business->location }}</span>
-                </div>
-                <div style="position: absolute; bottom: 10px; right: 10px; font-size: 10px; opacity: 0.3; transform: rotate(-45deg);">IDEATION</div>
-            `;
-            wrapper.appendChild(professionalHeader);
-            
-            // Clone and append business info
-            const businessInfoCloneImg = businessInfo.cloneNode(true);
-            wrapper.appendChild(businessInfoCloneImg);
-            
-            // Clone and append BMC container
-            const bmcContainerCloneImg = bmcContainer.cloneNode(true);
-            wrapper.appendChild(bmcContainerCloneImg);
-            
-            // Add professional footer
-            const professionalFooter = document.createElement('div');
-            professionalFooter.style.cssText = `
-                text-align: center;
-                margin-top: 20px;
-                padding: 15px;
-                background: #f8f9fa;
-                border-radius: 10px;
-                font-size: 12px;
-                color: #6c757d;
-                border-top: 2px solid #3498db;
-            `;
-            professionalFooter.innerHTML = `
-                <p style="margin: 0; font-weight: 600;">Generated by Ideation - Professional Business Model Canvas</p>
-                <p style="margin: 5px 0 0 0; font-size: 10px;">Platform profesional untuk mengembangkan ide bisnis Anda</p>
-            `;
-            wrapper.appendChild(professionalFooter);
-            
-            // Temporarily add to body for rendering
-            wrapper.style.position = 'absolute';
-            wrapper.style.left = '-9999px';
-            wrapper.style.top = '0';
-            document.body.appendChild(wrapper);
-            
-            // Show loading state
-            const button = event.target;
-            const originalText = button.innerHTML;
-            button.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Generating...';
-            button.disabled = true;
-            
-            // Wait a bit for styling to apply
-            setTimeout(() => {
-                console.log('Starting html2canvas for image with wrapper:', wrapper);
-                
-                html2canvas(wrapper, {
-                    backgroundColor: '#ffffff',
-                    scale: 1.5, // Reduced scale for stability
-                    useCORS: true,
-                    allowTaint: true,
-                    logging: true,
-                    width: wrapper.offsetWidth,
-                    height: wrapper.offsetHeight,
-                    dpi: 300,
-                    foreignObjectRendering: false, // Disable for stability
-                    imageTimeout: 5000,
-                    removeContainer: true
-                }).then(canvas => {
-                // Create download link
-                const link = document.createElement('a');
-                link.download = `BMC_${businessName.replace(/[^a-zA-Z0-9]/g, '_')}.${format}`;
-                
-                if (format === 'jpg') {
-                    link.href = canvas.toDataURL('image/jpeg', 1.0); // Maximum quality
-                } else {
-                    link.href = canvas.toDataURL('image/png'); // PNG is lossless
+        function setProcessingState(button, isProcessing, message) {
+            if (!button) {
+                return;
+            }
+
+            if (isProcessing) {
+                button.dataset.originalLabel = button.innerHTML;
+                button.disabled = true;
+                const label = message || 'Memproses...';
+                button.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span>${label}</span>`;
+            } else {
+                button.disabled = false;
+                if (button.dataset.originalLabel) {
+                    button.innerHTML = button.dataset.originalLabel;
+                    delete button.dataset.originalLabel;
                 }
-                
-                // Trigger download
+            }
+        }
+
+        function createExportWrapper() {
+            const businessInfo = document.querySelector('.business-info');
+            const bmcCanvas = document.querySelector('.bmc-canvas');
+
+            if (!businessInfo || !bmcCanvas) {
+                showNotification('Konten BMC tidak ditemukan untuk diekspor.', 'error');
+                return null;
+            }
+
+            const staging = document.createElement('div');
+            staging.style.position = 'absolute';
+            staging.style.left = '-9999px';
+            staging.style.top = '0';
+            staging.style.width = '1100px';
+
+            const wrapper = document.createElement('div');
+            wrapper.style.background = '#ffffff';
+            wrapper.style.padding = '36px';
+            wrapper.style.borderRadius = '28px';
+            wrapper.style.boxShadow = '0 30px 60px rgba(15, 23, 42, 0.18)';
+            wrapper.style.width = 'inherit';
+            wrapper.style.boxSizing = 'border-box';
+            wrapper.style.fontFamily = `'Inter', 'Segoe UI', sans-serif`;
+            wrapper.style.color = '#0f172a';
+
+            const header = document.createElement('div');
+            header.style.textAlign = 'center';
+            header.style.marginBottom = '24px';
+            header.innerHTML = `
+                <div style="font-size:13px; letter-spacing:0.18em; text-transform:uppercase; font-weight:600; color:#6366f1; margin-bottom:6px;">Ideation</div>
+                <h1 style="font-size:26px; margin:0; font-weight:700;">Business Model Canvas</h1>
+                <p style="margin:6px 0 0; color:#475569; font-size:14px;">${businessMeta.name}</p>
+                <div style="display:flex; justify-content:center; gap:16px; margin-top:12px; font-size:12px; color:#94a3b8;">
+                    <span>${new Date().toLocaleDateString('id-ID')}</span>
+                    <span>${businessMeta.owner}</span>
+                    <span>${businessMeta.location}</span>
+                </div>
+            `;
+
+            const infoClone = businessInfo.cloneNode(true);
+            infoClone.style.marginBottom = '24px';
+
+            const canvasClone = bmcCanvas.cloneNode(true);
+
+            const footer = document.createElement('div');
+            footer.style.marginTop = '24px';
+            footer.style.textAlign = 'center';
+            footer.style.fontSize = '12px';
+            footer.style.color = '#94a3b8';
+            footer.style.letterSpacing = '0.08em';
+            footer.style.textTransform = 'uppercase';
+            footer.textContent = 'Generated by Ideation';
+
+            wrapper.appendChild(header);
+            wrapper.appendChild(infoClone);
+            wrapper.appendChild(canvasClone);
+            wrapper.appendChild(footer);
+
+            staging.appendChild(wrapper);
+            document.body.appendChild(staging);
+
+            return { staging, wrapper };
+        }
+
+        function cleanupStaging(staging) {
+            if (staging && staging.parentNode) {
+                staging.parentNode.removeChild(staging);
+            }
+        }
+
+        function downloadAsPDF(button) {
+            const exportNodes = createExportWrapper();
+            if (!exportNodes) {
+                return;
+            }
+
+            const { staging, wrapper } = exportNodes;
+            setProcessingState(button, true, 'Menyiapkan PDF...');
+
+            html2canvas(wrapper, {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: '#ffffff',
+                logging: false
+            }).then(canvas => {
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('landscape', 'mm', 'a4');
+
+                const pageWidth = pdf.internal.pageSize.getWidth();
+                const pageHeight = pdf.internal.pageSize.getHeight();
+                const margin = 12;
+
+                let imgWidth = pageWidth - margin * 2;
+                let imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+                if (imgHeight > pageHeight - margin * 2) {
+                    const scaleFactor = (pageHeight - margin * 2) / imgHeight;
+                    imgWidth *= scaleFactor;
+                    imgHeight *= scaleFactor;
+                }
+
+                const x = (pageWidth - imgWidth) / 2;
+                const y = (pageHeight - imgHeight) / 2;
+                const imgData = canvas.toDataURL('image/png');
+
+                pdf.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight);
+                pdf.save(`BMC_${slugify(businessMeta.name)}.pdf`);
+                showNotification('PDF berhasil diunduh!', 'success');
+            }).catch(error => {
+                console.error('PDF export error:', error);
+                showNotification('Gagal mengunduh PDF. Silakan coba lagi.', 'error');
+            }).finally(() => {
+                setProcessingState(button, false);
+                cleanupStaging(staging);
+            });
+        }
+
+        function downloadAsImage(button, format) {
+            const exportNodes = createExportWrapper();
+            if (!exportNodes) {
+                return;
+            }
+
+            const { staging, wrapper } = exportNodes;
+            const label = format === 'png' ? 'Menyiapkan PNG...' : 'Menyiapkan JPG...';
+            setProcessingState(button, true, label);
+
+            html2canvas(wrapper, {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: '#ffffff',
+                logging: false
+            }).then(canvas => {
+                const mime = format === 'png' ? 'image/png' : 'image/jpeg';
+                const dataUrl = canvas.toDataURL(mime, 0.92);
+                const link = document.createElement('a');
+                link.href = dataUrl;
+                link.download = `BMC_${slugify(businessMeta.name)}.${format}`;
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
-                
-                // Reset button
-                button.innerHTML = originalText;
-                button.disabled = false;
-                
-                // Clean up wrapper
-                document.body.removeChild(wrapper);
-                
-                // Show success message
-                showNotification('✅ Download berhasil!', 'success');
+                showNotification('Berkas berhasil diunduh!', 'success');
             }).catch(error => {
-                console.error('Error generating image:', error);
-                button.innerHTML = originalText;
-                button.disabled = false;
-                
-                // Clean up wrapper on error
-                if (document.body.contains(wrapper)) {
-                    document.body.removeChild(wrapper);
-                }
-                
-                // Show detailed error message
-                let errorMessage = '❌ Gagal mengunduh gambar';
-                if (error.message) {
-                    errorMessage += ': ' + error.message;
-                }
-                showNotification(errorMessage, 'error');
+                console.error('Image export error:', error);
+                showNotification('Gagal mengunduh gambar. Silakan coba lagi.', 'error');
+            }).finally(() => {
+                setProcessingState(button, false);
+                cleanupStaging(staging);
             });
-            }, 100); // 100ms delay for styling to apply
         }
 
-        // Function to show notification
+        function printBMC(button) {
+            const exportNodes = createExportWrapper();
+            if (!exportNodes) {
+                return;
+            }
+
+            const { staging, wrapper } = exportNodes;
+            setProcessingState(button, true, 'Menyiapkan cetak...');
+
+            const printWindow = window.open('', '_blank');
+            if (!printWindow) {
+                showNotification('Popup diblokir. Izinkan popup untuk mencetak.', 'error');
+                setProcessingState(button, false);
+                cleanupStaging(staging);
+                return;
+            }
+
+            const styleContent = styleSource ? styleSource.innerHTML : '';
+
+            printWindow.document.write(`
+                <!DOCTYPE html>
+                <html lang="id">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Print BMC - ${businessMeta.name}</title>
+                    <link rel="preconnect" href="https://fonts.googleapis.com">
+                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+                    <style>${styleContent}</style>
+                    <style>
+                        body { background: #ffffff !important; padding: 40px; }
+                        .bmc-page { padding: 0; }
+                        .page-wrapper { max-width: 100%; padding: 0; }
+                        .bmc-shell { box-shadow: none; border: none; }
+                        .notification { display: none !important; }
+                    </style>
+                </head>
+                <body>
+                    ${wrapper.outerHTML}
+                </body>
+                </html>
+            `);
+
+            printWindow.document.close();
+            printWindow.focus();
+
+            const finalize = () => {
+                setProcessingState(button, false);
+                cleanupStaging(staging);
+            };
+
+            printWindow.onload = () => {
+                printWindow.print();
+                setTimeout(() => {
+                    printWindow.close();
+                    finalize();
+                }, 400);
+            };
+
+            printWindow.onerror = () => {
+                showNotification('Gagal menyiapkan tampilan cetak.', 'error');
+                finalize();
+            };
+
+            setTimeout(() => finalize(), 3000);
+        }
+
         function showNotification(message, type) {
             const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
+            notification.className = `notification ${type || ''}`.trim();
             notification.textContent = message;
-            
+
             document.body.appendChild(notification);
-            
-            // Remove notification after 3 seconds
+
             setTimeout(() => {
                 notification.style.animation = 'slideIn 0.3s ease reverse';
                 setTimeout(() => {
@@ -1503,275 +1259,7 @@
                         notification.parentNode.removeChild(notification);
                     }
                 }, 300);
-            }, 3000);
-        }
-        
-        // Function to print BMC directly - Using same design as show
-        function printBMC(event) {
-            // Prevent default behavior
-            if (event) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
-            
-            // Create a new window for print
-            const printWindow = window.open('', '_blank');
-            
-            // Get the content
-            const businessInfo = document.querySelector('.business-info').outerHTML;
-            const bmcContainer = document.querySelector('.bmc-container').outerHTML;
-            
-            // Create print content with same design as show page
-            const printContent = `
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <title>Print BMC - {{ $business->business_name }}</title>
-                    <style>
-                        body {
-                            font-family: 'Segoe UI', Arial, sans-serif;
-                            margin: 0;
-                            padding: 15mm;
-                            font-size: 11px;
-                            line-height: 1.4;
-                            color: #333;
-                            background: white;
-                        }
-                        
-                        .print-header {
-                            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-                            color: white;
-                            padding: 15mm;
-                            margin: -15mm -15mm 10mm -15mm;
-                            text-align: center;
-                            position: relative;
-                            overflow: hidden;
-                        }
-                        
-                        .print-header::before {
-                            content: '';
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            right: 0;
-                            bottom: 0;
-                            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-                            opacity: 0.3;
-                        }
-                        
-                        .print-header-content {
-                            position: relative;
-                            z-index: 1;
-                        }
-                        
-                        .print-logo {
-                            font-size: 24px;
-                            margin-bottom: 5mm;
-                        }
-                        
-                        .print-title {
-                            font-size: 20px;
-                            font-weight: bold;
-                            margin-bottom: 3mm;
-                        }
-                        
-                        .print-subtitle {
-                            font-size: 14px;
-                            margin-bottom: 5mm;
-                            opacity: 0.9;
-                        }
-                        
-                        .print-meta {
-                            display: flex;
-                            justify-content: center;
-                            gap: 10mm;
-                            font-size: 10px;
-                            opacity: 0.8;
-                        }
-                        
-                        .print-watermark {
-                            position: absolute;
-                            bottom: 5mm;
-                            right: 5mm;
-                            font-size: 8px;
-                            opacity: 0.3;
-                            transform: rotate(-45deg);
-                        }
-                        
-                        .business-section {
-                            background: #f8f9fa;
-                            padding: 8mm;
-                            margin-bottom: 8mm;
-                            border-radius: 5px;
-                            border-left: 5px solid #3498db;
-                        }
-                        
-                        .business-section h3 {
-                            color: #2c3e50;
-                            font-size: 16px;
-                            margin: 0 0 5mm 0;
-                            border-bottom: 2px solid #3498db;
-                            padding-bottom: 2mm;
-                        }
-                        
-                        .business-section p {
-                            margin: 2mm 0;
-                            font-size: 10px;
-                        }
-                        
-                        .bmc-wrapper {
-                            border: 3px solid #2c3e50;
-                            border-radius: 8px;
-                            overflow: hidden;
-                            position: relative;
-                        }
-                        
-                        .bmc-wrapper::after {
-                            content: 'Generated by Ideation - Professional Business Model Canvas';
-                            position: absolute;
-                            bottom: 2mm;
-                            right: 2mm;
-                            font-size: 6px;
-                            color: rgba(0,0,0,0.3);
-                            font-weight: 500;
-                        }
-                        
-                        .bmc-grid {
-                            display: grid;
-                            grid-template-columns: 1fr 1fr 1fr;
-                            grid-template-rows: 1fr 1fr 1fr;
-                            gap: 2px;
-                            background: #2c3e50;
-                            padding: 2px;
-                        }
-                        
-                        .bmc-box {
-                            background: white;
-                            padding: 4mm;
-                            border: 1px solid #2c3e50;
-                            font-size: 9px;
-                            min-height: 30mm;
-                            position: relative;
-                        }
-                        
-                        .bmc-box::before {
-                            content: '';
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            right: 0;
-                            height: 2px;
-                            background: #2c3e50;
-                        }
-                        
-                        .bmc-box:nth-child(1) { border-color: #e74c3c; }
-                        .bmc-box:nth-child(1)::before { background: #e74c3c; }
-                        .bmc-box:nth-child(2) { border-color: #f39c12; }
-                        .bmc-box:nth-child(2)::before { background: #f39c12; }
-                        .bmc-box:nth-child(3) { border-color: #27ae60; }
-                        .bmc-box:nth-child(3)::before { background: #27ae60; }
-                        .bmc-box:nth-child(4) { border-color: #9b59b6; }
-                        .bmc-box:nth-child(4)::before { background: #9b59b6; }
-                        .bmc-box:nth-child(5) { border-color: #3498db; }
-                        .bmc-box:nth-child(5)::before { background: #3498db; }
-                        .bmc-box:nth-child(6) { border-color: #e67e22; }
-                        .bmc-box:nth-child(6)::before { background: #e67e22; }
-                        .bmc-box:nth-child(7) { border-color: #1abc9c; }
-                        .bmc-box:nth-child(7)::before { background: #1abc9c; }
-                        .bmc-box:nth-child(8) { border-color: #34495e; }
-                        .bmc-box:nth-child(8)::before { background: #34495e; }
-                        .bmc-box:nth-child(9) { border-color: #e91e63; }
-                        .bmc-box:nth-child(9)::before { background: #e91e63; }
-                        
-                        .bmc-box h6 {
-                            font-size: 11px;
-                            font-weight: bold;
-                            margin: 0 0 3mm 0;
-                            color: #2c3e50;
-                            display: flex;
-                            align-items: center;
-                            gap: 2mm;
-                        }
-                        
-                        .bmc-box ul {
-                            list-style: none;
-                            padding: 0;
-                            margin: 0;
-                        }
-                        
-                        .bmc-box li {
-                            background: #f8f9fa;
-                            margin: 1mm 0;
-                            padding: 2mm;
-                            border-left: 3px solid #3498db;
-                            font-size: 8px;
-                            color: #2c3e50;
-                            border-radius: 0 2px 2px 0;
-                        }
-                        
-                        .bmc-box li:last-child {
-                            border-bottom: none;
-                        }
-                        
-                        .print-footer {
-                            text-align: center;
-                            background: #f8f9fa;
-                            color: #6c757d;
-                            padding: 4mm;
-                            margin: 8mm -15mm -15mm -15mm;
-                            font-size: 9px;
-                            border-top: 2px solid #3498db;
-                        }
-                        
-                        @page {
-                            size: A4;
-                            margin: 0;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <div class="print-header">
-                        <div class="print-header-content">
-                            <div class="print-logo">💡</div>
-                            <h1 class="print-title">Business Model Canvas</h1>
-                            <p class="print-subtitle">{{ $business->business_name }}</p>
-                            <div class="print-meta">
-                                <span>📅 ${new Date().toLocaleDateString('id-ID')}</span>
-                                <span>👤 {{ $business->owner_name }}</span>
-                                <span>📍 {{ $business->location }}</span>
-                            </div>
-                        </div>
-                        <div class="print-watermark">IDEATION</div>
-                    </div>
-                    ${businessInfo}
-                    <div class="bmc-wrapper">
-                        ${bmcContainer}
-                    </div>
-                    <div class="print-footer">
-                        <p style="margin: 0; font-weight: 600;">Generated by Ideation - Professional Business Model Canvas</p>
-                        <p style="margin: 2mm 0 0 0; font-size: 8px;">Platform profesional untuk mengembangkan ide bisnis Anda</p>
-                    </div>
-                </body>
-                </html>
-            `;
-            
-            // Write content to new window
-            printWindow.document.write(printContent);
-            printWindow.document.close();
-            
-            // Wait for content to load, then print
-            printWindow.onload = function() {
-                setTimeout(() => {
-                    printWindow.print();
-                    // Don't close immediately, let user see the print dialog
-                }, 100);
-            };
-            
-            // Handle errors
-            printWindow.onerror = function() {
-                alert('Error opening print window. Please try again.');
-                printWindow.close();
-            };
+            }, 2800);
         }
     </script>
 </body>
