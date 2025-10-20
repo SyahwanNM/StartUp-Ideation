@@ -70,7 +70,7 @@
         .bmc-container {
             position: relative;
             z-index: 1;
-            max-width: 1100px;
+            max-width: 1480px;
             margin: 0 auto;
             padding: 0 1.5rem;
         }
@@ -223,7 +223,66 @@
         .bmc-components-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
+            gap: 1.25rem;
+            align-items: stretch;
+        }
+
+        @media (min-width: 992px) and (max-width: 1199px) {
+            .bmc-components-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .bmc-components-grid {
+                grid-template-columns: repeat(12, minmax(0, 1fr));
+                grid-auto-rows: minmax(270px, auto);
+            }
+
+            .bmc-key-partnerships {
+                grid-column: 1 / span 2;
+                grid-row: 1 / span 2;
+            }
+
+            .bmc-key-activities {
+                grid-column: 3 / span 2;
+                grid-row: 1 / span 1;
+            }
+
+            .bmc-key-resources {
+                grid-column: 3 / span 2;
+                grid-row: 2 / span 1;
+            }
+
+            .bmc-value-propositions {
+                grid-column: 5 / span 4;
+                grid-row: 1 / span 2;
+            }
+
+            .bmc-customer-relationships {
+                grid-column: 9 / span 2;
+                grid-row: 1 / span 1;
+            }
+
+            .bmc-channels {
+                grid-column: 9 / span 2;
+                grid-row: 2 / span 1;
+            }
+
+            .bmc-customer-segments {
+                grid-column: 11 / span 2;
+                grid-row: 1 / span 2;
+            }
+
+            .bmc-cost-structure {
+                grid-column: 1 / span 6;
+                grid-row: 3 / span 1;
+            }
+
+            .bmc-revenue-streams {
+                grid-column: 7 / span 6;
+                grid-row: 3 / span 1;
+            }
         }
 
         .bmc-component {
@@ -237,6 +296,8 @@
             flex-direction: column;
             gap: 1.15rem;
             min-height: 260px;
+            height: 100%;
+            max-width: 100%;
         }
 
         .bmc-title {
@@ -254,6 +315,16 @@
             font-size: 1.25rem;
             background: rgba(99, 102, 241, 0.12);
             color: #4338ca;
+        }
+
+        @media (min-width: 992px) {
+            .bmc-key-activities .bmc-title-icon,
+            .bmc-key-resources .bmc-title-icon,
+            .bmc-customer-relationships .bmc-title-icon,
+            .bmc-channels .bmc-title-icon {
+                width: 68px;
+                height: 52px;
+            }
         }
 
         .bmc-title-text {
@@ -281,6 +352,7 @@
             display: flex;
             flex-direction: column;
             gap: 0.85rem;
+            flex: 1;
         }
 
         .bmc-input-item {
@@ -346,6 +418,7 @@
             font-weight: 600;
             box-shadow: 0 16px 30px rgba(79, 70, 229, 0.24);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-top: auto;
         }
 
         .bmc-add-btn i {
