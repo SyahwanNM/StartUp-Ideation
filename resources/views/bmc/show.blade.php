@@ -116,14 +116,14 @@
             align-items: center;
             gap: 0.65rem;
             font-weight: 500;
-            background: rgba(34, 197, 94, 0.18);
-            color: #14532d;
-            border: 1px solid rgba(34, 197, 94, 0.35);
+            background: #16a34a;
+            color: #f8fafc;
+            border: 1px solid #15803d;
             box-shadow: var(--shadow-component);
         }
 
         .global-alert.success i {
-            color: #16a34a;
+            color: #bbf7d0;
         }
 
         .bmc-actions {
@@ -315,9 +315,15 @@
 
         .bmc-components-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(1, minmax(0, 1fr));
             gap: 1.25rem;
             align-items: stretch;
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            .bmc-components-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
         }
 
         @media (min-width: 992px) and (max-width: 1199px) {
@@ -328,8 +334,8 @@
 
         @media (min-width: 1200px) {
             .bmc-components-grid {
-                grid-template-columns: repeat(12, minmax(0, 1fr));
-                grid-auto-rows: minmax(270px, auto);
+                grid-template-columns: repeat(10, minmax(0, 1fr));
+                grid-auto-rows: minmax(210px, auto);
             }
 
             .bmc-key-partnerships {
@@ -348,79 +354,80 @@
             }
 
             .bmc-value-propositions {
-                grid-column: 5 / span 4;
+                grid-column: 5 / span 2;
                 grid-row: 1 / span 2;
             }
 
             .bmc-customer-relationships {
-                grid-column: 9 / span 2;
+                grid-column: 7 / span 2;
                 grid-row: 1 / span 1;
             }
 
             .bmc-channels {
-                grid-column: 9 / span 2;
+                grid-column: 7 / span 2;
                 grid-row: 2 / span 1;
             }
 
             .bmc-customer-segments {
-                grid-column: 11 / span 2;
+                grid-column: 9 / span 2;
                 grid-row: 1 / span 2;
             }
 
             .bmc-cost-structure {
-                grid-column: 1 / span 6;
+                grid-column: 1 / span 5;
                 grid-row: 3 / span 1;
             }
 
             .bmc-revenue-streams {
-                grid-column: 7 / span 6;
+                grid-column: 6 / span 5;
                 grid-row: 3 / span 1;
             }
         }
 
         .bmc-component {
             --accent: #6366f1;
-            --accent-soft: rgba(99, 102, 241, 0.18);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.88));
-            border-radius: var(--radius-lg);
-            padding: 1.75rem;
-            border: 2px solid rgba(99, 102, 241, 0.12);
-            box-shadow: var(--shadow-component);
+            --accent-soft: rgba(99, 102, 241, 0.12);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 22px;
+            padding: 1.45rem;
+            border: 1px solid rgba(99, 102, 241, 0.14);
+            box-shadow: 0 24px 40px rgba(15, 23, 42, 0.14);
             display: flex;
             flex-direction: column;
             gap: 1.15rem;
-            min-height: 260px;
+            min-height: 0;
             height: 100%;
             position: relative;
         }
 
         .bmc-title {
             display: flex;
-            align-items: center;
-            gap: 0.9rem;
+            align-items: flex-start;
+            gap: 0.8rem;
         }
 
         .bmc-title-icon {
-            width: 55px;
-            height: 44px;
-            border-radius: 14px;
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
             display: grid;
             place-items: center;
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             background: var(--accent-soft);
             color: var(--accent);
         }
 
-        .bmc-title-text {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #1f2937;
+        .bmc-title-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
         }
 
-        .bmc-description {
-            margin: 0.3rem 0 0;
-            font-size: 0.9rem;
-            color: rgba(71, 85, 105, 0.85);
+        .bmc-title-text {
+            font-size: 1.04rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin: 0;
         }
 
         .bmc-list {
@@ -429,18 +436,19 @@
             margin: 0;
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
+            gap: 0.65rem;
+            flex: 1;
         }
 
         .bmc-list li {
-            background: rgba(15, 23, 42, 0.02);
-            border: 1px solid rgba(148, 163, 184, 0.24);
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(148, 163, 184, 0.22);
             border-left: 4px solid var(--accent);
-            border-radius: 18px;
-            padding: 0.85rem 1rem 0.85rem 1.75rem;
+            border-radius: 16px;
+            padding: 0.75rem 0.95rem 0.75rem 1.6rem;
             color: #1f2937;
-            font-size: 0.95rem;
-            line-height: 1.5;
+            font-size: 0.94rem;
+            line-height: 1.45;
             position: relative;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
@@ -448,10 +456,10 @@
         .bmc-list li::before {
             content: '';
             position: absolute;
-            top: 1rem;
-            left: 0.9rem;
-            width: 10px;
-            height: 10px;
+            top: 0.92rem;
+            left: 0.8rem;
+            width: 9px;
+            height: 9px;
             border-radius: 50%;
             background: var(--accent);
             box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.08);
@@ -476,65 +484,74 @@
 
         .bmc-customer-segments {
             --accent: #ec4899;
-            --accent-soft: rgba(236, 72, 153, 0.16);
-            border-color: rgba(236, 72, 153, 0.45);
-            box-shadow: 0 20px 35px rgba(236, 72, 153, 0.16);
+            --accent-soft: rgba(236, 72, 153, 0.18);
+            border-color: rgba(236, 72, 153, 0.32);
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.08), rgba(236, 72, 153, 0.02));
+            box-shadow: 0 20px 35px rgba(236, 72, 153, 0.14);
         }
 
         .bmc-value-propositions {
-            --accent: #facc15;
-            --accent-soft: rgba(250, 204, 21, 0.18);
-            border-color: rgba(250, 204, 21, 0.55);
-            box-shadow: 0 20px 35px rgba(250, 204, 21, 0.18);
+            --accent: #f59e0b;
+            --accent-soft: rgba(245, 158, 11, 0.18);
+            border-color: rgba(245, 158, 11, 0.32);
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(245, 158, 11, 0.02));
+            box-shadow: 0 20px 35px rgba(245, 158, 11, 0.16);
         }
 
         .bmc-channels {
             --accent: #22c55e;
             --accent-soft: rgba(34, 197, 94, 0.18);
-            border-color: rgba(34, 197, 94, 0.55);
-            box-shadow: 0 20px 35px rgba(34, 197, 94, 0.18);
+            border-color: rgba(34, 197, 94, 0.3);
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.08), rgba(34, 197, 94, 0.02));
+            box-shadow: 0 20px 35px rgba(34, 197, 94, 0.16);
         }
 
         .bmc-customer-relationships {
-            --accent: #4f46e5;
-            --accent-soft: rgba(129, 140, 248, 0.18);
-            border-color: rgba(129, 140, 248, 0.55);
-            box-shadow: 0 20px 35px rgba(129, 140, 248, 0.2);
+            --accent: #8b5cf6;
+            --accent-soft: rgba(139, 92, 246, 0.18);
+            border-color: rgba(139, 92, 246, 0.32);
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(139, 92, 246, 0.02));
+            box-shadow: 0 20px 35px rgba(139, 92, 246, 0.18);
         }
 
         .bmc-revenue-streams {
-            --accent: #06b6d4;
-            --accent-soft: rgba(6, 182, 212, 0.18);
-            border-color: rgba(6, 182, 212, 0.55);
-            box-shadow: 0 20px 35px rgba(6, 182, 212, 0.18);
+            --accent: #6366f1;
+            --accent-soft: rgba(99, 102, 241, 0.18);
+            border-color: rgba(99, 102, 241, 0.3);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(99, 102, 241, 0.02));
+            box-shadow: 0 20px 35px rgba(99, 102, 241, 0.16);
         }
 
         .bmc-key-resources {
-            --accent: #f59e0b;
-            --accent-soft: rgba(245, 158, 11, 0.18);
-            border-color: rgba(245, 158, 11, 0.55);
-            box-shadow: 0 20px 35px rgba(245, 158, 11, 0.17);
+            --accent: #0ea5e9;
+            --accent-soft: rgba(14, 165, 233, 0.18);
+            border-color: rgba(14, 165, 233, 0.3);
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.08), rgba(14, 165, 233, 0.02));
+            box-shadow: 0 20px 35px rgba(14, 165, 233, 0.18);
         }
 
         .bmc-key-activities {
-            --accent: #16a34a;
-            --accent-soft: rgba(34, 197, 94, 0.18);
-            border-color: rgba(34, 197, 94, 0.55);
-            box-shadow: 0 20px 35px rgba(34, 197, 94, 0.18);
+            --accent: #f97316;
+            --accent-soft: rgba(249, 115, 22, 0.18);
+            border-color: rgba(249, 115, 22, 0.3);
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.08), rgba(249, 115, 22, 0.02));
+            box-shadow: 0 20px 35px rgba(249, 115, 22, 0.16);
         }
 
         .bmc-key-partnerships {
-            --accent: #3b82f6;
-            --accent-soft: rgba(59, 130, 246, 0.18);
-            border-color: rgba(59, 130, 246, 0.55);
-            box-shadow: 0 20px 35px rgba(59, 130, 246, 0.18);
+            --accent: #14b8a6;
+            --accent-soft: rgba(20, 184, 166, 0.18);
+            border-color: rgba(20, 184, 166, 0.3);
+            background: linear-gradient(135deg, rgba(20, 184, 166, 0.08), rgba(20, 184, 166, 0.02));
+            box-shadow: 0 20px 35px rgba(20, 184, 166, 0.16);
         }
 
         .bmc-cost-structure {
-            --accent: #f87171;
-            --accent-soft: rgba(248, 113, 113, 0.18);
-            border-color: rgba(248, 113, 113, 0.55);
-            box-shadow: 0 20px 35px rgba(248, 113, 113, 0.18);
+            --accent: #ef4444;
+            --accent-soft: rgba(239, 68, 68, 0.18);
+            border-color: rgba(239, 68, 68, 0.3);
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), rgba(239, 68, 68, 0.02));
+            box-shadow: 0 20px 35px rgba(239, 68, 68, 0.16);
         }
 
         .bmc-footer-actions {
@@ -948,9 +965,8 @@
                                         <span class="bmc-title-icon">
                                             <i class="{{ $component['icon'] }}"></i>
                                         </span>
-                                        <div>
+                                        <div class="bmc-title-meta">
                                             <div class="bmc-title-text">{{ $component['title'] }}</div>
-                                            <div class="bmc-description">{{ $component['description'] }}</div>
                                         </div>
                                     </div>
 

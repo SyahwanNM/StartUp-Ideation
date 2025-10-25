@@ -222,66 +222,20 @@
 
         .bmc-components-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(1, minmax(0, 1fr));
             gap: 1.25rem;
             align-items: stretch;
         }
 
-        @media (min-width: 992px) and (max-width: 1199px) {
+        @media (min-width: 768px) {
             .bmc-components-grid {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
 
-        @media (min-width: 1200px) {
+        @media (min-width: 992px) {
             .bmc-components-grid {
-                grid-template-columns: repeat(12, minmax(0, 1fr));
-                grid-auto-rows: minmax(270px, auto);
-            }
-
-            .bmc-key-partnerships {
-                grid-column: 1 / span 2;
-                grid-row: 1 / span 2;
-            }
-
-            .bmc-key-activities {
-                grid-column: 3 / span 2;
-                grid-row: 1 / span 1;
-            }
-
-            .bmc-key-resources {
-                grid-column: 3 / span 2;
-                grid-row: 2 / span 1;
-            }
-
-            .bmc-value-propositions {
-                grid-column: 5 / span 4;
-                grid-row: 1 / span 2;
-            }
-
-            .bmc-customer-relationships {
-                grid-column: 9 / span 2;
-                grid-row: 1 / span 1;
-            }
-
-            .bmc-channels {
-                grid-column: 9 / span 2;
-                grid-row: 2 / span 1;
-            }
-
-            .bmc-customer-segments {
-                grid-column: 11 / span 2;
-                grid-row: 1 / span 2;
-            }
-
-            .bmc-cost-structure {
-                grid-column: 1 / span 6;
-                grid-row: 3 / span 1;
-            }
-
-            .bmc-revenue-streams {
-                grid-column: 7 / span 6;
-                grid-row: 3 / span 1;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
             }
         }
 
