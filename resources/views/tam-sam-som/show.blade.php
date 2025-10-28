@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -14,35 +14,21 @@
     
     <style>
         :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --primary-light: #a5b4fc;
-            --secondary: #64748b;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --info: #06b6d4;
-            --light: #f8fafc;
-            --dark: #1e293b;
-            --gray-50: #f9fafb;
-            --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb;
-            --gray-300: #d1d5db;
-            --gray-400: #9ca3af;
-            --gray-500: #6b7280;
-            --gray-600: #4b5563;
-            --gray-700: #374151;
-            --gray-800: #1f2937;
-            --gray-900: #111827;
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-            --radius: 0.5rem;
-            --radius-lg: 0.75rem;
-            --radius-xl: 1rem;
-            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --bg-gradient: linear-gradient(160deg, #4f46e5 0%, #7c3aed 45%, #a855f7 100%);
+            --hero-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 45%, #a855f7 100%);
+            --surface: rgba(255, 255, 255, 0.94);
+            --surface-soft: rgba(255, 255, 255, 0.86);
+            --surface-light: rgba(255, 255, 255, 0.78);
+            --border: rgba(148, 163, 184, 0.25);
+            --shadow-lg: 0 28px 55px rgba(15, 23, 42, 0.22);
+            --shadow-md: 0 18px 38px rgba(15, 23, 42, 0.16);
+            --shadow-sm: 0 10px 24px rgba(15, 23, 42, 0.12);
+            --text-dark: #0f172a;
+            --text-muted: rgba(15, 23, 42, 0.65);
+            --tam-gradient: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+            --sam-gradient: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            --som-gradient: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
+            --progress-bg: rgba(241, 245, 249, 0.75);
         }
 
         * {
@@ -52,76 +38,43 @@
         }
 
         body {
-            background: var(--gray-50);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            color: var(--gray-800);
-            line-height: 1.6;
+            position: relative;
             min-height: 100vh;
-            padding: 0;
+            background: var(--bg-gradient);
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
             font-size: 14px;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.16), transparent 55%),
+                radial-gradient(circle at 80% 15%, rgba(59,130,246,0.25), transparent 60%);
+            pointer-events: none;
+            z-index: 1;
         }
 
         .container-main {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        /* Header */
-        .header {
-            background: var(--primary);
-            text-align: center;
-            margin-bottom: 3rem;
-            padding: 3rem 1rem;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            opacity: 0.3;
-            z-index: 1;
-        }
-
-        .header > * {
+            padding: 4rem 1.25rem 3rem;
             position: relative;
             z-index: 2;
         }
 
-        .header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            letter-spacing: -0.025em;
+        .page-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
         }
-
-        .header p {
-            font-size: 1.125rem;
-            opacity: 0.9;
-            line-height: 1.6;
-        }
-
-        .header .generation-info {
-            background: rgba(255,255,255,0.15);
-            border-radius: var(--radius-lg);
-            padding: 1rem 1.5rem;
-            margin-top: 1.5rem;
-            backdrop-filter: blur(15px);
-            display: inline-block;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
         /* Navigation Styles */
         .navbar {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
             border: none;
         }
 
@@ -134,484 +87,630 @@
         .navbar-nav .nav-link {
             color: white !important;
             font-weight: 500;
-            transition: var(--transition);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             padding: 0.5rem 1rem;
         }
 
         .navbar-nav .nav-link:hover {
-            color: var(--primary-light) !important;
+            color: #a5b4fc !important;
             transform: translateY(-1px);
         }
 
         .navbar-nav .nav-link.active {
-            color: var(--primary-light) !important;
+            color: #a5b4fc !important;
             font-weight: 600;
         }
 
-        /* Main Content */
-        .main-content {
-            background: white;
-            border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--gray-200);
-            padding: 2rem;
+        .hero-card {
+            background: var(--hero-gradient);
+            border-radius: 32px;
+            padding: 3.25rem 3rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            color: #f8fafc;
+            overflow: hidden;
+        }
+
+        .hero-card::after {
+            content: '';
+            position: absolute;
+            top: -120px;
+            right: -80px;
+            width: 320px;
+            height: 320px;
+            background: radial-gradient(circle, rgba(255,255,255,0.22) 0%, transparent 65%);
+            filter: blur(2px);
+        }
+
+        .hero-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
             margin-bottom: 2rem;
         }
 
-        /* Concentric Circles */
-        .circles-container {
-            display: flex;
-            justify-content: center;
+        .hero-badge {
+            display: inline-flex;
             align-items: center;
-            margin: 3rem 0;
-            position: relative;
+            gap: 0.6rem;
+            padding: 0.55rem 1.1rem;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.16);
+            font-size: 0.85rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-weight: 600;
         }
 
-        .concentric-circles {
-            position: relative;
-            width: 450px;
-            height: 450px;
+        .hero-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            background: rgba(255,255,255,0.16);
+            display: grid;
+            place-items: center;
+            color: #f8fafc;
+            font-size: 1.2rem;
         }
 
-        .circle {
+        .hero-card h1 {
+            font-size: 2.75rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-card p {
+            margin: 0;
+            font-size: 1.05rem;
+            color: rgba(241,245,249,0.88);
+        }
+
+        .hero-download {
+            margin-top: 2.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.16);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .info-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .info-item {
+            background: var(--surface);
+            border-radius: 22px;
+            padding: 1.2rem 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            backdrop-filter: blur(14px);
+        }
+
+        .info-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 18px;
+            background: rgba(99,102,241,0.16);
+            display: grid;
+            place-items: center;
+            font-size: 1.3rem;
+            color: #4338ca;
+        }
+
+        .info-content span {
+            display: block;
+            font-size: 0.75rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .info-content strong {
+            font-size: 1.05rem;
+            color: var(--text-dark);
+        }
+
+        .market-visual-card {
+            background: var(--surface);
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-lg);
+            padding: 2.6rem 2.4rem;
+            backdrop-filter: blur(16px);
+        }
+
+        .visual-header {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            margin-bottom: 1.6rem;
+        }
+
+        .visual-header i {
+            color: #facc15;
+        }
+       .circles-wrapper{
+        display:flex;
+        justify-content:center;
+        margin-bottom:2.4rem;
+        position:relative;
+        }
+
+        .concentric-circles{
+        position: relative;            /* <= penting */
+        width: clamp(280px, 42vw, 420px);
+        aspect-ratio: 1 / 1;           /* jaga tetap kotak */
+        /* jika tidak pakai aspect-ratio, biarkan height sama seperti width */
+        /* height: clamp(280px, 42vw, 420px); */
+        }
+
+        .circle{
+        position:absolute;
+        border-radius:50%;
+        box-shadow:0 18px 35px rgba(76,29,149,0.25);
+        }
+
+        .tam-circle {
+            inset: 0;
+            background: var(--tam-gradient);
+        }
+
+        .sam-circle {
+            inset: 15%;
+            background: var(--sam-gradient);
+            box-shadow: 0 14px 30px rgba(5, 150, 105, 0.28);
+        }
+
+        .som-circle {
+            inset: 35%;
+            background: var(--som-gradient);
+            box-shadow: 0 12px 26px rgba(14, 165, 233, 0.28);
+        }
+
+        .sr-only {
             position: absolute;
-            border-radius: 50%;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .circle-overlay {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .circle-text-block {
+            position: absolute;
+            left: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.12rem;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: rgba(248, 250, 252, 0.95);
+        }
+
+        .circle-text-block .label {
+            font-size: clamp(0.6rem, 0.9vw, 0.8rem);
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .circle-text-block .value {
+            font-size: clamp(0.85rem, 1.8vw, 1.3rem);
+            font-weight: 800;
+            white-space: nowrap;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .circle-text-block.tam {
+            top: 8%;
+            width: 74%;
+            color: rgba(239, 246, 255, 0.92);
+        }
+
+        .circle-text-block.sam {
+            top: 28%;
+            width: 52%;
+            color: rgba(236, 253, 245, 0.96);
+        }
+
+        .circle-text-block.sam .value {
+            font-size: clamp(0.78rem, 1.55vw, 1.18rem);
+        }
+
+        .circle-text-block.som {
+            top: 50%;
+            width: 30%;
+            color: rgba(240, 249, 255, 0.98);
+        }
+
+        .circle-text-block.som .value {
+            font-size: clamp(0.7rem, 1.2vw, 1rem);
+        }
+
+        .market-visual-card {
+            position: relative;
+        }
+
+        .text-hint {
+            position: absolute;
+            top: 1rem;
+            right: 1.2rem;
+            background: rgba(30, 41, 59, 0.72);
+            color: #f8fafc;
+            padding: 0.5rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.04em;
             display: flex;
             align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
+            gap: 0.5rem;
+            opacity: 0;
+            transform: translateY(-6px);
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+
+        .text-hint span {
+            font-weight: 700;
+        }
+
+        .text-hint.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .circles-wrapper .circle-tooltip {
+            position: relative;
+            transition: transform 0.3s ease, filter 0.3s ease;
             cursor: pointer;
         }
 
-        .circle:hover {
-            transform: scale(1.05);
+        .circles-wrapper .circle-tooltip:hover,
+        .circles-wrapper .circle-tooltip:focus-visible {
+            transform: translateY(-4px);
+            filter: brightness(1.05);
         }
 
-        /* TAM Circle - Outer */
-        .tam-circle {
-            width: 450px;
-            height: 450px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
-            z-index: 1;
-        }
 
-        .tam-circle .circle-value {
-            position: absolute;
-            top: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            font-size: 1.1rem;
-            font-weight: 800;
-            text-align: center;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-            max-width: 200px;
-            line-height: 1.2;
-        }
-
-        .tam-circle .circle-label {
-            position: absolute;
-            top: 35px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.95);
-            padding: 0.4rem 1.2rem;
-            border-radius: 20px;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
-            font-weight: 700;
-            color: #667eea;
-            font-size: 1rem;
-            border: 2px solid rgba(102, 126, 234, 0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        /* SAM Circle - Middle */
-        .sam-circle {
-            width: 300px;
-            height: 300px;
-            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
-            box-shadow: 0 6px 24px rgba(72, 187, 120, 0.3);
-            top: 75px;
-            left: 75px;
-            z-index: 2;
-        }
-
-        .sam-circle .circle-value {
-            position: absolute;
-            top: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            font-size: 1rem;
-            font-weight: 800;
-            text-align: center;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-            max-width: 150px;
-            line-height: 1.2;
-        }
-
-        .sam-circle .circle-label {
-            position: absolute;
-            top: 35px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.95);
-            padding: 0.4rem 1.2rem;
-            border-radius: 20px;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
-            font-weight: 700;
-            color: #48bb78;
-            font-size: 1rem;
-            border: 2px solid rgba(72, 187, 120, 0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        /* SOM Circle - Inner */
-        .som-circle {
-            width: 150px;
-            height: 150px;
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            box-shadow: 0 4px 16px rgba(44, 62, 80, 0.3);
-            top: 150px;
-            left: 150px;
-            z-index: 3;
-        }
-
-        .som-circle .circle-value {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 0.8rem;
-            font-weight: 800;
-            text-align: center;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-            max-width: 100px;
-            line-height: 1.1;
-        }
-
-        .som-circle .circle-label {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.95);
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
-            font-weight: 700;
-            color: #2c3e50;
-            font-size: 0.8rem;
-            border: 2px solid rgba(44, 62, 80, 0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        /* Market Cards */
-        .market-cards {
+        .summary-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.6rem;
         }
 
-        .market-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
+        .summary-card {
+            background: var(--surface-soft);
+            border-radius: 24px;
+            padding: 1.6rem;
+            border: 1px solid rgba(148, 163, 184, 0.25);
+            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.12);
             position: relative;
             overflow: hidden;
         }
 
-        .market-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+        .summary-card.tam {
+            border-color: rgba(125, 129, 242, 0.45);
         }
 
-        .market-card::before {
+        .summary-card.sam {
+            border-color: rgba(34, 197, 94, 0.35);
+        }
+
+        .summary-card.som {
+            border-color: rgba(14, 165, 233, 0.35);
+        }
+
+        .summary-card::after {
             content: '';
             position: absolute;
-            top: 0;
             left: 0;
-            right: 0;
+            top: 0;
+            width: 100%;
             height: 4px;
-            border-radius: 20px 20px 0 0;
+            border-radius: 24px 24px 0 0;
+            background: rgba(148, 163, 184, 0.35);
         }
 
-        .market-card.tam::before {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .summary-card.tam::after {
+            background: var(--tam-gradient);
         }
 
-        .market-card.sam::before {
-            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        .summary-card.sam::after {
+            background: var(--sam-gradient);
         }
 
-        .market-card.som::before {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        .summary-card.som::after {
+            background: var(--som-gradient);
         }
 
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .card-icon {
+        .summary-icon {
             width: 48px;
             height: 48px;
-            border-radius: var(--radius);
+            border-radius: 16px;
+            display: grid;
+            place-items: center;
+            background: rgba(99,102,241,0.12);
+            color: #4f46e5;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .summary-card.sam .summary-icon {
+            background: rgba(34,197,94,0.16);
+            color: #15803d;
+        }
+
+        .summary-card.som .summary-icon {
+            background: rgba(14,165,233,0.16);
+            color: #0c4a6e;
+        }
+
+        .summary-card h4 {
+            font-size: 1.05rem;
+            margin-bottom: 0.6rem;
+            font-weight: 600;
+        }
+
+        .summary-value {
+            font-size: 1.65rem;
+            font-weight: 800;
+            margin-bottom: 0.4rem;
+        }
+
+        .summary-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .penetration-card {
+            background: var(--surface);
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-md);
+            padding: 2.4rem;
+            backdrop-filter: blur(16px);
+        }
+
+        .penetration-header {
             display: flex;
             align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.25rem;
+            gap: 1rem;
+            margin-bottom: 2rem;
         }
 
-        .market-card.tam .card-icon {
-            background: var(--primary);
+        .penetration-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            background: rgba(15, 23, 42, 0.08);
+            display: grid;
+            place-items: center;
+            font-size: 1.3rem;
+            color: #1e293b;
         }
 
-        .market-card.sam .card-icon {
-            background: var(--success);
-        }
-
-        .market-card.som .card-icon {
-            background: var(--secondary);
-        }
-
-        .card-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--gray-900);
+        .penetration-details h3 {
+            font-size: 1.35rem;
+            font-weight: 700;
             margin: 0;
         }
 
-        .card-value {
-            font-size: 2rem;
-            font-weight: 700;
-            margin: 1rem 0;
-            color: var(--gray-900);
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .penetration-details p {
+            margin: 0.3rem 0 0;
+            color: var(--text-muted);
         }
 
-        .market-card.tam .card-value {
-            color: #667eea;
-        }
-
-        .market-card.sam .card-value {
-            color: #48bb78;
-        }
-
-        .market-card.som .card-value {
-            color: #2c3e50;
-        }
-
-        .card-description {
-            color: #4a5568;
-            line-height: 1.6;
-            font-size: 0.95rem;
-        }
-
-        /* Market Penetration Analysis */
-        .penetration-section {
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            border-radius: 20px;
-            padding: 2.5rem;
-            margin-top: 3rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .penetration-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #2c3e50;
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
-        .penetration-grid {
+        .penetration-metrics {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.4rem;
         }
 
-        .penetration-item {
-            background: white;
-            border-radius: 15px;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
+        .metric-card {
+            background: var(--surface-soft);
+            border-radius: 22px;
+            padding: 1.4rem 1.5rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
         }
 
-        .penetration-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        .metric-label {
+            font-size: 0.85rem;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+            text-transform: uppercase;
         }
 
-        .penetration-label {
-            font-size: 0.9rem;
-            color: #6b7280;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .penetration-value {
+        .metric-value {
             font-size: 2rem;
             font-weight: 800;
-            color: #2c3e50;
+            margin: 0.5rem 0 0.75rem;
         }
 
-        /* Business Info */
-        .business-info {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .metric-bar {
+            height: 8px;
+            background: var(--progress-bg);
+            border-radius: 999px;
+            overflow: hidden;
+            margin-bottom: 0.75rem;
         }
 
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
+        .metric-bar span {
+            display: block;
+            height: 100%;
+            border-radius: 999px;
         }
 
-        .info-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: #f8fafc;
-            border-radius: 12px;
-            transition: all 0.3s ease;
+        .metric-bar.sam span {
+            background: var(--sam-gradient);
         }
 
-        .info-item:hover {
-            background: #e2e8f0;
-            transform: translateY(-2px);
+        .metric-bar.som-sam span {
+            background: var(--som-gradient);
         }
 
-        .info-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.1rem;
+        .metric-bar.som-tam span {
+            background: var(--tam-gradient);
         }
 
-        .info-content h6 {
-            font-size: 0.8rem;
-            color: #6b7280;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.3rem;
+        .metric-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
         }
 
-        .info-content p {
-            font-size: 1rem;
-            color: #2c3e50;
-            font-weight: 600;
-            margin: 0;
-        }
-
-        /* Actions */
-        .actions {
-            background: white;
-            border-radius: 20px;
-            padding: 2.5rem;
+        .download-card {
+            background: var(--surface);
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-lg);
+            padding: 2.6rem 2.4rem;
             text-align: center;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-            margin-bottom: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(16px);
         }
 
-        .actions h3 {
-            font-size: 1.5rem;
+        .download-card h3 {
+            font-size: 1.35rem;
             font-weight: 700;
-            color: #2c3e50;
-            margin-bottom: 1rem;
+            margin-bottom: 0.6rem;
         }
 
-        .actions p {
-            color: #6b7280;
-            margin-bottom: 2rem;
-            font-size: 1rem;
+        .download-card p {
+            color: var(--text-muted);
+            margin-bottom: 1.6rem;
         }
 
-        .btn-group {
+        .mv-btn-group {
             display: flex;
             flex-wrap: wrap;
-            gap: 1rem;
             justify-content: center;
-            margin-bottom: 2rem;
+            gap: 1rem;
+            margin-bottom: 1.4rem;
         }
 
-        .btn {
-            padding: 0.8rem 1.5rem;
-            border-radius: 12px;
-            border: none;
+        .mv-btn {
+            padding: 0.85rem 1.7rem;
+            border-radius: 999px;
+            border: 1px solid transparent;
             font-weight: 600;
             font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            color: #fff;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.55rem;
             text-decoration: none;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+            box-shadow: 0 18px 36px rgba(15, 23, 42, 0.2);
         }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        .mv-btn:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.05);
+            box-shadow: 0 24px 48px rgba(15, 23, 42, 0.22);
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+        .mv-btn:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
 
-        .btn-success {
-            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
-            color: white;
-        }
+        .mv-btn-primary { background: var(--tam-gradient); }
+        .mv-btn-teal { background: var(--sam-gradient); }
+        .mv-btn-amber { background: linear-gradient(135deg, #f97316 0%, #facc15 100%); }
+        .mv-btn-slate { background: linear-gradient(135deg, #1f2937 0%, #475569 100%); }
+        .mv-btn-emerald { background: linear-gradient(135deg, #22c55e 0%, #0ea5e9 100%); }
+        .mv-btn-magenta { background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%); }
 
-        .btn-info {
-            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
-            color: white;
-        }
-
-        .btn-secondary {
-            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
-            color: white;
-        }
-
-        /* Footer */
         .footer {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             text-align: center;
+            color: rgba(248,250,252,0.85);
             padding: 2rem 1rem;
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 0.9rem;
-            border-radius: 20px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #6366f1 0%, #7c3aed 100%);
+            box-shadow: var(--shadow-sm);
+        }
+        @media (max-width: 992px) {
+            .hero-card {
+                padding: 2.6rem 2.2rem;
+            }
+            .hero-card h1 {
+                font-size: 2.2rem;
+            }
+            .info-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
 
-        /* Print Styles - Optimized for A4 */
+        @media (max-width: 768px) {
+            .container-main {
+                padding: 3rem 1rem 2rem;
+            }
+            .hero-card {
+                padding: 2.2rem 1.8rem;
+            }
+            .hero-card h1 {
+                font-size: 1.9rem;
+            }
+            .hero-top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .hero-icon {
+                align-self: flex-end;
+            }
+            .circles-wrapper {
+                margin-bottom: 1.8rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .info-strip {
+                grid-template-columns: 1fr;
+            }
+            .summary-cards {
+                grid-template-columns: 1fr;
+            }
+            .penetration-metrics {
+                grid-template-columns: 1fr;
+            }
+            .mv-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
         @media print {
             * {
                 -webkit-print-color-adjust: exact !important;
@@ -620,518 +719,35 @@
             }
 
             body {
-                background: white !important;
+                background: #fff !important;
                 padding: 0 !important;
                 margin: 0 !important;
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
-                font-size: 10px !important;
-                line-height: 1.3 !important;
-                width: 100% !important;
-                height: 100% !important;
+            }
+
+            body::before {
+                display: none !important;
+            }
+
+            nav.navbar,
+            .download-card {
+                display: none !important;
             }
 
             .container-main {
-                padding: 0 !important;
-                margin: 0 !important;
-                max-width: none !important;
-                background: white !important;
-                width: 100% !important;
+                padding: 1.5rem !important;
             }
 
-            /* Header - Compact */
-            .header {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-                color: white !important;
-                padding: 1rem !important;
-                margin: 0 0 1rem 0 !important;
-                page-break-inside: avoid;
-                border-radius: 8px !important;
-            }
-
-            .header h1 {
-                font-size: 1.5rem !important;
-                margin: 0 0 0.3rem 0 !important;
-                font-weight: 700 !important;
-                text-align: center !important;
-            }
-
-            .header p {
-                font-size: 0.9rem !important;
-                margin: 0 !important;
-                text-align: center !important;
-                opacity: 0.9 !important;
-            }
-
-            .header .generation-info {
-                background: rgba(255,255,255,0.15) !important;
-                color: white !important;
-                border: 1px solid rgba(255,255,255,0.2) !important;
-                padding: 0.3rem 0.8rem !important;
-                font-size: 0.7rem !important;
-                border-radius: 15px !important;
-                text-align: center !important;
-                margin-top: 0.5rem !important;
-                display: inline-block !important;
-            }
-
-            /* Business Info - Compact */
-            .business-info {
-                margin: 0 0 0.5rem 0 !important;
-                padding: 0.5rem !important;
-                background: #f8fafc !important;
-                page-break-inside: avoid;
-                border-radius: 8px !important;
-                border: 1px solid #e5e7eb !important;
-            }
-
-            .info-grid {
-                display: grid !important;
-                grid-template-columns: repeat(4, 1fr) !important;
-                gap: 0.5rem !important;
-            }
-
-            .info-item {
-                padding: 0.3rem !important;
-                background: white !important;
-                border-radius: 6px !important;
-                border: 1px solid #e5e7eb !important;
-                text-align: center !important;
-            }
-
-            .info-content h6 {
-                font-size: 0.6rem !important;
-                margin-bottom: 0.2rem !important;
-            }
-
-            .info-content p {
-                font-size: 0.8rem !important;
-                margin: 0 !important;
-            }
-
-            /* Main Content - Compact Layout */
-            .main-content {
-                background: white !important;
-                padding: 0.5rem !important;
-                margin: 0 0 0.5rem 0 !important;
-                page-break-inside: avoid;
-                border-radius: 8px !important;
-                display: flex !important;
-                justify-content: center !important;
-                align-items: center !important;
-                gap: 2rem !important;
-            }
-
-            /* Circles - Left Side */
-            .circles-container {
-                display: flex !important;
-                justify-content: center !important;
-                align-items: center !important;
-                margin: 0 !important;
-                flex: 0 0 auto !important;
-            }
-
-            .concentric-circles {
-                width: 200px !important;
-                height: 200px !important;
-                margin: 0 !important;
-            }
-
-            .tam-circle {
-                width: 200px !important;
-                height: 200px !important;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-                border: 2px solid white !important;
-                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
-            }
-
-            .tam-circle .circle-value {
-                display: none !important;
-            }
-
-            .tam-circle .circle-label {
-                top: 50% !important;
-                left: 50% !important;
-                transform: translate(-50%, -50%) !important;
-                background: white !important;
-                color: #667eea !important;
-                font-weight: 700 !important;
-                border: 1px solid #667eea !important;
-                padding: 0.2rem 0.8rem !important;
-                border-radius: 15px !important;
-                font-size: 0.7rem !important;
-            }
-
-            .sam-circle {
-                width: 140px !important;
-                height: 140px !important;
-                top: 30px !important;
-                left: 30px !important;
-                background: linear-gradient(135deg, #48bb78 0%, #38a169 100%) !important;
-                border: 2px solid white !important;
-                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
-            }
-
-            .sam-circle .circle-value {
-                display: none !important;
-            }
-
-            .sam-circle .circle-label {
-                top: 50% !important;
-                left: 50% !important;
-                transform: translate(-50%, -50%) !important;
-                background: white !important;
-                color: #48bb78 !important;
-                font-weight: 700 !important;
-                border: 1px solid #48bb78 !important;
-                padding: 0.2rem 0.8rem !important;
-                border-radius: 15px !important;
-                font-size: 0.7rem !important;
-            }
-
-            .som-circle {
-                width: 80px !important;
-                height: 80px !important;
-                top: 60px !important;
-                left: 60px !important;
-                background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%) !important;
-                border: 2px solid white !important;
-                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
-            }
-
-            .som-circle .circle-value {
-                display: none !important;
-            }
-
-            .som-circle .circle-label {
-                top: 50% !important;
-                left: 50% !important;
-                transform: translate(-50%, -50%) !important;
-                background: white !important;
-                color: #2c3e50 !important;
-                font-weight: 700 !important;
-                border: 1px solid #2c3e50 !important;
-                padding: 0.2rem 0.6rem !important;
-                border-radius: 12px !important;
-                font-size: 0.6rem !important;
-            }
-
-            /* Market Cards - Right Side */
-            .market-cards {
-                display: flex !important;
-                flex-direction: column !important;
-                gap: 0.8rem !important;
-                margin: 0 !important;
-                flex: 0 0 auto !important;
-                max-width: 300px !important;
-            }
-
-            .market-card {
-                background: white !important;
-                border: 2px solid #e5e7eb !important;
-                border-radius: 8px !important;
-                padding: 0.8rem !important;
-                page-break-inside: avoid;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
-            }
-
-            .market-card.tam::before {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-                height: 3px !important;
-            }
-
-            .market-card.sam::before {
-                background: linear-gradient(135deg, #48bb78 0%, #38a169 100%) !important;
-                height: 3px !important;
-            }
-
-            .market-card.som::before {
-                background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%) !important;
-                height: 3px !important;
-            }
-
-            .card-header {
-                margin-bottom: 0.5rem !important;
-            }
-
-            .card-title {
-                font-size: 0.9rem !important;
-                margin: 0 !important;
-            }
-
-            .card-value {
-                font-size: 1.2rem !important;
-                font-weight: 800 !important;
-                margin: 0.5rem 0 !important;
-            }
-
-            .market-card.tam .card-value {
-                color: #667eea !important;
-            }
-
-            .market-card.sam .card-value {
-                color: #48bb78 !important;
-            }
-
-            .market-card.som .card-value {
-                color: #2c3e50 !important;
-            }
-
-            .card-description {
-                font-size: 0.7rem !important;
-                line-height: 1.3 !important;
-            }
-
-            /* Penetration Section - Full Width */
-            .penetration-section {
-                background: #f8fafc !important;
-                border: 1px solid #e5e7eb !important;
-                border-radius: 8px !important;
-                padding: 0.5rem !important;
-                margin-top: 0.5rem !important;
-                page-break-inside: avoid;
-                width: 100% !important;
-            }
-
-            .penetration-title {
-                font-size: 0.9rem !important;
-                margin-bottom: 0.5rem !important;
-            }
-
-            .penetration-grid {
-                display: grid !important;
-                grid-template-columns: repeat(3, 1fr) !important;
-                gap: 0.5rem !important;
-            }
-
-            .penetration-item {
-                background: white !important;
-                border: 1px solid #e5e7eb !important;
-                border-radius: 6px !important;
-                padding: 0.5rem !important;
-                text-align: center !important;
-                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
-            }
-
-            .penetration-label {
-                font-size: 0.7rem !important;
-                margin-bottom: 0.3rem !important;
-            }
-
-            .penetration-value {
-                font-size: 1.2rem !important;
-                font-weight: 800 !important;
-                color: #2c3e50 !important;
-            }
-
-            .actions {
-                display: none !important;
-            }
-
-            .footer {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-                color: white !important;
-                margin: 0 !important;
-                padding: 0.8rem !important;
-                page-break-inside: avoid;
-                font-size: 0.7rem !important;
-                text-align: center !important;
-                border-radius: 8px !important;
-            }
-
-            @page {
-                margin: 0.8cm;
-                size: A4;
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1200px) {
-            .main-content {
-                padding: 2.5rem;
-            }
-            
-            .market-cards {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header {
-                padding: 1rem 0;
-                text-align: center;
-            }
-            
-            .header h1 {
-                font-size: 1.75rem;
-            }
-            
-            .header p {
-                font-size: 1rem;
-            }
-
-            .main-content {
-                padding: 1.5rem;
-            }
-
-            .concentric-circles {
-                width: 300px;
-                height: 300px;
-            }
-
-            .tam-circle {
-                width: 300px;
-                height: 300px;
-            }
-
-            .tam-circle .circle-value {
-                font-size: 1rem;
-                max-width: 150px;
-                top: 12px;
-            }
-
-            .tam-circle .circle-label {
-                top: 30px;
-            }
-
-            .sam-circle {
-                width: 200px;
-                height: 200px;
-                top: 50px;
-                left: 50px;
-            }
-
-            .sam-circle .circle-value {
-                font-size: 0.9rem;
-                max-width: 120px;
-                top: 12px;
-            }
-
-            .sam-circle .circle-label {
-                top: 30px;
-            }
-
-            .som-circle {
-                width: 100px;
-                height: 100px;
-                top: 100px;
-                left: 100px;
-            }
-
-            .som-circle .circle-value {
-                font-size: 0.7rem;
-                max-width: 80px;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-            }
-
-            .som-circle .circle-label {
-                top: 15px;
-            }
-
-            .market-cards {
-                grid-template-columns: 1fr;
-            }
-
-            .btn-group {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .info-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .penetration-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .header h1 {
-                font-size: 1.5rem;
-            }
-            
-            .header p {
-                font-size: 0.875rem;
-            }
-
-            .main-content {
-                padding: 1rem;
-            }
-
-            .concentric-circles {
-                width: 250px;
-                height: 250px;
-            }
-
-            .tam-circle {
-                width: 250px;
-                height: 250px;
-            }
-
-            .tam-circle .circle-value {
-                font-size: 0.9rem;
-                max-width: 120px;
-                top: 10px;
-            }
-
-            .tam-circle .circle-label {
-                top: 25px;
-            }
-
-            .sam-circle {
-                width: 170px;
-                height: 170px;
-                top: 40px;
-                left: 40px;
-            }
-
-            .sam-circle .circle-value {
-                font-size: 0.8rem;
-                max-width: 100px;
-                top: 10px;
-            }
-
-            .sam-circle .circle-label {
-                top: 25px;
-            }
-
-            .som-circle {
-                width: 80px;
-                height: 80px;
-                top: 85px;
-                left: 85px;
-            }
-
-            .som-circle .circle-value {
-                font-size: 0.6rem;
-                max-width: 60px;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-            }
-
-            .som-circle .circle-label {
-                top: 12px;
-            }
-
-            .card-value {
-                font-size: 2rem;
-            }
-            
-            .navbar-nav {
-                text-align: center;
-            }
-            
-            .navbar-nav .nav-link {
-                padding: 0.75rem 1rem;
+            .hero-card,
+            .info-item,
+            .market-visual-card,
+            .penetration-card {
+                box-shadow: none !important;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+   <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
         <div class="container">
             <a class="navbar-brand fw-bold fs-3" href="{{ route('bmc.landing') }}">
@@ -1159,229 +775,204 @@
         </div>
     </nav>
 
+    @php
+        $tamValue = (float) ($data['tam_value'] ?? 0);
+        $samValue = (float) ($data['sam_value'] ?? 0);
+        $somValue = (float) ($data['som_value'] ?? 0);
+        $tamMarketSize = (int) ($data['tam_market_size'] ?? 0);
+        $samMarketSize = (int) ($data['sam_market_size'] ?? 0);
+        $somMarketSize = (int) ($data['som_market_size'] ?? 0);
+
+        $samShare = $tamValue > 0 ? round(($samValue / max($tamValue, 1)) * 100, 1) : 0;
+        $somShareSam = $samValue > 0 ? round(($somValue / max($samValue, 1)) * 100, 1) : 0;
+        $somShareTam = $tamValue > 0 ? round(($somValue / max($tamValue, 1)) * 100, 1) : 0;
+
+        $samPercentage = isset($data['sam_percentage']) ? round((float) $data['sam_percentage'], 1) : $samShare;
+        $somPercentage = isset($data['som_percentage']) ? round((float) $data['som_percentage'], 1) : $somShareSam;
+    @endphp
+
     <div class="container-main">
-        <!-- Header -->
-        <div class="header">
-            <h1>Market Validation Analysis</h1>
-            <p>{{ $data['business_name'] ?? 'Business Analysis' }}</p>
-            <div class="generation-info">
-                <i class="fas fa-calendar-alt me-2"></i>
-                Generated on {{ date('d F Y, H:i') }} WIB
-            </div>
-        </div>
-
-        <!-- Business Info -->
-        <div class="business-info">
-            <div class="info-grid">
-                <div class="info-item">
-                    <div class="info-icon">
-                        <i class="fas fa-briefcase"></i>
-                    </div>
-                    <div class="info-content">
-                        <h6>Business Name</h6>
-                        <p>{{ $data['business_name'] ?? 'N/A' }}</p>
-                    </div>
+        <div class="page-wrapper">
+            <div class="hero-card">
+                <div class="hero-top">
+                    <span class="hero-badge"><i class="fa-solid fa-bolt"></i> Market Validation</span>
+                    <div class="hero-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
                 </div>
+                <h1>Market Validation Analysis</h1>
+                <p>Analisis pasar komprehensif untuk memetakan TAM, SAM, dan SOM bisnis Anda.</p>
+                <div class="hero-download">
+                    <i class="fa-solid fa-clock"></i>
+                    Generated on {{ date('d F Y, H:i') }} WIB
+                </div>
+            </div>
+
+            <div class="info-strip">
                 <div class="info-item">
-                    <div class="info-icon">
-                        <i class="fas fa-user"></i>
-                    </div>
+                    <div class="info-icon"><i class="fa-solid fa-briefcase"></i></div>
                     <div class="info-content">
-                        <h6>Owner</h6>
-                        <p>{{ $data['owner_name'] ?? 'N/A' }}</p>
+                        <span>Nama Bisnis</span>
+                        <strong>{{ $data['business_name'] ?? 'Tidak diketahui' }}</strong>
                     </div>
                 </div>
                 <div class="info-item">
-                    <div class="info-icon">
-                        <i class="fas fa-industry"></i>
-                    </div>
+                    <div class="info-icon"><i class="fa-solid fa-user"></i></div>
                     <div class="info-content">
-                        <h6>Industry</h6>
-                        <p>{{ $data['industry'] ?? 'N/A' }}</p>
+                        <span>Pemilik</span>
+                        <strong>{{ $data['owner_name'] ?? 'Tidak diketahui' }}</strong>
                     </div>
                 </div>
                 <div class="info-item">
-                    <div class="info-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
+                    <div class="info-icon"><i class="fa-solid fa-industry"></i></div>
                     <div class="info-content">
-                        <h6>Location</h6>
-                        <p>{{ $data['location'] ?? 'N/A' }}</p>
+                        <span>Industri</span>
+                        <strong>{{ $data['industry'] ?? 'Tidak diketahui' }}</strong>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+                    <div class="info-content">
+                        <span>Lokasi</span>
+                        <strong>{{ $data['location'] ?? 'Tidak diketahui' }}</strong>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Concentric Circles -->
-                    <div class="circles-container">
-                <div class="concentric-circles">
-                    <!-- TAM Circle -->
-                    <div class="circle tam-circle">
-                            <div class="circle-label">TAM</div>
-                        <div class="circle-value">Rp {{ number_format($data['tam_value'] ?? 0, 0, ',', '.') }}</div>
-                    </div>
-                    
-                    <!-- SAM Circle -->
-                    <div class="circle sam-circle">
-                            <div class="circle-label">SAM</div>
-                        <div class="circle-value">Rp {{ number_format($data['sam_value'] ?? 0, 0, ',', '.') }}</div>
-                    </div>
-                    
-                    <!-- SOM Circle -->
-                    <div class="circle som-circle">
-                            <div class="circle-label">SOM</div>
-                        <div class="circle-value">Rp {{ number_format($data['som_value'] ?? 0, 0, ',', '.') }}</div>
-                        </div>
-                    </div>
+            <div class="market-visual-card">
+                <div class="visual-header">
+                    <i class="fa-solid fa-bullseye"></i>
+                    TAM / SAM / SOM overview
                 </div>
-                
-            <!-- Market Cards -->
-            <div class="market-cards">
-                <!-- TAM Card -->
-                <div class="market-card tam">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <h3 class="card-title">Total Available Market</h3>
+                <div class="circles-wrapper">
+                    <div class="concentric-circles">
+                            <div class="circle tam-circle">
+                                
+                            </div>
+                            <div class="circle sam-circle">
+                                
+                            </div>
+                            <div class="circle som-circle">
+                                
+                            </div>
+                            <div class="circle-overlay" aria-hidden="true">
+                                <div class="circle-text-block tam">
+                                    <span class="label">TAM</span>
+                                    <span class="value">Rp {{ number_format($tamValue, 0, ',', '.') }}</span>
+                                </div>
+                                <div class="circle-text-block sam">
+                                    <span class="label">SAM</span>
+                                    <span class="value">Rp {{ number_format($samValue, 0, ',', '.') }}</span>
+                                </div>
+                                <div class="circle-text-block som">
+                                    <span class="label">SOM</span>
+                                    <span class="value">Rp {{ number_format($somValue, 0, ',', '.') }}</span>
+                                </div>
+                            </div>
+                            </div>
                     </div>
-                    <div class="card-value">Rp {{ number_format($data['tam_value'] ?? 0, 0, ',', '.') }}</div>
-                    <p class="card-description">{{ $data['tam_description'] ?? 'Total Addressable Market' }}</p>
+                <div class="summary-cards">
+                    <div class="summary-card tam">
+                        <div class="summary-icon"><i class="fa-solid fa-chart-pie"></i></div>
+                        <h4>Total Available Market</h4>
+                        <div class="summary-value">Rp {{ number_format($tamValue, 0, ',', '.') }}</div>
+                        <p class="summary-desc">Potensi maksimal pasar global yang dapat dijangkau oleh produk atau layanan Anda.</p>
+                        <p class="summary-desc mb-0">Perkiraan populasi: {{ number_format($tamMarketSize, 0, ',', '.') }} prospek.</p>
                     </div>
-                    
-                <!-- SAM Card -->
-                <div class="market-card sam">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <h3 class="card-title">Serviceable Available Market</h3>
+                    <div class="summary-card sam">
+                        <div class="summary-icon"><i class="fa-solid fa-users"></i></div>
+                        <h4>Serviceable Available Market</h4>
+                        <div class="summary-value">Rp {{ number_format($samValue, 0, ',', '.') }}</div>
+                        <p class="summary-desc">Segmentasi pasar yang dapat dilayani sesuai distribusi, kanal, dan positioning Anda.</p>
+                        <p class="summary-desc mb-0">Porsi pasar: {{ number_format($samPercentage, 1, ',', '.') }}% | Estimasi pelanggan {{ number_format($samMarketSize, 0, ',', '.') }}.</p>
                     </div>
-                    <div class="card-value">Rp {{ number_format($data['sam_value'] ?? 0, 0, ',', '.') }}</div>
-                    <p class="card-description">{{ $data['sam_description'] ?? 'Serviceable Addressable Market' }}</p>
+                    <div class="summary-card som">
+                        <div class="summary-icon"><i class="fa-solid fa-bullseye"></i></div>
+                        <h4>Serviceable Obtainable Market</h4>
+                        <div class="summary-value">Rp {{ number_format($somValue, 0, ',', '.') }}</div>
+                        <p class="summary-desc">Target realistis yang dapat dicapai dengan strategi dan sumber daya saat ini.</p>
+                        <p class="summary-desc mb-0">Porsi pasar: {{ number_format($somPercentage, 1, ',', '.') }}% | Estimasi pelanggan {{ number_format($somMarketSize, 0, ',', '.') }}.</p>
                     </div>
-                    
-                <!-- SOM Card -->
-                <div class="market-card som">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-bullseye"></i>
-                        </div>
-                        <h3 class="card-title">Serviceable Obtainable Market</h3>
-                        </div>
-                    <div class="card-value">Rp {{ number_format($data['som_value'] ?? 0, 0, ',', '.') }}</div>
-                    <p class="card-description">{{ $data['som_description'] ?? 'Serviceable Obtainable Market' }}</p>
                 </div>
             </div>
-        </div>
+            <div class="penetration-card">
+                <div class="penetration-header">
+                    <div class="penetration-icon"><i class="fa-solid fa-chart-line"></i></div>
+                    <div class="penetration-details">
+                        <h3>Analisis Penetrasi Pasar</h3>
+                        <p>Menggambarkan perjalanan pencapaian pasar dari total potensi hingga target spesifik.</p>
+                    </div>
+                </div>
+                <div class="penetration-metrics">
+                    <div class="metric-card">
+                        <span class="metric-label">SAM dari TAM</span>
+                        <div class="metric-value">{{ number_format($samShare, 1, ',', '.') }}%</div>
+                        <div class="metric-bar sam"><span style="width: {{ min($samShare, 100) }}%"></span></div>
+                        <p class="metric-desc">Persentase pasar potensial yang siap Anda layani secara efektif.</p>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">SOM dari SAM</span>
+                        <div class="metric-value">{{ number_format($somShareSam, 1, ',', '.') }}%</div>
+                        <div class="metric-bar som-sam"><span style="width: {{ min($somShareSam, 100) }}%"></span></div>
+                        <p class="metric-desc">Target penyerapan pasar realistis berdasarkan kapasitas internal.</p>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">SOM dari TAM</span>
+                        <div class="metric-value">{{ number_format($somShareTam, 1, ',', '.') }}%</div>
+                        <div class="metric-bar som-tam"><span style="width: {{ min($somShareTam, 100) }}%"></span></div>
+                        <p class="metric-desc">Kontribusi target realistis dibandingkan potensi pasar maksimal.</p>
+                    </div>
+                </div>
+            </div>
 
-        <!-- Market Penetration Analysis -->
-        <div class="penetration-section">
-                <h3 class="penetration-title">
-                    <i class="fas fa-chart-pie"></i>
-                    Analisis Penetrasi Pasar
-                </h3>
-                <div class="penetration-grid">
-                    <div class="penetration-item">
-                        <div class="penetration-label">SAM dari TAM</div>
-                        <div class="penetration-value">
-                            @if(isset($data['tam_value']) && $data['tam_value'] > 0)
-                                {{ number_format((($data['sam_value'] ?? 0) / $data['tam_value']) * 100, 1) }}%
-                            @else
-                                0%
-                        @endif
-            </div>
-            </div>
-                    <div class="penetration-item">
-                        <div class="penetration-label">SOM dari SAM</div>
-                        <div class="penetration-value">
-                            @if(isset($data['sam_value']) && $data['sam_value'] > 0)
-                                {{ number_format((($data['som_value'] ?? 0) / $data['sam_value']) * 100, 1) }}%
-                            @else
-                                0%
-            @endif
-        </div>
-                    </div>
-                    <div class="penetration-item">
-                        <div class="penetration-label">SOM dari TAM</div>
-                        <div class="penetration-value">
-                            @if(isset($data['tam_value']) && $data['tam_value'] > 0)
-                                {{ number_format((($data['som_value'] ?? 0) / $data['tam_value']) * 100, 1) }}%
-                            @else
-                                0%
-        @endif
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Actions -->
-        <div class="actions">
-            <h3>Download Analysis</h3>
-            <p>Pilih format download yang Anda inginkan</p>
-            @if(config('app.debug'))
-                <small class="text-muted">Debug: ID = {{ $data['id'] ?? 'null' }}</small>
-            @endif
-            <div class="btn-group">
-                @if(isset($data['id']) && $data['id'])
-                    <button onclick="downloadPDF()" class="btn btn-primary">
-                        <i class="fas fa-file-pdf"></i> Download PDF
-                    </button>
-                @else
-                    <button onclick="alert('Data Market Validation tidak ditemukan. Silakan refresh halaman atau buat Market Validation baru.')" class="btn btn-primary" disabled>
-                        <i class="fas fa-file-pdf"></i> Download PDF
-                    </button>
+            <div class="download-card actions">
+                <h3>Download Analysis</h3>
+                <p>Pilih format yang Anda perlukan untuk dibagikan kepada tim atau investor.</p>
+                @if(config('app.debug'))
+                    <small class="text-muted d-block mb-3">Debug: ID = {{ $data['id'] ?? 'null' }}</small>
                 @endif
-                <button onclick="downloadAsImage('png')" class="btn btn-success">
-                    <i class="fas fa-file-image"></i> Download PNG
-                </button>
-                <button onclick="downloadAsImage('jpg')" class="btn btn-info">
-                    <i class="fas fa-file-image"></i> Download JPG
-                </button>
-                <button onclick="printDocument()" class="btn btn-secondary">
-                    <i class="fas fa-print"></i> Print Document
-                </button>
+                <div class="mv-btn-group">
+                    @if(isset($data['id']) && $data['id'])
+                        <button onclick="downloadPDF()" class="mv-btn mv-btn-primary"><i class="fa-solid fa-file-pdf"></i> Download PDF</button>
+                    @else
+                        <button class="mv-btn mv-btn-primary" disabled><i class="fa-solid fa-file-pdf"></i> Download PDF</button>
+                    @endif
+                    <button onclick="downloadAsImage('png')" class="mv-btn mv-btn-teal"><i class="fa-solid fa-image"></i> Download PNG</button>
+                    <button onclick="downloadAsImage('jpg')" class="mv-btn mv-btn-amber"><i class="fa-solid fa-image"></i> Download JPG</button>
+                    <button onclick="printDocument()" class="mv-btn mv-btn-slate"><i class="fa-solid fa-print"></i> Print Document</button>
+                </div>
+                <div class="mv-btn-group">
+                    <a href="{{ route('tam-sam-som.create') }}" class="mv-btn mv-btn-emerald"><i class="fa-solid fa-paper-plane"></i> Buat Market Validation Baru</a>
+                    <a href="{{ route('bmc.landing') }}" class="mv-btn mv-btn-magenta"><i class="fa-solid fa-house"></i> Kembali ke Beranda</a>
+                </div>
             </div>
-            
-            <div class="btn-group">
-                <a href="{{ route('tam-sam-som.create') }}" class="btn btn-success">
-                    <i class="fas fa-plus"></i> Buat Market Validation Baru
-                </a>
-                <a href="{{ route('bmc.landing') }}" class="btn btn-secondary">
-                    <i class="fas fa-home"></i> Kembali ke Beranda
-                </a>
-            </div>
-        </div>
 
-        <!-- Footer -->
-        <div class="footer">
-            <p><strong>Ideation Platform</strong> - Business Strategy Platform</p>
-            <p>Dokumen ini dibuat secara otomatis oleh sistem Ideation</p>
+            <div class="footer">
+                <strong>Ideation Platform</strong> - Business Strategy Companion<br>
+                Dokumen ini dihasilkan secara otomatis oleh sistem Ideation.
+            </div>
         </div>
     </div>
 
-    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
-        // Initialize Lucide icons
         lucide.createIcons();
 
-        // PDF Download Function
+        const businessName = @json($data['business_name'] ?? 'Document');
+        const exportDate = @json(date('Y-m-d'));
+
+        
+
         function downloadPDF() {
             if (typeof window.jspdf === 'undefined') {
                 alert('Library jsPDF tidak tersedia. Silakan refresh halaman dan coba lagi.');
                 return;
             }
-            
+
             const body = document.body;
             const actions = document.querySelector('.actions');
-            
+
             if (actions) actions.style.display = 'none';
-            
+
             setTimeout(() => {
                 html2canvas(body, {
                     scale: 2,
@@ -1396,32 +987,30 @@
                     windowHeight: body.scrollHeight
                 }).then(canvas => {
                     if (actions) actions.style.display = 'block';
-                    
+
                     const { jsPDF } = window.jspdf;
                     const pdf = new jsPDF('p', 'mm', 'a4');
-                    
+
                     const imgWidth = 210;
                     const pageHeight = 295;
                     const imgHeight = (canvas.height * imgWidth) / canvas.width;
                     let heightLeft = imgHeight;
-                    
+
                     const imgData = canvas.toDataURL('image/png', 1.0);
                     let position = 0;
-                    
+
                     pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
                     heightLeft -= pageHeight;
-                    
+
                     while (heightLeft >= 0) {
                         position = heightLeft - imgHeight;
                         pdf.addPage();
                         pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
                         heightLeft -= pageHeight;
                     }
-                    
-                    const businessName = '{{ $data['business_name'] ?? 'Document' }}';
-                    const date = '{{ date('Y-m-d') }}';
-                    pdf.save(`TAM-SAM-SOM-${businessName.replace(/[^a-zA-Z0-9]/g, '-')}-${date}.pdf`);
-                    
+
+                    pdf.save(`TAM-SAM-SOM-${businessName.replace(/[^a-zA-Z0-9]/g, '-')}-${exportDate}.pdf`);
+
                 }).catch(error => {
                     console.error('Error generating PDF:', error);
                     if (actions) actions.style.display = 'block';
@@ -1430,13 +1019,12 @@
             }, 200);
         }
 
-        // Download Functions
         function downloadAsImage(format) {
             const body = document.body;
             const actions = document.querySelector('.actions');
-            
+
             if (actions) actions.style.display = 'none';
-            
+
             setTimeout(() => {
                 html2canvas(body, {
                     scale: 2,
@@ -1451,18 +1039,16 @@
                     windowHeight: body.scrollHeight
                 }).then(canvas => {
                     if (actions) actions.style.display = 'block';
-                    
+
                     const link = document.createElement('a');
-                    const businessName = '{{ $data['business_name'] ?? 'Document' }}';
-                    const date = '{{ date('Y-m-d') }}';
-                    link.download = `TAM-SAM-SOM-${businessName.replace(/[^a-zA-Z0-9]/g, '-')}-${date}.${format}`;
-                    
+                    link.download = `TAM-SAM-SOM-${businessName.replace(/[^a-zA-Z0-9]/g, '-')}-${exportDate}.${format}`;
+
                     if (format === 'png') {
                         link.href = canvas.toDataURL('image/png', 1.0);
                     } else if (format === 'jpg') {
                         link.href = canvas.toDataURL('image/jpeg', 0.95);
                     }
-                    
+
                     link.click();
                 }).catch(error => {
                     console.error('Error generating image:', error);
@@ -1474,17 +1060,16 @@
 
         function printDocument() {
             const actions = document.querySelector('.actions');
-            
+
             if (actions) actions.style.display = 'none';
-            
+
             window.print();
-            
+
             setTimeout(() => {
                 if (actions) actions.style.display = 'block';
             }, 1000);
         }
 
-        // Print event handlers
         window.addEventListener('beforeprint', function() {
             const actions = document.querySelector('.actions');
             if (actions) actions.style.display = 'none';
@@ -1496,7 +1081,12 @@
         });
     </script>
 
-    <!-- Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+
+
+
+
+

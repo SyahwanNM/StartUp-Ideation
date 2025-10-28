@@ -1109,11 +1109,28 @@
                         </button>
                     </div>
                 </div>
-                <input type="hidden" name="tam_value" :value="tam.total || 0">
-                <input type="hidden" name="sam_market_size" :value="sam.marketSize || 0">
-                <input type="hidden" name="sam_value" :value="sam.total || 0">
-                <input type="hidden" name="som_market_size" :value="som.marketSize || 0">
-                <input type="hidden" name="som_value" :value="som.total || 0">
+                <input type="hidden" name="business_name" :value="stringValue(business.name)">
+                <input type="hidden" name="owner_name" :value="stringValue(business.owner)">
+                <input type="hidden" name="industry" :value="stringValue(business.industry)">
+                <input type="hidden" name="location" :value="stringValue(business.location)">
+                <input type="hidden" name="tam_description" :value="stringValue(tam.description)">
+                <input type="hidden" name="tam_market_size_raw" :value="numericValue(tam.qty)">
+                <input type="hidden" name="tam_unit_value" :value="numericValue(tam.unit)">
+                <input type="hidden" name="tam_value" :value="numericValue(tam.total)">
+                <input type="hidden" name="sam_description" :value="stringValue(sam.description)">
+                <input type="hidden" name="sam_percentage" :value="numericValue(sam.percentage)">
+                <input type="hidden" name="sam_market_size" :value="numericValue(sam.marketSize)">
+                <input type="hidden" name="sam_value" :value="numericValue(sam.total)">
+                <input type="hidden" name="som_description" :value="stringValue(som.description)">
+                <input type="hidden" name="som_percentage" :value="numericValue(som.percentage)">
+                <input type="hidden" name="som_market_size" :value="numericValue(som.marketSize)">
+                <input type="hidden" name="som_value" :value="numericValue(som.total)">
+                <template x-for="(assumption, index) in marketAssumptions" :key="'assumption-' + index">
+                    <input type="hidden" name="market_assumptions[]" :value="stringValue(assumption)">
+                </template>
+                <template x-for="(projection, index) in growthProjections" :key="'projection-' + index">
+                    <input type="hidden" name="growth_projections[]" :value="stringValue(projection)">
+                </template>
             </div>
         </form>
     </div>
@@ -1262,6 +1279,17 @@
                 3: 'linear-gradient(90deg,#f59e0b,#f97316)',
                 4: 'linear-gradient(90deg,#22c55e,#14b8a6)',
                 5: 'linear-gradient(90deg,#8b5cf6,#a855f7)'
+            },
+            stringValue(value) {
+                return (value ?? '').toString().trim();
+            },
+            numericValue(value) {
+                const raw = this.stringValue(value);
+                if (!raw.length) {
+                    return '';
+                }
+                const numeric = toNumber(raw);
+                return Number.isFinite(numeric) ? numeric : '';
             },
             init() {
                 if (this.current < 1) {
