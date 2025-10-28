@@ -715,6 +715,11 @@
             }
         }
 
+        @page {
+            size: A4;
+            margin: 12mm 10mm;
+        }
+
         @media print {
             * {
                 -webkit-print-color-adjust: exact !important;
@@ -722,8 +727,14 @@
                 print-color-adjust: exact !important;
             }
 
+            html,
             body {
+                width: 100% !important;
+                height: auto !important;
                 background: #fff !important;
+            }
+
+            body {
                 padding: 0 !important;
                 margin: 0 !important;
             }
@@ -733,12 +744,44 @@
             }
 
             nav.navbar,
-            .download-card {
+            .download-card,
+            .actions,
+            .mv-btn-group {
                 display: none !important;
             }
 
             .container-main {
-                padding: 1.5rem !important;
+                max-width: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .page-wrapper {
+                gap: 1.5rem !important;
+            }
+
+            .page-wrapper > div {
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
+            }
+
+            .info-strip,
+            .summary-cards,
+            .penetration-metrics {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            }
+
+            .summary-card,
+            .info-item,
+            .metric-card {
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
+            }
+
+            .market-visual-card {
+                break-before: page !important;
+                page-break-before: always !important;
+                margin-top: 0 !important;
             }
 
             .hero-card,
@@ -963,102 +1006,113 @@
         const businessName = @json($data['business_name'] ?? 'Document');
         const exportDate = @json(date('Y-m-d'));
 
-        
+        const CAPTURE_DELAY = 200;
+        const CANVAS_PADDING = 60;
 
-        function downloadPDF() {
+        function restoreActions(actions, previousDisplay) {
+            if (actions) {
+                actions.style.display = previousDisplay !== null ? previousDisplay : '';
+            }
+        }
+
+        async function captureExportCanvas() {
+            const target = document.querySelector('.page-wrapper');
+
+            if (!target) {
+                throw new Error('Bagian konten utama tidak ditemukan.');
+            }
+
+            await new Promise(resolve => setTimeout(resolve, CAPTURE_DELAY));
+
+            const canvas = await html2canvas(target, {
+                scale: 2,
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: '#ffffff',
+                scrollX: 0,
+                scrollY: 0,
+                width: target.scrollWidth,
+                height: target.scrollHeight,
+                windowWidth: target.scrollWidth,
+                windowHeight: target.scrollHeight
+            });
+
+            if (!CANVAS_PADDING) {
+                return canvas;
+            }
+
+            const paddedCanvas = document.createElement('canvas');
+            paddedCanvas.width = canvas.width + CANVAS_PADDING * 2;
+            paddedCanvas.height = canvas.height + CANVAS_PADDING * 2;
+
+            const context = paddedCanvas.getContext('2d');
+            context.fillStyle = '#ffffff';
+            context.fillRect(0, 0, paddedCanvas.width, paddedCanvas.height);
+            context.drawImage(canvas, CANVAS_PADDING, CANVAS_PADDING);
+
+            return paddedCanvas;
+        }
+
+        async function downloadPDF() {
             if (typeof window.jspdf === 'undefined') {
                 alert('Library jsPDF tidak tersedia. Silakan refresh halaman dan coba lagi.');
                 return;
             }
 
-            const body = document.body;
             const actions = document.querySelector('.actions');
+            const previousDisplay = actions ? actions.style.display : null;
 
             if (actions) actions.style.display = 'none';
 
-            setTimeout(() => {
-                html2canvas(body, {
-                    scale: 2,
-                    useCORS: true,
-                    allowTaint: true,
-                    backgroundColor: '#ffffff',
-                    width: body.scrollWidth,
-                    height: body.scrollHeight,
-                    scrollX: 0,
-                    scrollY: 0,
-                    windowWidth: 1200,
-                    windowHeight: body.scrollHeight
-                }).then(canvas => {
-                    if (actions) actions.style.display = 'block';
+            try {
+                const canvas = await captureExportCanvas();
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'mm', 'a4');
 
-                    const { jsPDF } = window.jspdf;
-                    const pdf = new jsPDF('p', 'mm', 'a4');
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = pdf.internal.pageSize.getHeight();
+                const horizontalMargin = 8;
+                const verticalMargin = 12;
+                const usableWidth = pdfWidth - horizontalMargin * 2;
+                const usableHeight = pdfHeight - verticalMargin * 2;
+                const scale = Math.min(usableWidth / canvas.width, usableHeight / canvas.height, 1);
+                const renderWidth = canvas.width * scale;
+                const renderHeight = canvas.height * scale;
+                const offsetX = Math.max(horizontalMargin, (pdfWidth - renderWidth) / 2);
+                const offsetY = Math.max(verticalMargin, (pdfHeight - renderHeight) / 2);
+                const imgData = canvas.toDataURL('image/png', 1.0);
+                pdf.addImage(imgData, 'PNG', offsetX, offsetY, renderWidth, renderHeight);
 
-                    const imgWidth = 210;
-                    const pageHeight = 295;
-                    const imgHeight = (canvas.height * imgWidth) / canvas.width;
-                    let heightLeft = imgHeight;
-
-                    const imgData = canvas.toDataURL('image/png', 1.0);
-                    let position = 0;
-
-                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                    heightLeft -= pageHeight;
-
-                    while (heightLeft >= 0) {
-                        position = heightLeft - imgHeight;
-                        pdf.addPage();
-                        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                        heightLeft -= pageHeight;
-                    }
-
-                    pdf.save(`TAM-SAM-SOM-${businessName.replace(/[^a-zA-Z0-9]/g, '-')}-${exportDate}.pdf`);
-
-                }).catch(error => {
-                    console.error('Error generating PDF:', error);
-                    if (actions) actions.style.display = 'block';
-                    alert('Terjadi kesalahan saat membuat PDF: ' + error.message);
-                });
-            }, 200);
+                pdf.save(`TAM-SAM-SOM-${businessName.replace(/[^a-zA-Z0-9]/g, '-')}-${exportDate}.pdf`);
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                alert('Terjadi kesalahan saat membuat PDF: ' + error.message);
+            } finally {
+                restoreActions(actions, previousDisplay);
+            }
         }
 
-        function downloadAsImage(format) {
-            const body = document.body;
+        async function downloadAsImage(format) {
             const actions = document.querySelector('.actions');
+            const previousDisplay = actions ? actions.style.display : null;
 
             if (actions) actions.style.display = 'none';
 
-            setTimeout(() => {
-                html2canvas(body, {
-                    scale: 2,
-                    useCORS: true,
-                    allowTaint: true,
-                    backgroundColor: '#ffffff',
-                    width: body.scrollWidth,
-                    height: body.scrollHeight,
-                    scrollX: 0,
-                    scrollY: 0,
-                    windowWidth: 1200,
-                    windowHeight: body.scrollHeight
-                }).then(canvas => {
-                    if (actions) actions.style.display = 'block';
+            try {
+                const canvas = await captureExportCanvas();
+                const mimeType = format === 'jpg' ? 'image/jpeg' : 'image/png';
+                const quality = format === 'jpg' ? 0.95 : 1.0;
 
-                    const link = document.createElement('a');
-                    link.download = `TAM-SAM-SOM-${businessName.replace(/[^a-zA-Z0-9]/g, '-')}-${exportDate}.${format}`;
-
-                    if (format === 'png') {
-                        link.href = canvas.toDataURL('image/png', 1.0);
-                    } else if (format === 'jpg') {
-                        link.href = canvas.toDataURL('image/jpeg', 0.95);
-                    }
-
-                    link.click();
-                }).catch(error => {
-                    console.error('Error generating image:', error);
-                    if (actions) actions.style.display = 'block';
-                    alert('Terjadi kesalahan saat membuat gambar. Silakan coba lagi.');
-                });
-            }, 200);
+                const link = document.createElement('a');
+                link.download = `TAM-SAM-SOM-${businessName.replace(/[^a-zA-Z0-9]/g, '-')}-${exportDate}.${format}`;
+                link.href = canvas.toDataURL(mimeType, quality);
+                link.click();
+            } catch (error) {
+                console.error('Error generating image:', error);
+                alert('Terjadi kesalahan saat membuat gambar. Silakan coba lagi.');
+            } finally {
+                restoreActions(actions, previousDisplay);
+            }
         }
 
         function printDocument() {
