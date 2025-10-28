@@ -44,7 +44,7 @@
             font-family: 'Inter', 'Segoe UI', sans-serif;
             color: var(--text-dark);
             line-height: 1.6;
-            font-size: 14px;
+            font-size: 16px;
         }
 
         body::before {
@@ -71,11 +71,13 @@
             flex-direction: column;
             gap: 2.5rem;
         }
-        /* Navigation Styles */
+         /* Navigation Styles */
         .navbar {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
             box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
             border: none;
+            position: relative;
+            z-index: 3;
         }
 
         .navbar-brand {
@@ -141,17 +143,6 @@
             letter-spacing: 0.18em;
             text-transform: uppercase;
             font-weight: 600;
-        }
-
-        .hero-icon {
-            width: 46px;
-            height: 46px;
-            border-radius: 14px;
-            background: rgba(255,255,255,0.16);
-            display: grid;
-            place-items: center;
-            color: #f8fafc;
-            font-size: 1.2rem;
         }
 
         .hero-card h1 {
@@ -264,23 +255,38 @@
         position:absolute;
         border-radius:50%;
         box-shadow:0 18px 35px rgba(76,29,149,0.25);
+        transition:transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+        will-change:transform,filter;
+        cursor:pointer;
+        }
+
+        .circles-wrapper .circle:hover,
+        .circles-wrapper .circle:focus-visible{
+        transform:scale(1.05);
+        filter:brightness(1.08);
+        box-shadow:0 26px 55px rgba(15,23,42,0.28);
+        outline:3px solid rgba(255,255,255,0.25);
+        outline-offset:4px;
         }
 
         .tam-circle {
             inset: 0;
             background: var(--tam-gradient);
+            z-index: 1;
         }
 
         .sam-circle {
             inset: 15%;
             background: var(--sam-gradient);
             box-shadow: 0 14px 30px rgba(5, 150, 105, 0.28);
+            z-index: 2;
         }
 
         .som-circle {
             inset: 35%;
             background: var(--som-gradient);
             box-shadow: 0 12px 26px rgba(14, 165, 233, 0.28);
+            z-index: 3;
         }
 
         .sr-only {
@@ -299,6 +305,7 @@
             position: absolute;
             inset: 0;
             pointer-events: none;
+            z-index: 4;
         }
 
         .circle-text-block {
@@ -687,9 +694,6 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
-            .hero-icon {
-                align-self: flex-end;
-            }
             .circles-wrapper {
                 margin-bottom: 1.8rem;
             }
@@ -796,7 +800,6 @@
             <div class="hero-card">
                 <div class="hero-top">
                     <span class="hero-badge"><i class="fa-solid fa-bolt"></i> Market Validation</span>
-                    <div class="hero-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
                 </div>
                 <h1>Market Validation Analysis</h1>
                 <p>Analisis pasar komprehensif untuk memetakan TAM, SAM, dan SOM bisnis Anda.</p>
